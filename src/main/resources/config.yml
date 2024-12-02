@@ -1,0 +1,24 @@
+#Challenges
+RandomBlocksFull: false
+RandomBlocksLoottable: false
+RandomMobsLoottable: false
+RandomMobsFull: false
+
+#Random challenge stuff
+UnsafeRandomEnchantments: true
+UnsafeEnchantmentBounds: 100
+UnsafeRandomPotions: true
+UnsafeRandomPotionBounds: 20
+RandomPotionDuration: 30 #In Minutes
+
+#Timer
+RunningColor: 'gold'
+PausedColor: 'red'
+Time: 0
+Visible: true
+ShowPaused: true
+
+#System
+BlockBreakableWhilePaused: false
+isReset: false
+DebugLevel: 1

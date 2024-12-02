@@ -1,0 +1,60 @@
+name: ChallengesNeo
+version: '1.0.0'
+main: com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo
+api-version: '1.21'
+authors: [ CiryusMedia ]
+description: A new challenge plugin
+load: STARTUP
+
+commands:
+
+  timer:
+    description: Timer stuff
+
+  reset:
+    description: Resets the worlds
+    usage: /<command>
+    permission: challenge.reset
+
+  debug:
+    description: Toggles the debug mode
+    usage: /<command>
+    permission: challenge.debug
+
+  challenge:
+    description: It's the fucking challenge command
+    permission: challenge.challenges.view
+
+  test:
+    description: A testing command for testing a feature
+    permission: challenge.test
+
+  heal:
+    description: A healing command
+    permission: challenge.heal
+
+permissions:
+
+  challenge.timer:
+    default: op
+    description: the timer command
+
+  challenge.reset:
+    default: op
+    description: The reset of the worlds
+
+  challenge.debug:
+    default: op
+    description: (De)activating debug mode
+
+  challenge.challenges.view:
+    default: true
+
+  challenge.challenges.change:
+    default: op
+
+  challenge.test:
+    default: op
+
+  challenge.heal:
+    default: op
