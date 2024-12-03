@@ -52,7 +52,7 @@ public class ChallengeTimer {
         String s = "";
 
         if (days > 0) {
-            s = s + days + " Tage ";
+            s = s + days + " Days ";
         }
 
         if (hours < 10) {
@@ -87,7 +87,7 @@ public class ChallengeTimer {
                 }
             } else {
                 if (plugin.getConfig().getBoolean("ShowPaused")) {
-                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(pausedColor + "Timer pausiert"));
+                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(pausedColor + "Timer paused"));
                 }
             }
         }
