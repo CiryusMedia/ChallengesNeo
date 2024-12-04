@@ -7,10 +7,22 @@ This Paper plugin enables fun challenges to play alone with your friends and tim
 
 *See the wiki for detailed explanations for each feature*
 
-- Challenges
-- Timer
-- World reset
-- Custom resourcepack complatibility
+- [Challenges](https://github.com/CiryusMedia/ChallengesNeo/wiki/Challenges)
+- [Timer](https://github.com/CiryusMedia/ChallengesNeo/wiki/Timer)
+- [World reset](https://github.com/CiryusMedia/ChallengesNeo/wiki/World-reset)
+- [Custom resourcepack complatibility](https://github.com/CiryusMedia/ChallengesNeo/wiki/Custom-Resourcepacks)
+
+## How to use 
+
+Drop the .jar file into the plugins folder
+
+**This plugin requires:**
+
+- A PaperMC 1.21.1 Server
+
+## Using this plugin in your content
+
+Always link to this project if you use it in Youtube longform- and live-content, credit us in the caption if you're using it on Tiktok and maybe pin a message in your Twitch chat if you're using it there, however, we know how ugly crediting on Twitch can be, so the Twitch step is optional.  
 
 ## License
 
