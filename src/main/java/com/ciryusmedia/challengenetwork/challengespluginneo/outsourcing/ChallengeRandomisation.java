@@ -80,7 +80,7 @@ public class ChallengeRandomisation {
             randomItem.setItemMeta(getRandomPotionMeta(randomItem));
         }
 
-        instance.log(randomItemMaterial.name(), Debuglevel.LEVEL_4);
+        instance.log("Random " + randomItemMaterial.name(), Debuglevel.LEVEL_4);
         return randomItem;
     }
 
