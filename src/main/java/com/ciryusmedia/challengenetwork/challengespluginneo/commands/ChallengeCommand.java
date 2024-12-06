@@ -26,6 +26,7 @@ public class ChallengeCommand implements CommandExecutor {
             instance.log("Handling challenge command for gui", Debuglevel.LEVEL_3);
             if (sender instanceof Player player) {
                 if (player.hasPermission("challenge.challenges.view")) {
+                    ChallengesPluginNeo.challengeGUI.updateInventory();
                     player.openInventory(Inventories.challengeGUI);
                     return true;
                 } else {
