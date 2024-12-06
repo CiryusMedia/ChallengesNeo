@@ -1,6 +1,7 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
+import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -28,21 +29,27 @@ public class ChallengeRandomisation {
 
     public void initRandomBlockLoottable() {
 
+        instance.log("Setting default config for challenge randomisation stuff", Debuglevel.LEVEL_3);
         if (!plugin.getConfig().contains("UnsafeRandomEnchantments"))
             plugin.getConfig().set("UnsafeRandomEnchantments", true);
 
         if (!plugin.getConfig().contains("UnsafeEnchantmentBounds"))
             plugin.getConfig().set("UnsafeEnchantmentBounds", 100);
 
+        instance.log("Saving config", Debuglevel.LEVEL_3);
         plugin.saveConfig();
 
+        instance.log("Initiating block loottable", Debuglevel.LEVEL_3);
         for (Material allBlock : allBlocks) {
+            instance.log(allBlock.name(), Debuglevel.LEVEL_4);
             ItemStack randomItem = getRandomItem();
 
             randomBlockLoottableMap.put(allBlock, randomItem);
         }
 
+        instance.log("Initiating mob loottable", Debuglevel.LEVEL_3);
         for (EntityType allEntity : allEntities) {
+            instance.log(allEntity.name(), Debuglevel.LEVEL_4);
             List<ItemStack> randomDrops = new ArrayList<>();
 
             for (int i = 0; i < 4; i++) {
@@ -72,6 +79,8 @@ public class ChallengeRandomisation {
         } else if (randomItemMaterial.equals(Material.POTION) || randomItemMaterial.equals(Material.LINGERING_POTION) || randomItemMaterial.equals(Material.SPLASH_POTION) || randomItemMaterial.equals(Material.TIPPED_ARROW)) {
             randomItem.setItemMeta(getRandomPotionMeta(randomItem));
         }
+
+        instance.log("Random " + randomItemMaterial.name(), Debuglevel.LEVEL_4);
         return randomItem;
     }
 
