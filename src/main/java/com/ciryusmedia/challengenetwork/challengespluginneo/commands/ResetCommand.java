@@ -28,6 +28,10 @@ public class ResetCommand implements CommandExecutor {
         plugin.getConfig().set("isReset", true);
         plugin.saveConfig();
 
+        //Deleting loottable config files
+        instance.getRandomBlocksLoottableConfigFile().delete();
+        instance.getRandomMobsLoottableConfigFile().delete();
+
         Bukkit.spigot().restart();
         return true;
     }

@@ -4,6 +4,7 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
@@ -20,12 +21,14 @@ public class ChallengeRandomisation {
 
     ChallengesPluginNeo instance = ChallengesPluginNeo.getInstance();
     Plugin plugin = ChallengesPluginNeo.getPlugin(ChallengesPluginNeo.class);
+    FileConfiguration randomBlocksLoottableConfig = instance.getRandomBlocksLoottableConfig();
+    FileConfiguration randomMobsLoottableConfig = instance.getRandomMobsLoottableConfig();
 
     public Material[] allBlocks = Arrays.stream(Material.values()).filter(Material::isBlock).toArray(Material[]::new);
     public Map<Material, ItemStack> randomBlockLoottableMap = new HashMap<>();
 
     public EntityType[] allEntities = EntityType.values();
-    public Map<EntityType, List<ItemStack>> randomMobLoottableMap= new HashMap<>();
+    public Map<EntityType, List<ItemStack>> randomMobLoottableMap = new HashMap<>();
 
     public void initRandomBlockLoottable() {
 
@@ -43,9 +46,15 @@ public class ChallengeRandomisation {
         for (Material allBlock : allBlocks) {
             instance.log(allBlock.name(), Debuglevel.LEVEL_4);
             ItemStack randomItem = getRandomItem();
+            if (randomBlocksLoottableConfig.contains(allBlock.name()) && randomBlocksLoottableConfig.getItemStack(allBlock.name()) != null) {
+                instance.log("Item in loottable file found", Debuglevel.LEVEL_4);
+                randomItem = randomBlocksLoottableConfig.getItemStack(allBlock.name());
+            }
 
             randomBlockLoottableMap.put(allBlock, randomItem);
+            randomBlocksLoottableConfig.set(allBlock.name(), randomItem);
         }
+        instance.saveRandomBlocksLoottableConfig();
 
         instance.log("Initiating mob loottable", Debuglevel.LEVEL_3);
         for (EntityType allEntity : allEntities) {
@@ -63,8 +72,21 @@ public class ChallengeRandomisation {
                 }
             }
 
+            if (randomMobsLoottableConfig.contains(allEntity.name()) && randomMobsLoottableConfig.getList(allEntity.name()) != null) {
+                List<?> rmlconfigList = randomMobsLoottableConfig.getList(allEntity.name());
+                try {
+                    randomDrops = (List<ItemStack>) rmlconfigList;
+                    instance.log("Loottable list file found", Debuglevel.LEVEL_4);
+                } catch (ClassCastException e) {
+                    e.printStackTrace();
+                }
+            }
+
             randomMobLoottableMap.put(allEntity, randomDrops);
+            randomMobsLoottableConfig.set(allEntity.name(), randomDrops);
         }
+
+        instance.saveRandomMobsLoottableConfig();
     }
 
     public @NotNull ItemStack getRandomItem() {
@@ -104,8 +126,7 @@ public class ChallengeRandomisation {
         int level;
         if (isUnsafe) {
             level = getUnsafeEnchantmentLevel(plugin.getConfig().getInt("UnsafeEnchantmentBounds"));
-        }
-        else {
+        } else {
             level = getSafeEnchantmentLevel(randomEnchantment);
         }
         return level;
@@ -131,11 +152,10 @@ public class ChallengeRandomisation {
         int level;
         if (isUnsafe) {
             level = getUnsafePotionLevel(plugin.getConfig().getInt("UnsafeRandomPotionBounds"));
-        }
-        else {
+        } else {
             level = getSafePotionLevel(randomPotionType);
         }
-        PotionEffect customRandomPotionEffect = new PotionEffect(randomPotionEffectType, duration,level);
+        PotionEffect customRandomPotionEffect = new PotionEffect(randomPotionEffectType, duration, level);
 
         randomPotionMeta.clearCustomEffects();
         randomPotionMeta.addCustomEffect(customRandomPotionEffect, true);
