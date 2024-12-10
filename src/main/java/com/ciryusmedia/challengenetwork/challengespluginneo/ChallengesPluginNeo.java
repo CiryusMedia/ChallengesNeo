@@ -411,4 +411,12 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     public FileConfiguration getRandomMobsLoottableConfig() {
         return randomMobsLoottableConfig;
     }
+
+    public File getRandomBlocksLoottableConfigFile() {
+        return randomBlocksLoottableConfigFile;
+    }
+
+    public File getRandomMobsLoottableConfigFile() {
+        return randomMobsLoottableConfigFile;
+    }
 }
