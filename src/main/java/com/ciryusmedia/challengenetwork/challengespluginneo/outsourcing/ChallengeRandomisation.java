@@ -22,6 +22,7 @@ public class ChallengeRandomisation {
     ChallengesPluginNeo instance = ChallengesPluginNeo.getInstance();
     Plugin plugin = ChallengesPluginNeo.getPlugin(ChallengesPluginNeo.class);
     FileConfiguration randomBlocksLoottableConfig = instance.getRandomBlocksLoottableConfig();
+    FileConfiguration randomMobsLoottableConfig = instance.getRandomMobsLoottableConfig();
 
     public Material[] allBlocks = Arrays.stream(Material.values()).filter(Material::isBlock).toArray(Material[]::new);
     public Map<Material, ItemStack> randomBlockLoottableMap = new HashMap<>();
@@ -71,8 +72,21 @@ public class ChallengeRandomisation {
                 }
             }
 
+            if (randomMobsLoottableConfig.contains(allEntity.name()) && randomMobsLoottableConfig.getList(allEntity.name()) != null) {
+                List<?> rmlconfigList = randomMobsLoottableConfig.getList(allEntity.name());
+                try {
+                    randomDrops = (List<ItemStack>) rmlconfigList;
+                    instance.log("Loottable list file found", Debuglevel.LEVEL_4);
+                } catch (ClassCastException e) {
+                    e.printStackTrace();
+                }
+            }
+
             randomMobLoottableMap.put(allEntity, randomDrops);
+            randomMobsLoottableConfig.set(allEntity.name(), randomDrops);
         }
+
+        instance.saveRandomMobsLoottableConfig();
     }
 
     public @NotNull ItemStack getRandomItem() {

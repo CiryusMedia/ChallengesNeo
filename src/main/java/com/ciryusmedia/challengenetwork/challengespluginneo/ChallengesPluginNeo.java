@@ -56,6 +56,9 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     private File randomBlocksLoottableConfigFile;
     private FileConfiguration randomBlocksLoottableConfig;
 
+    private File randomMobsLoottableConfigFile;
+    private FileConfiguration randomMobsLoottableConfig;
+
     //Handling these with central objects might be chaged
     private ChallengesOutsourcing cho;
     private ColorOutsourcing clo;
@@ -135,6 +138,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         }
 
         createRandomBlocksLoottableConfig();
+        createRandomMobsLoottableConfig();
     }
 
     @Override
@@ -244,9 +248,33 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         }
     }
 
+    private void createRandomMobsLoottableConfig() {
+        randomMobsLoottableConfigFile = new File(getDataFolder(), "randommobsloottablemap.yml");
+
+        if (!randomMobsLoottableConfigFile.exists()) {
+            randomMobsLoottableConfigFile.getParentFile().mkdirs();
+            saveResource("randommobsloottablemap.yml", false);
+        }
+
+        randomMobsLoottableConfig = new YamlConfiguration();
+        try {
+            randomMobsLoottableConfig.load(randomMobsLoottableConfigFile);
+        } catch (IOException | InvalidConfigurationException exception) {
+            exception.printStackTrace();
+        }
+    }
+
     public void saveRandomBlocksLoottableConfig() {
         try {
             randomBlocksLoottableConfig.save(randomBlocksLoottableConfigFile);
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public void saveRandomMobsLoottableConfig() {
+        try {
+            randomMobsLoottableConfig.save(randomMobsLoottableConfigFile);
         } catch (IOException exception) {
             exception.printStackTrace();
         }
@@ -378,5 +406,9 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
     public FileConfiguration getRandomBlocksLoottableConfig() {
         return randomBlocksLoottableConfig;
+    }
+
+    public FileConfiguration getRandomMobsLoottableConfig() {
+        return randomMobsLoottableConfig;
     }
 }
