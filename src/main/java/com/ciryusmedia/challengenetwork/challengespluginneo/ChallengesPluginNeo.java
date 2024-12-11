@@ -12,6 +12,7 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges
 import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.random.blocks.RandomBlocksLoottableListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.random.entities.RandomMobsFullListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.random.entities.RandomMobsLoottableListener;
+import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.synched.InventorySyncListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.gui.challenges.ChallengeGUI;
 import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.gui.challenges.random.RandomChallengesGUI;
 import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.gui.timer.TimerColorInvGUI;
@@ -336,6 +337,8 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         getServer().getPluginManager().registerEvents(new RandomBlocksFullListener(cho.RANDOM_BLOCKS_FULL), this);
         getServer().getPluginManager().registerEvents(new RandomMobsLoottableListener(cho.RANDOM_MOBS_LOOTTABLE), this);
         getServer().getPluginManager().registerEvents(new RandomMobsFullListener(cho.RANDOM_MOBS_FULL), this);
+
+        getServer().getPluginManager().registerEvents(new InventorySyncListener(cho.INVENTORY_SYNC), this);
     }
 
     private void initItems() {

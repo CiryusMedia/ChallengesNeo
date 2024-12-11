@@ -4,6 +4,8 @@ RandomBlocksLoottable: false
 RandomMobsLoottable: false
 RandomMobsFull: false
 
+InventorySync: false
+
 #Random challenge stuff
 UnsafeRandomEnchantments: true
 UnsafeEnchantmentBounds: 100

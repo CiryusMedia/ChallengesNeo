@@ -6,6 +6,7 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.random.bl
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.random.blocks.RandomBlocksLoottable;
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.random.entities.RandomMobsFull;
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.random.entities.RandomMobsLoottable;
+import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.synched.InventorySync;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
@@ -23,12 +24,16 @@ public class ChallengesOutsourcing {
     public final Challenge RANDOM_MOBS_LOOTTABLE = new RandomMobsLoottable();
     public final Challenge RANDOM_MOBS_FULL = new RandomMobsFull();
 
+    public final Challenge INVENTORY_SYNC = new InventorySync();
+
     public void initChallenges() {
         //Challenges
         CHALLENGES.add(RANDOM_BLOCKS_LOOTTABLE);
         CHALLENGES.add(RANDOM_BLOCKS_FULL);
         CHALLENGES.add(RANDOM_MOBS_LOOTTABLE);
         CHALLENGES.add(RANDOM_MOBS_FULL);
+
+        CHALLENGES.add(INVENTORY_SYNC);
 
         CHALLENGES.forEach(challenge -> {challenge.setEnabled(plugin.getConfig().getBoolean(challenge.getName()));});
     }

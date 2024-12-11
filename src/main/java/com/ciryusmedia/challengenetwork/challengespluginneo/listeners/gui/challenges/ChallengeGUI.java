@@ -12,13 +12,14 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Random;
 
-@SuppressWarnings("DataFlowIssue")
 public class ChallengeGUI extends AGUIListener implements Listener, ChallengeGuiItems {
 
     @Override
     public void inventoryClickHandler(ItemStack item, Player player) {
         if (item.equals(randomChallenges))
             player.chat("/challenge random");
+        else if (item.equals(inventorySync))
+            player.sendMessage("Geht noch nicht mate");
     }
 
     @Override
