@@ -10,11 +10,7 @@ import org.bukkit.plugin.Plugin;
 
 public abstract class ARandomEntities extends AChallengeListener implements Listener {
 
-    ChallengesPluginNeo instance;
     ChallengeRandomisation rro;
-    Plugin plugin;
-    ChallengeTimer timer;
-    Challenge challenge;
 
     public ARandomEntities(Challenge challenge) {
         super(challenge);
