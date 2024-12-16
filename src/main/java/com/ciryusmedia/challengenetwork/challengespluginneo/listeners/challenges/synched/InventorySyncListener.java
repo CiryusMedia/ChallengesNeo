@@ -32,60 +32,7 @@ public class InventorySyncListener extends AChallengeListener implements Listene
             player.getInventory().setContents(e.getPlayer().getInventory().getContents());
             player.getInventory().setArmorContents(e.getPlayer().getInventory().getArmorContents());
         });
-
     }
-
-//    @EventHandler
-//    public void onInventoryClick(InventoryClickEvent e) {
-//        //TODO Player clicks on an item in the inventory
-//
-//        if (e.getClickedInventory() == null
-//                || e.getCurrentItem() == null
-//                || e.getClickedInventory().getType() != InventoryType.PLAYER
-//                || !challenge.isEnabled()) {
-//            return;
-//        }
-//
-//        instance.log("Calling " + e.getEventName() + " for inventory sync", Debuglevel.LEVEL_4);
-//
-//    }
-//
-//    @EventHandler
-//    public void onInventoryDrag(InventoryDragEvent e) {
-//        //TODO Player drags items in his inventory
-//
-//        if (!challenge.isEnabled()) {
-//            return;
-//        }
-//
-//    }
-//
-//    @EventHandler
-//    public void onPlayerItemDamage(PlayerItemDamageEvent e) {
-//        //TODO Item gets damaged
-//
-//        if (!challenge.isEnabled()) {
-//            return;
-//        }
-//    }
-//
-//    @EventHandler
-//    public void onPlayerItemDrop(PlayerDropItemEvent e) {
-//        //TODO Player drops item
-//
-//        if (!challenge.isEnabled()) {
-//            return;
-//        }
-//    }
-//
-//    @EventHandler
-//    public void onPlayerPickupItem(EntityPickupItemEvent e) {
-//        //TODO Player picks up item
-//
-//        if (!challenge.isEnabled()) {
-//            return;
-//        }
-//    }
 
     public InventorySyncListener(Challenge challenge) {
         super(challenge);
