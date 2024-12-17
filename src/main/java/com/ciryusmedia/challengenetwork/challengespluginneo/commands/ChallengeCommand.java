@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class ChallengeCommand implements CommandExecutor {
+public class ChallengeCommand implements CommandExecutor, Texts {
 
     ChallengesPluginNeo instance = ChallengesPluginNeo.getInstance();
     ChallengesOutsourcing coo = instance.getCho();
@@ -30,18 +30,41 @@ public class ChallengeCommand implements CommandExecutor {
                     player.openInventory(Inventories.challengeGUI);
                     return true;
                 } else {
-                    player.sendMessage(Texts.PREFIX + Texts.NO_PERMISSION);
+                    player.sendMessage(PREFIX + NO_PERMISSION);
                     return true;
                 }
             } else {
-                sender.sendMessage(Texts.PREFIX + Texts.NOT_PLAYER);
+                sender.sendMessage(PREFIX + NOT_PLAYER);
                 return true;
             }
-        } else {
-            switch (strings[0].toLowerCase()) {
-                case "random":
-                    handleRandomChallenges(strings, sender);
-            }
+        }
+
+        switch (strings[0].toLowerCase()) {
+            case "random":
+                handleRandomChallenges(strings, sender);
+
+            case "sync":
+                if (strings.length == 1) {
+                    sender.sendMessage(PREFIX + NOT_ENOUGH_ARGUMENTS);
+                    break;
+                } else {
+                    Challenge challenge = coo.getChallengeFromName(strings[1]);
+                    if (challenge == null) {
+                        sender.sendMessage(PREFIX + INVALID_CHALLENGE);
+                        break;
+                    }
+                    if (strings.length >= 3) {
+                        handleChallenge(challenge, strings[2], sender);
+                        break;
+                    }
+                    if (challenge.isEnabled()) {
+                        sender.sendMessage(PREFIX + challenge.getDisplayName() + " is " + ChatColor.GREEN + "enabled");
+                        break;
+                    } else {
+                        sender.sendMessage(PREFIX + challenge.getDisplayName() + " is " + ChatColor.RED + "disabled");
+                        break;
+                    }
+                }
         }
 
         return true;
@@ -55,18 +78,18 @@ public class ChallengeCommand implements CommandExecutor {
                         player.openInventory(Inventories.randomChallengesGUI);
                 }
             } else
-                sender.sendMessage(Texts.PREFIX + Texts.NOT_PLAYER);
+                sender.sendMessage(PREFIX + NOT_PLAYER);
         } else {
             Challenge challenge = coo.getChallengeFromName(args[1]);
             if (challenge == null) {
-                sender.sendMessage(Texts.PREFIX + Texts.INVALID_CHALLENGE);
+                sender.sendMessage(PREFIX + INVALID_CHALLENGE);
             } else if (args.length >= 3) {
                 handleChallenge(challenge, args[2], sender);
             } else {
                 if (challenge.isEnabled()) {
-                    sender.sendMessage(Texts.PREFIX + challenge.getDisplayName() + " is " + ChatColor.GREEN + "enabled");
+                    sender.sendMessage(PREFIX + challenge.getDisplayName() + " is " + ChatColor.GREEN + "enabled");
                 } else {
-                    sender.sendMessage(Texts.PREFIX + challenge.getDisplayName() + " is " + ChatColor.RED + "disabled");
+                    sender.sendMessage(PREFIX + challenge.getDisplayName() + " is " + ChatColor.RED + "disabled");
                 }
             }
         }
@@ -79,7 +102,7 @@ public class ChallengeCommand implements CommandExecutor {
         } else if (argument.equalsIgnoreCase("false") || argument.equalsIgnoreCase("off")) {
             arg = false;
         } else {
-            sender.sendMessage(Texts.PREFIX + Texts.INVALID_ARGUMENTS);
+            sender.sendMessage(PREFIX + INVALID_ARGUMENTS);
             return;
         }
         if (challenge.hasSubtype() && arg) {
@@ -92,9 +115,9 @@ public class ChallengeCommand implements CommandExecutor {
         challenge.setEnabled(arg);
 
         if (challenge.isEnabled()) {
-            sender.sendMessage(Texts.PREFIX + challenge.getDisplayName() + " is now " + ChatColor.GREEN + "enabled");
+            sender.sendMessage(PREFIX + challenge.getDisplayName() + " is now " + ChatColor.GREEN + "enabled");
         } else {
-            sender.sendMessage(Texts.PREFIX + challenge.getDisplayName() + " is now " + ChatColor.RED + "disabled");
+            sender.sendMessage(PREFIX + challenge.getDisplayName() + " is now " + ChatColor.RED + "disabled");
         }
     }
 }

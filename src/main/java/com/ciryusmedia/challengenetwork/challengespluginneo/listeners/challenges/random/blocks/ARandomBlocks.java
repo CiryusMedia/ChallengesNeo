@@ -3,6 +3,7 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenge
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
+import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.AChallengeListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ChallengeRandomisation;
 import com.ciryusmedia.challengenetwork.challengespluginneo.system.ChallengeTimer;
 import com.destroystokyo.paper.event.block.BlockDestroyEvent;
@@ -25,13 +26,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
-public abstract class ARandomBlocks implements Listener {
+public abstract class ARandomBlocks extends AChallengeListener implements Listener {
 
-    ChallengesPluginNeo instance;
     ChallengeRandomisation rro;
-    Plugin plugin;
-    ChallengeTimer timer;
-    Challenge challenge;
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
@@ -147,10 +144,7 @@ public abstract class ARandomBlocks implements Listener {
     }
 
     public ARandomBlocks(Challenge challenge) {
-        this.instance = ChallengesPluginNeo.getInstance();
+        super(challenge);
         this.rro = instance.getRro();
-        this.plugin = ChallengesPluginNeo.getPlugin(ChallengesPluginNeo.class);
-        this.timer = this.instance.getTimer();
-        this.challenge = challenge;
     }
 }
