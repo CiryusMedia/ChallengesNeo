@@ -27,6 +27,8 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ColorOut
 import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ChallengeRandomisation;
 import com.ciryusmedia.challengenetwork.challengespluginneo.scoreboards.HealthScoreboard;
 import com.ciryusmedia.challengenetwork.challengespluginneo.system.ChallengeTimer;
+import com.google.common.io.ByteArrayDataInput;
+import com.google.common.io.ByteStreams;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -150,8 +152,6 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
         //Bungeecord messenger channels
         log("Registering plugin channels", Debuglevel.LEVEL_1);
-        //getServer().getMessenger().registerIncomingPluginChannel(this, "Bungeecord", this); log(ChatColor.YELLOW + "Incoming Bungeecord");
-        //getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord"); log(ChatColor.YELLOW + "Outgoing Bungeecord");
 
         log("Incoming custom:network", Debuglevel.LEVEL_2);
         getServer().getMessenger().registerIncomingPluginChannel(this, "custom:network", this);
@@ -212,7 +212,15 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
     @Override
     public void onPluginMessageReceived(String s, Player player, byte[] bytes) {
+        if (s.equals("custom:network")) {
+            ByteArrayDataInput in = ByteStreams.newDataInput(bytes);
+            String subChannel = in.readUTF();
 
+            //EndAll command from Bungeecord
+            if (subChannel.equals("EndAll")) {
+                getServer().shutdown();
+            }
+        }
     }
 
     public void log(String message, int messageDebuglevel) {
