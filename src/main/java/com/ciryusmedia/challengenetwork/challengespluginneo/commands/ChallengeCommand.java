@@ -42,6 +42,7 @@ public class ChallengeCommand implements CommandExecutor, Texts {
         switch (strings[0].toLowerCase()) {
             case "random":
                 handleRandomChallenges(strings, sender);
+                break;
 
             case "sync":
                 if (strings.length == 1) {
