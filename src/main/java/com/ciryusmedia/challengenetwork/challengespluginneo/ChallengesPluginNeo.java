@@ -12,6 +12,7 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges
 import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.random.blocks.RandomBlocksLoottableListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.random.entities.RandomMobsFullListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.random.entities.RandomMobsLoottableListener;
+import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.synched.InventorySyncListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.gui.challenges.ChallengeGUI;
 import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.gui.challenges.random.RandomChallengesGUI;
 import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.gui.timer.TimerColorInvGUI;
@@ -26,8 +27,13 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ColorOut
 import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ChallengeRandomisation;
 import com.ciryusmedia.challengenetwork.challengespluginneo.scoreboards.HealthScoreboard;
 import com.ciryusmedia.challengenetwork.challengespluginneo.system.ChallengeTimer;
+import com.google.common.io.ByteArrayDataInput;
+import com.google.common.io.ByteStreams;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
@@ -41,7 +47,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Comparator;
 
-@SuppressWarnings({"DataFlowIssue","deprecation"})
+@SuppressWarnings({"DataFlowIssue", "deprecation"})
 public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessageListener {
 
     public static int debugLevel;
@@ -49,6 +55,12 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     private static ChallengesPluginNeo instance;
 
     private ChallengeTimer timer;
+
+    private File randomBlocksLoottableConfigFile;
+    private FileConfiguration randomBlocksLoottableConfig;
+
+    private File randomMobsLoottableConfigFile;
+    private FileConfiguration randomMobsLoottableConfig;
 
     //Handling these with central objects might be chaged
     private ChallengesOutsourcing cho;
@@ -85,7 +97,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
             log("Debuglevel not found, setting to \"LEVEL_1\"", Debuglevel.LEVEL_1);
         }
         debugLevel = getConfig().getInt("DebugLevel");
-        log( "Debuglevel: " + debugLevel, Debuglevel.LEVEL_1);
+        log("Debuglevel: " + debugLevel, Debuglevel.LEVEL_1);
         saveConfig();
         reloadConfig();
 
@@ -120,6 +132,16 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
             getConfig().set("isReset", false);
             saveConfig();
         }
+
+        try {
+            String dataFolderPath = getDataFolder().getCanonicalPath();
+            log(dataFolderPath, Debuglevel.LEVEL_5);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        createRandomBlocksLoottableConfig();
+        createRandomMobsLoottableConfig();
     }
 
     @Override
@@ -130,8 +152,6 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
         //Bungeecord messenger channels
         log("Registering plugin channels", Debuglevel.LEVEL_1);
-        //getServer().getMessenger().registerIncomingPluginChannel(this, "Bungeecord", this); log(ChatColor.YELLOW + "Incoming Bungeecord");
-        //getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord"); log(ChatColor.YELLOW + "Outgoing Bungeecord");
 
         log("Incoming custom:network", Debuglevel.LEVEL_2);
         getServer().getMessenger().registerIncomingPluginChannel(this, "custom:network", this);
@@ -192,7 +212,15 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
     @Override
     public void onPluginMessageReceived(String s, Player player, byte[] bytes) {
+        if (s.equals("custom:network")) {
+            ByteArrayDataInput in = ByteStreams.newDataInput(bytes);
+            String subChannel = in.readUTF();
 
+            //EndAll command from Bungeecord
+            if (subChannel.equals("EndAll")) {
+                getServer().shutdown();
+            }
+        }
     }
 
     public void log(String message, int messageDebuglevel) {
@@ -211,6 +239,54 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
                 updateInventories();
             }
         }.runTaskTimer(ChallengesPluginNeo.getInstance(), 20, 20);
+    }
+
+    private void createRandomBlocksLoottableConfig() {
+        randomBlocksLoottableConfigFile = new File(getDataFolder(), "randomblocksloottablemap.yml");
+
+        if (!randomBlocksLoottableConfigFile.exists()) {
+            randomBlocksLoottableConfigFile.getParentFile().mkdirs();
+            saveResource("randomblocksloottablemap.yml", false);
+        }
+
+        randomBlocksLoottableConfig = new YamlConfiguration();
+        try {
+            randomBlocksLoottableConfig.load(randomBlocksLoottableConfigFile);
+        } catch (IOException | InvalidConfigurationException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    private void createRandomMobsLoottableConfig() {
+        randomMobsLoottableConfigFile = new File(getDataFolder(), "randommobsloottablemap.yml");
+
+        if (!randomMobsLoottableConfigFile.exists()) {
+            randomMobsLoottableConfigFile.getParentFile().mkdirs();
+            saveResource("randommobsloottablemap.yml", false);
+        }
+
+        randomMobsLoottableConfig = new YamlConfiguration();
+        try {
+            randomMobsLoottableConfig.load(randomMobsLoottableConfigFile);
+        } catch (IOException | InvalidConfigurationException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public void saveRandomBlocksLoottableConfig() {
+        try {
+            randomBlocksLoottableConfig.save(randomBlocksLoottableConfigFile);
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    public void saveRandomMobsLoottableConfig() {
+        try {
+            randomMobsLoottableConfig.save(randomMobsLoottableConfigFile);
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
     }
 
     //Reset Stuff
@@ -267,8 +343,10 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         log("Challenge listeners", Debuglevel.LEVEL_2);
         getServer().getPluginManager().registerEvents(new RandomBlocksLoottableListener(cho.RANDOM_BLOCKS_LOOTTABLE), this);
         getServer().getPluginManager().registerEvents(new RandomBlocksFullListener(cho.RANDOM_BLOCKS_FULL), this);
-        getServer().getPluginManager().registerEvents(new RandomMobsLoottableListener(getInstance(), this, getTimer(), cho.RANDOM_MOBS_LOOTTABLE), this);
-        getServer().getPluginManager().registerEvents(new RandomMobsFullListener(getInstance(), this, getTimer(), cho.RANDOM_MOBS_FULL), this);
+        getServer().getPluginManager().registerEvents(new RandomMobsLoottableListener(cho.RANDOM_MOBS_LOOTTABLE), this);
+        getServer().getPluginManager().registerEvents(new RandomMobsFullListener(cho.RANDOM_MOBS_FULL), this);
+
+        getServer().getPluginManager().registerEvents(new InventorySyncListener(cho.INVENTORY_SYNC), this);
     }
 
     private void initItems() {
@@ -335,5 +413,21 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
     public Scoreboard getScoreboard() {
         return scoreboard;
+    }
+
+    public FileConfiguration getRandomBlocksLoottableConfig() {
+        return randomBlocksLoottableConfig;
+    }
+
+    public FileConfiguration getRandomMobsLoottableConfig() {
+        return randomMobsLoottableConfig;
+    }
+
+    public File getRandomBlocksLoottableConfigFile() {
+        return randomBlocksLoottableConfigFile;
+    }
+
+    public File getRandomMobsLoottableConfigFile() {
+        return randomMobsLoottableConfigFile;
     }
 }

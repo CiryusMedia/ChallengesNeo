@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@SuppressWarnings("DataFlowIssue")
 public interface ChallengeGuiItems extends GeneralGuiItems {
 
     ItemStack challengeFillerItem = new ItemStack(Material.RED_STAINED_GLASS_PANE);
@@ -17,6 +16,8 @@ public interface ChallengeGuiItems extends GeneralGuiItems {
 
     //Challenges
     ItemStack randomChallenges = new ItemStack(Material.LIGHT_WEIGHTED_PRESSURE_PLATE);
+
+    ItemStack inventorySync = coo.INVENTORY_SYNC.getMenuItem();
 
 
     Material[] randomChallengeMaterials = new Material[Arrays.stream(Material.values()).filter(Material::isItem).toArray().length];

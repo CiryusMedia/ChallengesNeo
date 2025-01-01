@@ -5,6 +5,7 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debugleve
 import com.ciryusmedia.challengenetwork.challengespluginneo.system.ChallengeTimer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -54,18 +55,26 @@ public class ChallengeEndListener implements Listener {
         List<String> usedChallengesList = new ArrayList<>();
         getActiveChallenges(usedChallenges, usedChallengesList);
 
-        if (timer.isRunning()) {
-            timer.setRunning(false);
-            event.setDeathMessage("");
-            Bukkit.getServer().broadcastMessage(ChatColor.GOLD + "The challenge was failed after " + ChatColor.AQUA + timer.getStringFromTime(timer.getTime()) + ChatColor.GOLD
-                    + " because '" + ChatColor.RED + deathMessage + ChatColor.GOLD + "'!");
-            if (!usedChallenges.isEmpty())
-                Bukkit.getServer().broadcastMessage(ChatColor.GOLD + "The following challenges were used: \n" + usedChallenges);
-            else
-                Bukkit.getServer().broadcastMessage(ChatColor.GOLD + "No Challenges were used");
-            Bukkit.getServer().broadcastMessage(ChatColor.GOLD + "GGWP! The seed was: " + ChatColor.DARK_AQUA + Bukkit.getServer().getWorld("world").getSeed());
-
+        if (!timer.isRunning()) {
+            return;
         }
+
+        timer.setRunning(false);
+        event.setDeathMessage("");
+        Bukkit.getServer().broadcastMessage(ChatColor.GOLD + "The challenge was failed after " + ChatColor.AQUA + timer.getStringFromTime(timer.getTime()) + ChatColor.GOLD
+                + " because '" + ChatColor.RED + deathMessage + ChatColor.GOLD + "'!");
+        if (!usedChallenges.isEmpty())
+            Bukkit.getServer().broadcastMessage(ChatColor.GOLD + "The following challenges were used: \n" + usedChallenges);
+        else
+            Bukkit.getServer().broadcastMessage(ChatColor.GOLD + "No Challenges were used");
+        Bukkit.getServer().broadcastMessage(ChatColor.GOLD + "GGWP! The seed was: " + ChatColor.DARK_AQUA + Bukkit.getServer().getWorld("world").getSeed());
+
+
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            player.setGameMode(GameMode.SPECTATOR);
+        });
+
+        event.setCancelled(true);
     }
 
     private void getActiveChallenges(StringBuilder usedChallenges, List<String> usedChallengesList) {
