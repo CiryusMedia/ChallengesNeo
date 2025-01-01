@@ -1,5 +1,8 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.commands.tabcomplete;
 
+import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
+import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
+import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ChallengesOutsourcing;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -11,34 +14,35 @@ import java.util.List;
 
 public class ChallengeComplete implements TabCompleter {
 
+    ChallengesOutsourcing cho = ChallengesPluginNeo.getInstance().getCho();
+    ChallengesPluginNeo instance = ChallengesPluginNeo.getInstance();
+
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
 
-        if (strings.length == 1) {
-            List<String> list = new ArrayList<>();
-            list.add("random");
-            return list;
+        List<String> list = new ArrayList<>();
+
+        switch (strings.length) {
+            case 1:
+                list.add("random");
+                list.add("sync");
+                break;
+            case 2:
+                instance.log(strings[0] + " " + cho.isValidType(strings[0]), Debuglevel.LEVEL_4);
+                if (cho.isValidType(strings[0])) {
+                    cho.getChallengesFromType(strings[0]).forEach(challenge -> {
+                        list.add(challenge.getName());
+                    });
+                }
+                break;
+            case 3:
+                list.add("true");
+                list.add("false");
+                list.add("on");
+                list.add("off");
         }
 
-        if (strings.length == 2) {
-            List<String> list = new ArrayList<>();
-            list.add("randomblocksloottable");
-            list.add("randomblocksfull");
-            list.add("randommobsloottable");
-            list.add("randommobsfull");
-            return list;
-        }
-
-        if (strings.length == 3) {
-            List<String> list = new ArrayList<>();
-            list.add("true");
-            list.add("false");
-            list.add("on");
-            list.add("off");
-            return list;
-        }
-
-        return null;
+        return list;
     }
 
 }
