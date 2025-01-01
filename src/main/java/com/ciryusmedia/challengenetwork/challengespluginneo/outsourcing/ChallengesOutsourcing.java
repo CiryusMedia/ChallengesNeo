@@ -18,6 +18,8 @@ public class ChallengesOutsourcing {
 
     public final List<Challenge> CHALLENGES = new ArrayList<>();
 
+    public final List<String> TYPES = new ArrayList<>();
+
     //Random Challenges
     public final Challenge RANDOM_BLOCKS_LOOTTABLE = new RandomBlocksLoottable();
     public final Challenge RANDOM_BLOCKS_FULL = new RandomBlocksFull();
@@ -36,6 +38,10 @@ public class ChallengesOutsourcing {
         CHALLENGES.add(INVENTORY_SYNC);
 
         CHALLENGES.forEach(challenge -> {challenge.setEnabled(plugin.getConfig().getBoolean(challenge.getName()));});
+
+        //Subtypes
+        TYPES.add("random");
+        TYPES.add("sync");
     }
 
     public Challenge getChallengeFromName(String name) {
@@ -54,6 +60,20 @@ public class ChallengesOutsourcing {
         });
 
         return challenges;
+    }
+
+    public List<Challenge> getChallengesFromType(String subtype) {
+        List<Challenge> challenges = new ArrayList<>();
+
+        CHALLENGES.forEach(c -> {
+            if (c.getType().equalsIgnoreCase(subtype)) challenges.add(c);
+        });
+
+        return challenges;
+    }
+
+    public boolean isValidType(String subtype) {
+        return TYPES.contains(subtype);
     }
 
     public ChallengesOutsourcing() {
