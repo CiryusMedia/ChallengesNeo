@@ -165,8 +165,13 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         cho = new ChallengesOutsourcing();
         log("Initiating clo", Debuglevel.LEVEL_2);
         clo = new ColorOutsourcing();
-        log("Initiating rro", Debuglevel.LEVEL_2);
-        rro = new ChallengeRandomisation();
+
+        //This needs to be scheduled to avoid loadup freezes
+        // (Hopefully someone knows how to do it better to avoid this :)
+        getServer().getScheduler().runTask(this, () -> {
+            log("Initiating rro", Debuglevel.LEVEL_2);
+            rro = new ChallengeRandomisation();
+        });
 
         //Initiate and enable
         log("Initiating objects", Debuglevel.LEVEL_1);
