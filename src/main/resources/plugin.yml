@@ -1,5 +1,5 @@
 name: ChallengesNeo
-version: 'release-1.1.0'
+version: 'dev-1.2.0'
 main: com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo
 api-version: '1.21'
 authors: [ CiryusMedia ]
