@@ -30,7 +30,7 @@ public class ChallengeRandomisation {
     public EntityType[] allEntities = EntityType.values();
     public Map<EntityType, List<ItemStack>> randomMobLoottableMap = new HashMap<>();
 
-    public void initRandomBlockLoottable() {
+    public void initRandomLoottable() {
 
         instance.log("Setting default config for challenge randomisation stuff", Debuglevel.LEVEL_3);
         if (!plugin.getConfig().contains("UnsafeRandomEnchantments"))
@@ -42,20 +42,28 @@ public class ChallengeRandomisation {
         instance.log("Saving config", Debuglevel.LEVEL_3);
         plugin.saveConfig();
 
+        initRandomBlockLoottable();
+
+        initRandomMobLoottable();
+    }
+
+    private void initRandomBlockLoottable() {
         instance.log("Initiating block loottable", Debuglevel.LEVEL_3);
         for (Material allBlock : allBlocks) {
-            instance.log(allBlock.name(), Debuglevel.LEVEL_4);
-            ItemStack randomItem = getRandomItem();
-            if (randomBlocksLoottableConfig.contains(allBlock.name()) && randomBlocksLoottableConfig.getItemStack(allBlock.name()) != null) {
-                instance.log("Item in loottable file found", Debuglevel.LEVEL_4);
-                randomItem = randomBlocksLoottableConfig.getItemStack(allBlock.name());
-            }
+                instance.log(allBlock.name(), Debuglevel.LEVEL_4);
+                ItemStack randomItem = getRandomItem();
+                if (randomBlocksLoottableConfig.contains(allBlock.name()) && randomBlocksLoottableConfig.getItemStack(allBlock.name()) != null) {
+                    instance.log("Item in loottable file found", Debuglevel.LEVEL_4);
+                    randomItem = randomBlocksLoottableConfig.getItemStack(allBlock.name());
+                }
 
-            randomBlockLoottableMap.put(allBlock, randomItem);
-            randomBlocksLoottableConfig.set(allBlock.name(), randomItem);
+                randomBlockLoottableMap.put(allBlock, randomItem);
+                randomBlocksLoottableConfig.set(allBlock.name(), randomItem);
         }
         instance.saveRandomBlocksLoottableConfig();
+    }
 
+    private void initRandomMobLoottable() {
         instance.log("Initiating mob loottable", Debuglevel.LEVEL_3);
         for (EntityType allEntity : allEntities) {
             instance.log(allEntity.name(), Debuglevel.LEVEL_4);
@@ -187,6 +195,7 @@ public class ChallengeRandomisation {
     }
 
     public ChallengeRandomisation() {
-        plugin.getServer().getScheduler().runTask(plugin, this::initRandomBlockLoottable);
+        initRandomLoottable();
+        //plugin.getServer().getAsyncScheduler().runNow(plugin, task -> initRandomLoottable());
     }
 }
