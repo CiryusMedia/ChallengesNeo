@@ -187,6 +187,6 @@ public class ChallengeRandomisation {
     }
 
     public ChallengeRandomisation() {
-        initRandomBlockLoottable();
+        plugin.getServer().getScheduler().runTask(plugin, this::initRandomBlockLoottable);
     }
 }
