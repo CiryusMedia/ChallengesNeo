@@ -28,7 +28,7 @@ public class ChallengeRandomisation {
     public Map<Material, ItemStack> randomBlockLoottableMap = new HashMap<>();
 
     public EntityType[] allEntities = EntityType.values();
-    public Map<EntityType, List<ItemStack>> randomMobLoottableMap = new HashMap<>();
+    //public Map<EntityType, List<ItemStack>> randomMobLoottableMap = new HashMap<>();
 
     public void initRandomLoottable() {
 
@@ -57,8 +57,8 @@ public class ChallengeRandomisation {
                     randomItem = randomBlocksLoottableConfig.getItemStack(allBlock.name());
                 }
 
-                randomBlockLoottableMap.put(allBlock, randomItem);
-                randomBlocksLoottableConfig.set(allBlock.name(), randomItem);
+            //randomBlockLoottableMap.put(allBlock, randomItem);
+            randomBlocksLoottableConfig.set(allBlock.name(), randomItem);
         }
         instance.saveRandomBlocksLoottableConfig();
     }
@@ -90,7 +90,7 @@ public class ChallengeRandomisation {
                 }
             }
 
-            randomMobLoottableMap.put(allEntity, randomDrops);
+            //randomMobLoottableMap.put(allEntity, randomDrops);
             randomMobsLoottableConfig.set(allEntity.name(), randomDrops);
         }
 

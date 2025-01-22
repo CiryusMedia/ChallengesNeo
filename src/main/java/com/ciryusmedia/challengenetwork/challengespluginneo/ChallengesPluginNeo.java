@@ -166,12 +166,8 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         log("Initiating clo", Debuglevel.LEVEL_2);
         clo = new ColorOutsourcing();
 
-        //This needs to be scheduled to avoid loadup freezes
-        // (Hopefully someone knows how to do it better to avoid this :)
-//        getServer().getScheduler().runTask(this, () -> {
-            log("Initiating rro", Debuglevel.LEVEL_2);
-            rro = new ChallengeRandomisation();
-//        });
+        log("Initiating rro", Debuglevel.LEVEL_2);
+        rro = new ChallengeRandomisation();
 
         //Initiate and enable
         log("Initiating objects", Debuglevel.LEVEL_1);
@@ -291,6 +287,15 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
             randomMobsLoottableConfig.save(randomMobsLoottableConfigFile);
         } catch (IOException exception) {
             exception.printStackTrace();
+        }
+    }
+
+    public void reloadCustomConf(FileConfiguration cfg, File file) {
+        try {
+            cfg.load(file);
+        } catch (IOException | InvalidConfigurationException e) {
+            log(e.getMessage(), Debuglevel.LEVEL_0);
+            e.printStackTrace();
         }
     }
 

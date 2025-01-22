@@ -19,8 +19,8 @@ public class RandomBlocksLoottableListener extends ARandomBlocks {
 
         if (!drops.isEmpty()) {
             instance.log("Random dropping...", Debuglevel.LEVEL_3);
-            block.getWorld().dropItemNaturally(block.getLocation(), rro.randomBlockLoottableMap.get(block.getType()));
-            instance.log(rro.randomBlockLoottableMap.get(block.getType()).getType().name(), Debuglevel.LEVEL_4);
+            block.getWorld().dropItemNaturally(block.getLocation(), (ItemStack) instance.getRandomBlocksLoottableConfig().get(block.getType().name()));
+            instance.log(((ItemStack) instance.getRandomBlocksLoottableConfig().get(block.getType().name())).getType().name(), Debuglevel.LEVEL_4);
             instance.log(block.getLocation().toString(), Debuglevel.LEVEL_4);
         }
     }
