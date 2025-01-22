@@ -50,17 +50,18 @@ public class ChallengeRandomisation {
     private void initRandomBlockLoottable() {
         instance.log("Initiating block loottable", Debuglevel.LEVEL_3);
         for (Material allBlock : allBlocks) {
-                instance.log(allBlock.name(), Debuglevel.LEVEL_4);
-                ItemStack randomItem = getRandomItem();
-                if (randomBlocksLoottableConfig.contains(allBlock.name()) && randomBlocksLoottableConfig.getItemStack(allBlock.name()) != null) {
-                    instance.log("Item in loottable file found", Debuglevel.LEVEL_4);
-                    randomItem = randomBlocksLoottableConfig.getItemStack(allBlock.name());
-                }
+            instance.reloadCustomConf(instance.getRandomBlocksLoottableConfig(), instance.getRandomBlocksLoottableConfigFile()); //TODO This works, but uses too much ram
+            instance.log(allBlock.name(), Debuglevel.LEVEL_4);
+            ItemStack randomItem = getRandomItem();
+            if (randomBlocksLoottableConfig.contains(allBlock.name()) && randomBlocksLoottableConfig.getItemStack(allBlock.name()) != null) {
+                instance.log("Item in loottable file found", Debuglevel.LEVEL_4);
+                randomItem = randomBlocksLoottableConfig.getItemStack(allBlock.name());
+            }
 
             //randomBlockLoottableMap.put(allBlock, randomItem);
             randomBlocksLoottableConfig.set(allBlock.name(), randomItem);
+            instance.saveRandomBlocksLoottableConfig();
         }
-        instance.saveRandomBlocksLoottableConfig();
     }
 
     private void initRandomMobLoottable() {
@@ -80,6 +81,8 @@ public class ChallengeRandomisation {
                 }
             }
 
+            instance.reloadCustomConf(instance.getRandomBlocksLoottableConfig(), instance.getRandomBlocksLoottableConfigFile()); //TODO This works, but uses too much ram
+
             if (randomMobsLoottableConfig.contains(allEntity.name()) && randomMobsLoottableConfig.getList(allEntity.name()) != null) {
                 List<?> rmlconfigList = randomMobsLoottableConfig.getList(allEntity.name());
                 try {
@@ -92,9 +95,8 @@ public class ChallengeRandomisation {
 
             //randomMobLoottableMap.put(allEntity, randomDrops);
             randomMobsLoottableConfig.set(allEntity.name(), randomDrops);
+            instance.saveRandomMobsLoottableConfig();
         }
-
-        instance.saveRandomMobsLoottableConfig();
     }
 
     public @NotNull ItemStack getRandomItem() {
