@@ -5,6 +5,7 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debugleve
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
@@ -50,12 +51,12 @@ public class ChallengeRandomisation {
     private void initRandomBlockLoottable() {
         instance.log("Initiating block loottable", Debuglevel.LEVEL_3);
         for (Material allBlock : allBlocks) {
-            instance.reloadCustomConf(instance.getRandomBlocksLoottableConfig(), instance.getRandomBlocksLoottableConfigFile()); //TODO This works, but uses too much ram
+            YamlConfiguration config = instance.getConfigFromFile(instance.getRandomBlocksLoottableConfigFile());
             instance.log(allBlock.name(), Debuglevel.LEVEL_4);
             ItemStack randomItem = getRandomItem();
-            if (randomBlocksLoottableConfig.contains(allBlock.name()) && randomBlocksLoottableConfig.getItemStack(allBlock.name()) != null) {
+            if (config.contains(allBlock.name()) && config.getItemStack(allBlock.name()) != null) {
                 instance.log("Item in loottable file found", Debuglevel.LEVEL_4);
-                randomItem = randomBlocksLoottableConfig.getItemStack(allBlock.name());
+                randomItem = config.getItemStack(allBlock.name());
             }
 
             //randomBlockLoottableMap.put(allBlock, randomItem);
@@ -81,10 +82,10 @@ public class ChallengeRandomisation {
                 }
             }
 
-            instance.reloadCustomConf(instance.getRandomBlocksLoottableConfig(), instance.getRandomBlocksLoottableConfigFile()); //TODO This works, but uses too much ram
+            YamlConfiguration config = instance.getConfigFromFile(instance.getRandomBlocksLoottableConfigFile());
 
-            if (randomMobsLoottableConfig.contains(allEntity.name()) && randomMobsLoottableConfig.getList(allEntity.name()) != null) {
-                List<?> rmlconfigList = randomMobsLoottableConfig.getList(allEntity.name());
+            if (config.contains(allEntity.name()) && config.getList(allEntity.name()) != null) {
+                List<?> rmlconfigList = config.getList(allEntity.name());
                 try {
                     randomDrops = (List<ItemStack>) rmlconfigList;
                     instance.log("Loottable list file found", Debuglevel.LEVEL_4);

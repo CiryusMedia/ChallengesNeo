@@ -39,6 +39,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -297,6 +298,10 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
             log(e.getMessage(), Debuglevel.LEVEL_0);
             e.printStackTrace();
         }
+    }
+
+    public YamlConfiguration getConfigFromFile(File file) {
+        return YamlConfiguration.loadConfiguration(file);
     }
 
     //Reset Stuff
