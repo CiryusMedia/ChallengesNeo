@@ -12,7 +12,7 @@ public class RandomMobsLoottableListener extends ARandomEntitiesDeath {
 
     @Override
     public void handleRandomEntityDeathLogic(EntityDeathEvent event) {
-        YamlConfiguration config = instance.getConfigFromFile(instance.getRandomMobsLoottableConfigFile());
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(instance.getRandomMobsLoottableConfigFile());
         instance.log("Drops: " + event.getDrops().size(), Debuglevel.LEVEL_4);
         instance.log("Clearing drops", Debuglevel.LEVEL_3);
         event.getDrops().clear();

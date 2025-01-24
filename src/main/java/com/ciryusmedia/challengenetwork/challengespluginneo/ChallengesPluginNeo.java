@@ -300,10 +300,6 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         }
     }
 
-    public YamlConfiguration getConfigFromFile(File file) {
-        return YamlConfiguration.loadConfiguration(file);
-    }
-
     //Reset Stuff
     void deleteWorldFiles(File worldFolder) throws IOException {
         Files.walk(worldFolder.toPath())
