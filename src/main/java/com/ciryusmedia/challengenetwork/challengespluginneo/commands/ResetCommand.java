@@ -32,15 +32,8 @@ public class ResetCommand implements CommandExecutor {
         plugin.saveConfig();
 
         //Deleting/clearing loottable config files
-//        instance.getRandomBlocksLoottableConfigFile().delete();
-//        instance.getRandomMobsLoottableConfigFile().delete();
-        YamlConfiguration def = YamlConfiguration.loadConfiguration(new File(instance.getDataFolder(), "randomblocksloottabledefaults.yml"));
-        instance.getRandomBlocksLoottableConfig().setDefaults(def);
-        instance.saveRandomBlocksLoottableConfig();
-
-        def = YamlConfiguration.loadConfiguration(new File(instance.getDataFolder(), "randommobsloottabledefaults.yml"));
-        instance.getRandomMobsLoottableConfig().setDefaults(def);
-        instance.saveRandomMobsLoottableConfig();
+        instance.getRandomBlocksLoottableConfigFile().delete();
+        instance.getRandomMobsLoottableConfigFile().delete();
 
         Bukkit.spigot().restart();
         return true;
