@@ -50,8 +50,8 @@ public class ChallengeRandomisation {
 
     private void initRandomBlockLoottable() {
         instance.log("Initiating block loottable", Debuglevel.LEVEL_3);
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(instance.getRandomBlocksLoottableConfigFile());
         for (Material allBlock : allBlocks) {
-            YamlConfiguration config = YamlConfiguration.loadConfiguration(instance.getRandomBlocksLoottableConfigFile());
             instance.log(allBlock.name(), Debuglevel.LEVEL_4);
             ItemStack randomItem = getRandomItem();
             if (config.contains(allBlock.name()) && config.getItemStack(allBlock.name()) != null) {
@@ -67,6 +67,7 @@ public class ChallengeRandomisation {
 
     private void initRandomMobLoottable() {
         instance.log("Initiating mob loottable", Debuglevel.LEVEL_3);
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(instance.getRandomBlocksLoottableConfigFile());
         for (EntityType allEntity : allEntities) {
             instance.log(allEntity.name(), Debuglevel.LEVEL_4);
             List<ItemStack> randomDrops = new ArrayList<>();
@@ -82,7 +83,6 @@ public class ChallengeRandomisation {
                 }
             }
 
-            YamlConfiguration config = YamlConfiguration.loadConfiguration(instance.getRandomBlocksLoottableConfigFile());
 
             if (config.contains(allEntity.name()) && config.getList(allEntity.name()) != null) {
                 List<?> rmlconfigList = config.getList(allEntity.name());
