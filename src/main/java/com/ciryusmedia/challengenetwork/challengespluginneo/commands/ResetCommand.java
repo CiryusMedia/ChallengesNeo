@@ -7,7 +7,10 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
+
+import java.io.File;
 
 public class ResetCommand implements CommandExecutor {
 
@@ -28,9 +31,16 @@ public class ResetCommand implements CommandExecutor {
         plugin.getConfig().set("isReset", true);
         plugin.saveConfig();
 
-        //Deleting loottable config files
-        instance.getRandomBlocksLoottableConfigFile().delete();
-        instance.getRandomMobsLoottableConfigFile().delete();
+        //Deleting/clearing loottable config files
+//        instance.getRandomBlocksLoottableConfigFile().delete();
+//        instance.getRandomMobsLoottableConfigFile().delete();
+        YamlConfiguration def = YamlConfiguration.loadConfiguration(new File(instance.getDataFolder(), "randomblocksloottabledefaults.yml"));
+        instance.getRandomBlocksLoottableConfig().setDefaults(def);
+        instance.saveRandomBlocksLoottableConfig();
+
+        def = YamlConfiguration.loadConfiguration(new File(instance.getDataFolder(), "randommobsloottabledefaults.yml"));
+        instance.getRandomMobsLoottableConfig().setDefaults(def);
+        instance.saveRandomMobsLoottableConfig();
 
         Bukkit.spigot().restart();
         return true;
