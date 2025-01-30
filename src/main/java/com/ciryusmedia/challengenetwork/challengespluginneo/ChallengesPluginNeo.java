@@ -31,6 +31,7 @@ import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Server;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -198,6 +199,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         //Finished loading
         log(ChatColor.RESET + Texts.STARTUP_LOGO, Debuglevel.LEVEL_0);
         log("Challenge Plugin Loaded and Enabled", Debuglevel.LEVEL_0);
+        //Bukkit.spigot().restart();
     }
 
     @Override
