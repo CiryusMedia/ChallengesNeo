@@ -172,7 +172,8 @@ public class ChallengeRandomisation {
         boolean isUnsafe = plugin.getConfig().getBoolean("UnsafeRandomPotions");
         PotionMeta randomPotionMeta = (PotionMeta) randomItem.getItemMeta();
         PotionType randomPotionType = getRandomPotionType();
-        PotionEffect customRandomPotionEffect = randomPotionType.getPotionEffects().getFirst();
+        List<PotionEffect> randomPotionTypeEffects = randomPotionType.getPotionEffects();
+        PotionEffect randomPotionEffect = !randomPotionTypeEffects.isEmpty() ? randomPotionTypeEffects.getFirst() : null;
 //        PotionEffectType randomPotionEffectType = null;
 //        while (randomPotionEffectType == null) { //TODO Rewrite to non-deprecation (Done?)
 //            randomPotionEffectType = randomPotionType.getEffectType();
@@ -185,7 +186,15 @@ public class ChallengeRandomisation {
             level = getSafePotionLevel(randomPotionType);
         }
 
-//        PotionEffect customRandomPotionEffect = new PotionEffect(randomPotionEffectType, duration, level);
+        PotionEffectType backupEffectType = PotionEffectType.SPEED; //Backup for when randomPotionTypeEffects is empty (for whatever reason)
+
+        PotionEffect customRandomPotionEffect;
+
+        if (randomPotionEffect != null) {
+            customRandomPotionEffect = new PotionEffect(randomPotionEffect.getType(), duration, level);
+        } else {
+            customRandomPotionEffect = new PotionEffect(backupEffectType, duration, level);;
+        }
 
         randomPotionMeta.clearCustomEffects();
         randomPotionMeta.addCustomEffect(customRandomPotionEffect, true);
