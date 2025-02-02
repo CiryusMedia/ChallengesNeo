@@ -199,7 +199,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         //Finished loading
         log(ChatColor.RESET + Texts.STARTUP_LOGO, Debuglevel.LEVEL_0);
         log("Challenge Plugin Loaded and Enabled", Debuglevel.LEVEL_0);
-        //Bukkit.spigot().restart();
+        //Bukkit.shutdown();
     }
 
     @Override

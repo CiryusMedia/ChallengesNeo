@@ -35,7 +35,8 @@ public class ResetCommand implements CommandExecutor {
         instance.getRandomBlocksLoottableConfigFile().delete();
         instance.getRandomMobsLoottableConfigFile().delete();
 
-        Bukkit.spigot().restart();
+        Bukkit.spigot().restart(); //Spigot restart is questionable
+        Bukkit.shutdown();
         return true;
     }
 }
