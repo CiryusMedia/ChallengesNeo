@@ -27,7 +27,7 @@ public class ChallengeRandomisation {
     FileConfiguration randomMobsLoottableConfig = instance.getRandomMobsLoottableConfig();
 
     public Material[] allBlocks = Arrays.stream(Material.values()).filter(Material::isBlock).toArray(Material[]::new);
-    public Map<Material, ItemStack> randomBlockLoottableMap = new HashMap<>();
+    //public Map<Material, ItemStack> randomBlockLoottableMap = new HashMap<>();
 
     public EntityType[] allEntities = EntityType.values();
     //public Map<EntityType, List<ItemStack>> randomMobLoottableMap = new HashMap<>();
@@ -55,12 +55,12 @@ public class ChallengeRandomisation {
         for (Material allBlock : allBlocks) {
             instance.log(allBlock.name(), Debuglevel.LEVEL_4);
             ItemStack randomItem = getRandomItem();
-//            if (config.contains(allBlock.name()) && config.getItemStack(allBlock.name()) != null) {
-//                instance.log("Item in loottable file found", Debuglevel.LEVEL_4);
-//                randomItem = config.getItemStack(allBlock.name());
-//            } else {
-//                instance.log("Item in loottable file not found", Debuglevel.LEVEL_4);
-//            }
+            if (config.contains(allBlock.name()) && config.getItemStack(allBlock.name()) != null) {
+                instance.log("Item in loottable file found", Debuglevel.LEVEL_4);
+                randomItem = config.getItemStack(allBlock.name());
+            } else {
+                instance.log("Item in loottable file not found", Debuglevel.LEVEL_4);
+            }
 
             //randomBlockLoottableMap.put(allBlock, randomItem);
             config.set(allBlock.name(), randomItem);
@@ -126,7 +126,7 @@ public class ChallengeRandomisation {
             randomItem.addUnsafeEnchantment(randomEnchantment, level);
         } else if (randomItemMaterial.equals(Material.POTION) || randomItemMaterial.equals(Material.LINGERING_POTION) || randomItemMaterial.equals(Material.SPLASH_POTION) || randomItemMaterial.equals(Material.TIPPED_ARROW)) {
             instance.log(randomItemMaterial.name() + " Potion", Debuglevel.LEVEL_5);
-            //randomItem.setItemMeta(getRandomPotionMeta(randomItem));
+            randomItem.setItemMeta(getRandomPotionMeta(randomItem));
         }
 
         instance.log("Random " + randomItemMaterial.name(), Debuglevel.LEVEL_4);
@@ -166,14 +166,17 @@ public class ChallengeRandomisation {
         return new Random().nextInt(bounds);
     }
 
-    public @NotNull PotionMeta getRandomPotionMeta(ItemStack randomItem) { //TODO This shit fucks shit up
+    public @NotNull PotionMeta getRandomPotionMeta(ItemStack randomItem) {
+        //TODO This shit fucks shit up.
+        // Should now really be fixed, currently large scale testing
         boolean isUnsafe = plugin.getConfig().getBoolean("UnsafeRandomPotions");
         PotionMeta randomPotionMeta = (PotionMeta) randomItem.getItemMeta();
         PotionType randomPotionType = getRandomPotionType();
-        PotionEffectType randomPotionEffectType = null;
-        while (randomPotionEffectType == null) { //TODO Rewrite to non-deprecation
-            randomPotionEffectType = randomPotionType.getEffectType();
-        }
+        PotionEffect customRandomPotionEffect = randomPotionType.getPotionEffects().getFirst();
+//        PotionEffectType randomPotionEffectType = null;
+//        while (randomPotionEffectType == null) { //TODO Rewrite to non-deprecation (Done?)
+//            randomPotionEffectType = randomPotionType.getEffectType();
+//        }
         int duration = getPotionDuration(plugin.getConfig().getInt("RandomPotionDuration"));
         int level;
         if (isUnsafe) {
@@ -182,7 +185,7 @@ public class ChallengeRandomisation {
             level = getSafePotionLevel(randomPotionType);
         }
 
-        PotionEffect customRandomPotionEffect = new PotionEffect(randomPotionEffectType, duration, level);
+//        PotionEffect customRandomPotionEffect = new PotionEffect(randomPotionEffectType, duration, level);
 
         randomPotionMeta.clearCustomEffects();
         randomPotionMeta.addCustomEffect(customRandomPotionEffect, true);
@@ -193,7 +196,8 @@ public class ChallengeRandomisation {
         }
         randomPotionMeta.setDisplayName(ChatColor.RESET + customPotionItemName);
 
-        randomPotionMeta.setColor(randomPotionEffectType.getColor());
+//        randomPotionMeta.setColor(randomPotionEffectType.getColor());
+        randomPotionMeta.setColor(customRandomPotionEffect.getType().getColor());
         return randomPotionMeta;
     }
 
