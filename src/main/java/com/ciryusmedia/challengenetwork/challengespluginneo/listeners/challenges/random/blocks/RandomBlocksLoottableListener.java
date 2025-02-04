@@ -19,12 +19,13 @@ public class RandomBlocksLoottableListener extends ARandomBlocks {
         instance.log(drops.toString(), Debuglevel.LEVEL_4);
 
         if (!drops.isEmpty()) {
+            YamlConfiguration loottable = YamlConfiguration.loadConfiguration(instance.getRandomBlocksLoottableConfigFile());
             instance.log("Random dropping...", Debuglevel.LEVEL_3);
             block.getWorld().dropItemNaturally(
                     block.getLocation(),
-                    (ItemStack) YamlConfiguration.loadConfiguration(instance.getRandomBlocksLoottableConfigFile()).get(block.getType().name())
+                    (ItemStack) loottable.get(block.getType().name())
             );
-            instance.log(((ItemStack) instance.getRandomBlocksLoottableConfig().get(block.getType().name())).getType().name(), Debuglevel.LEVEL_4);
+            instance.log(((ItemStack) loottable.get(block.getType().name())).getType().name(), Debuglevel.LEVEL_4);
             instance.log(block.getLocation().toString(), Debuglevel.LEVEL_4);
         }
     }

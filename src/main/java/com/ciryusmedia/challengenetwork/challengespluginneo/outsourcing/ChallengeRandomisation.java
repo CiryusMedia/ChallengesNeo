@@ -23,8 +23,8 @@ public class ChallengeRandomisation {
 
     ChallengesPluginNeo instance = ChallengesPluginNeo.getInstance();
     Plugin plugin = ChallengesPluginNeo.getPlugin(ChallengesPluginNeo.class);
-    FileConfiguration randomBlocksLoottableConfig = instance.getRandomBlocksLoottableConfig();
-    FileConfiguration randomMobsLoottableConfig = instance.getRandomMobsLoottableConfig();
+//    FileConfiguration randomBlocksLoottableConfig = instance.getRandomBlocksLoottableConfig();
+//    FileConfiguration randomMobsLoottableConfig = instance.getRandomMobsLoottableConfig();
 
     public Material[] allBlocks = Arrays.stream(Material.values()).filter(Material::isBlock).toArray(Material[]::new);
     //public Map<Material, ItemStack> randomBlockLoottableMap = new HashMap<>();
