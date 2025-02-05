@@ -23,14 +23,10 @@ public class ChallengeRandomisation {
 
     ChallengesPluginNeo instance = ChallengesPluginNeo.getInstance();
     Plugin plugin = ChallengesPluginNeo.getPlugin(ChallengesPluginNeo.class);
-//    FileConfiguration randomBlocksLoottableConfig = instance.getRandomBlocksLoottableConfig();
-//    FileConfiguration randomMobsLoottableConfig = instance.getRandomMobsLoottableConfig();
 
     public Material[] allBlocks = Arrays.stream(Material.values()).filter(Material::isBlock).toArray(Material[]::new);
-    //public Map<Material, ItemStack> randomBlockLoottableMap = new HashMap<>();
 
     public EntityType[] allEntities = EntityType.values();
-    //public Map<EntityType, List<ItemStack>> randomMobLoottableMap = new HashMap<>();
 
     public void initRandomLoottable() {
 
@@ -62,7 +58,6 @@ public class ChallengeRandomisation {
                 instance.log("Item in loottable file not found", Debuglevel.LEVEL_4);
             }
 
-            //randomBlockLoottableMap.put(allBlock, randomItem);
             config.set(allBlock.name(), randomItem);
             try {
                 config.save(instance.getRandomBlocksLoottableConfigFile());
@@ -105,7 +100,6 @@ public class ChallengeRandomisation {
 
             //randomMobLoottableMap.put(allEntity, randomDrops);
             config.set(allEntity.name(), randomDrops);
-            instance.saveRandomMobsLoottableConfig();
             try {
                 config.save(instance.getRandomMobsLoottableConfigFile());
             } catch (IOException exception) {
@@ -167,17 +161,11 @@ public class ChallengeRandomisation {
     }
 
     public @NotNull PotionMeta getRandomPotionMeta(ItemStack randomItem) {
-        //TODO This shit fucks shit up.
-        // Should now really be fixed, currently large scale testing
         boolean isUnsafe = plugin.getConfig().getBoolean("UnsafeRandomPotions");
         PotionMeta randomPotionMeta = (PotionMeta) randomItem.getItemMeta();
         PotionType randomPotionType = getRandomPotionType();
         List<PotionEffect> randomPotionTypeEffects = randomPotionType.getPotionEffects();
         PotionEffect randomPotionEffect = !randomPotionTypeEffects.isEmpty() ? randomPotionTypeEffects.getFirst() : null;
-//        PotionEffectType randomPotionEffectType = null;
-//        while (randomPotionEffectType == null) { //TODO Rewrite to non-deprecation (Done?)
-//            randomPotionEffectType = randomPotionType.getEffectType();
-//        }
         int duration = getPotionDuration(plugin.getConfig().getInt("RandomPotionDuration"));
         int level;
         if (isUnsafe) {
@@ -205,7 +193,6 @@ public class ChallengeRandomisation {
         }
         randomPotionMeta.setDisplayName(ChatColor.RESET + customPotionItemName);
 
-//        randomPotionMeta.setColor(randomPotionEffectType.getColor());
         randomPotionMeta.setColor(customRandomPotionEffect.getType().getColor());
         return randomPotionMeta;
     }
@@ -228,6 +215,5 @@ public class ChallengeRandomisation {
 
     public ChallengeRandomisation() {
         initRandomLoottable();
-        //plugin.getServer().getAsyncScheduler().runNow(plugin, task -> initRandomLoottable());
     }
 }

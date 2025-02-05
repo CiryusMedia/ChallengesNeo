@@ -59,12 +59,10 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     private ChallengeTimer timer;
 
     private File randomBlocksLoottableConfigFile;
-//    private YamlConfiguration randomBlocksLoottableConfig;
 
     private File randomMobsLoottableConfigFile;
-//    private YamlConfiguration randomMobsLoottableConfig;
 
-    //Handling these with central objects might be chaged
+    //Handling these with central objects might be changed
     private ChallengesOutsourcing cho;
     private ColorOutsourcing clo;
     private ChallengeRandomisation rro;
@@ -258,13 +256,6 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
             randomBlocksLoottableConfigFile.getParentFile().mkdirs();
             saveResource("randomblocksloottablemap.yml", false);
         }
-
-//        randomBlocksLoottableConfig = new YamlConfiguration();
-//        try {
-//            randomBlocksLoottableConfig.load(randomBlocksLoottableConfigFile);
-//        } catch (IOException | InvalidConfigurationException exception) {
-//            exception.printStackTrace();
-//        }
     }
 
     private void createRandomMobsLoottableConfig() {
@@ -274,30 +265,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
             randomMobsLoottableConfigFile.getParentFile().mkdirs();
             saveResource("randommobsloottablemap.yml", false);
         }
-
-//        randomMobsLoottableConfig = new YamlConfiguration();
-//        try {
-//            randomMobsLoottableConfig.load(randomMobsLoottableConfigFile);
-//        } catch (IOException | InvalidConfigurationException exception) {
-//            exception.printStackTrace();
-//        }
     }
-
-//    public void saveRandomBlocksLoottableConfig() {
-//        try {
-//            randomBlocksLoottableConfig.save(randomBlocksLoottableConfigFile);
-//        } catch (IOException exception) {
-//            exception.printStackTrace();
-//        }
-//    }
-
-//    public void saveRandomMobsLoottableConfig() {
-//        try {
-//            randomMobsLoottableConfig.save(randomMobsLoottableConfigFile);
-//        } catch (IOException exception) {
-//            exception.printStackTrace();
-//        }
-//    }
 
     public void reloadCustomConf(FileConfiguration cfg, File file) {
         try {
@@ -433,14 +401,6 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     public Scoreboard getScoreboard() {
         return scoreboard;
     }
-
-//    public FileConfiguration getRandomBlocksLoottableConfig() {
-//        return randomBlocksLoottableConfig;
-//    }
-//
-//    public FileConfiguration getRandomMobsLoottableConfig() {
-//        return randomMobsLoottableConfig;
-//    }
 
     public File getRandomBlocksLoottableConfigFile() {
         return randomBlocksLoottableConfigFile;
