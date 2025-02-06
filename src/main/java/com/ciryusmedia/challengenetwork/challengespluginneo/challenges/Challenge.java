@@ -5,14 +5,12 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debugleve
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
 
 import java.util.List;
 
 public abstract class Challenge {
 
-    protected ChallengesPluginNeo instance = ChallengesPluginNeo.getInstance();
-    protected Plugin plugin = ChallengesPluginNeo.getPlugin(ChallengesPluginNeo.class);
+    protected ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
 
     protected String name;
     protected String displayName;
@@ -67,11 +65,11 @@ public abstract class Challenge {
     }
 
     public void setEnabled(boolean enabled) {
-        instance.log("Setting challenge " + getName() + " to " + enabled, Debuglevel.LEVEL_3);
+        plugin.log("Setting challenge " + getName() + " to " + enabled, Debuglevel.LEVEL_3);
         plugin.getConfig().set(name, enabled);
         plugin.saveConfig();
         this.enabled = enabled;
-        instance.log("Challenge " + getName() + " is now " + isEnabled(), Debuglevel.LEVEL_3);
+        plugin.log("Challenge " + getName() + " is now " + isEnabled(), Debuglevel.LEVEL_3);
         updateMenuItem();
     }
 

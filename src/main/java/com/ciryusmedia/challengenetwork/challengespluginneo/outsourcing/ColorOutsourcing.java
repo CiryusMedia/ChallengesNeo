@@ -9,8 +9,6 @@ import java.util.Map;
 
 public class ColorOutsourcing {
 
-    static Plugin plugin = ChallengesPluginNeo.getPlugin(ChallengesPluginNeo.class);
-
     //Wool map
     public final Map<String, String> chatColorToWool = new HashMap<>(); //
 

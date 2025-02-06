@@ -9,7 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-@SuppressWarnings("DataFlowIssue")
 public class TimerColorInvGUI extends AGUIListener implements Listener, TimerGuiItems {
 
     @Override

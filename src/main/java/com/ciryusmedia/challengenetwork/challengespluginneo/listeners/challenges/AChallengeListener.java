@@ -3,19 +3,16 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenge
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.system.ChallengeTimer;
-import org.bukkit.plugin.Plugin;
 
 public abstract class AChallengeListener {
 
-    protected ChallengesPluginNeo instance;
-    protected Plugin plugin;
+    protected ChallengesPluginNeo plugin;
     protected ChallengeTimer timer;
     protected Challenge challenge;
 
     public AChallengeListener(Challenge challenge) {
-        this.instance = ChallengesPluginNeo.getInstance();
-        this.plugin = ChallengesPluginNeo.getPlugin(ChallengesPluginNeo.class);
-        this.timer = this.instance.getTimer();
+        this.plugin = ChallengesPluginNeo.getChallengePlugin();
+        this.timer = this.plugin.getTimer();
         this.challenge = challenge;
     }
 }

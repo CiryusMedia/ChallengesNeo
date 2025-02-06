@@ -31,16 +31,11 @@ import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Server;
-import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -246,7 +241,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
                 debugLevel = getConfig().getInt("DebugLevel");
                 updateInventories();
             }
-        }.runTaskTimer(ChallengesPluginNeo.getInstance(), 20, 20);
+        }.runTaskTimer(ChallengesPluginNeo.getChallengePlugin(), 20, 20);
     }
 
     private void createRandomBlocksLoottableConfig() {
@@ -264,15 +259,6 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         if (!randomMobsLoottableConfigFile.exists()) {
             randomMobsLoottableConfigFile.getParentFile().mkdirs();
             saveResource("randommobsloottablemap.yml", false);
-        }
-    }
-
-    public void reloadCustomConf(FileConfiguration cfg, File file) {
-        try {
-            cfg.load(file);
-        } catch (IOException | InvalidConfigurationException e) {
-            log(e.getMessage(), Debuglevel.LEVEL_0);
-            e.printStackTrace();
         }
     }
 
@@ -378,7 +364,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     }
 
     //Getter
-    public static ChallengesPluginNeo getInstance() {
+    public static ChallengesPluginNeo getChallengePlugin() {
         return instance;
     }
 

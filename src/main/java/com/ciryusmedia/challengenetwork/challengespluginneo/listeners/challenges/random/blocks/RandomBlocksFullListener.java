@@ -23,17 +23,17 @@ public class RandomBlocksFullListener extends ARandomBlocks {
             Location location = block.getLocation();
             World world = block.getWorld();
 
-            instance.log("Random dropping...", Debuglevel.LEVEL_3);
-            instance.log(block.getType().name(), Debuglevel.LEVEL_4);
-            instance.log(randomItem.getType().name(), Debuglevel.LEVEL_4);
-            instance.log(location.toString(), Debuglevel.LEVEL_4);
-            instance.log(world.toString(), Debuglevel.LEVEL_4);
+            plugin.log("Random dropping...", Debuglevel.LEVEL_3);
+            plugin.log(block.getType().name(), Debuglevel.LEVEL_4);
+            plugin.log(randomItem.getType().name(), Debuglevel.LEVEL_4);
+            plugin.log(location.toString(), Debuglevel.LEVEL_4);
+            plugin.log(world.toString(), Debuglevel.LEVEL_4);
 
             Item droppedItem = world.dropItemNaturally(location, randomItem);
 
-            instance.log(droppedItem.getItemStack().getType().name(), Debuglevel.LEVEL_4);
-            instance.log(droppedItem.getLocation().toString(), Debuglevel.LEVEL_4);
-            instance.log(block.getDrops().toString(), Debuglevel.LEVEL_4);
+            plugin.log(droppedItem.getItemStack().getType().name(), Debuglevel.LEVEL_4);
+            plugin.log(droppedItem.getLocation().toString(), Debuglevel.LEVEL_4);
+            plugin.log(block.getDrops().toString(), Debuglevel.LEVEL_4);
         }
     }
 
