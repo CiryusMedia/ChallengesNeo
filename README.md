@@ -18,7 +18,7 @@ Drop the .jar file into the plugins folder
 
 **This plugin requires:**
 
-- A PaperMC 1.21.1 Server
+- A PaperMC 1.21.4 Server
 
 ## Using this plugin in your content
 
