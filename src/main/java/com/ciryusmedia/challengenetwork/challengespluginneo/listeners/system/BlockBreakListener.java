@@ -12,13 +12,13 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 
 public class BlockBreakListener implements Listener {
 
-    ChallengesPluginNeo instance = ChallengesPluginNeo.getInstance();
-    ChallengeTimer timer = instance.getTimer();
+    ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
+    ChallengeTimer timer = plugin.getTimer();
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
         if (!timer.isRunning()) {
-            instance.log("Cancelling block breaking", Debuglevel.LEVEL_3);
+            plugin.log("Cancelling block breaking", Debuglevel.LEVEL_3);
             e.setCancelled(true);
         }
     }
@@ -26,7 +26,7 @@ public class BlockBreakListener implements Listener {
     @EventHandler
     public void onLeavesDecay(LeavesDecayEvent e) {
         if (!timer.isRunning()) {
-            instance.log("Cancelling leaves decaying", Debuglevel.LEVEL_3);
+            plugin.log("Cancelling leaves decaying", Debuglevel.LEVEL_3);
             e.setCancelled(true);
         }
     }
@@ -34,7 +34,7 @@ public class BlockBreakListener implements Listener {
     @EventHandler
     public void onEntityExplode(EntityExplodeEvent e) {
         if (!timer.isRunning()) {
-            instance.log("Cancelling blocks exploding", Debuglevel.LEVEL_3);
+            plugin.log("Cancelling blocks exploding", Debuglevel.LEVEL_3);
             e.setYield(0);
         }
     }
@@ -42,7 +42,7 @@ public class BlockBreakListener implements Listener {
     @EventHandler
     public void onBlockDestroy(BlockDestroyEvent e) {
         if (!timer.isRunning()) {
-            instance.log("Cancelling block being destroyed", Debuglevel.LEVEL_3);
+            plugin.log("Cancelling block being destroyed", Debuglevel.LEVEL_3);
             e.setCancelled(true);
         }
     }

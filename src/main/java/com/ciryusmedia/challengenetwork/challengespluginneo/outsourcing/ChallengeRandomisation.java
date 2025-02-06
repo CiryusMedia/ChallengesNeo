@@ -4,13 +4,11 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
@@ -21,8 +19,7 @@ import java.util.*;
 
 public class ChallengeRandomisation {
 
-    ChallengesPluginNeo instance = ChallengesPluginNeo.getInstance();
-    Plugin plugin = ChallengesPluginNeo.getPlugin(ChallengesPluginNeo.class);
+    ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
 
     public Material[] allBlocks = Arrays.stream(Material.values()).filter(Material::isBlock).toArray(Material[]::new);
 
@@ -30,14 +27,14 @@ public class ChallengeRandomisation {
 
     public void initRandomLoottable() {
 
-        instance.log("Setting default config for challenge randomisation stuff", Debuglevel.LEVEL_3);
+        plugin.log("Setting default config for challenge randomisation stuff", Debuglevel.LEVEL_3);
         if (!plugin.getConfig().contains("UnsafeRandomEnchantments"))
             plugin.getConfig().set("UnsafeRandomEnchantments", true);
 
         if (!plugin.getConfig().contains("UnsafeEnchantmentBounds"))
             plugin.getConfig().set("UnsafeEnchantmentBounds", 100);
 
-        instance.log("Saving config", Debuglevel.LEVEL_3);
+        plugin.log("Saving config", Debuglevel.LEVEL_3);
         plugin.saveConfig();
 
         initRandomBlockLoottable();
@@ -46,21 +43,21 @@ public class ChallengeRandomisation {
     }
 
     private void initRandomBlockLoottable() {
-        instance.log("Initiating block loottable", Debuglevel.LEVEL_3);
-        YamlConfiguration config = YamlConfiguration.loadConfiguration(instance.getRandomBlocksLoottableConfigFile());
+        plugin.log("Initiating block loottable", Debuglevel.LEVEL_3);
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(plugin.getRandomBlocksLoottableConfigFile());
         for (Material allBlock : allBlocks) {
-            instance.log(allBlock.name(), Debuglevel.LEVEL_4);
+            plugin.log(allBlock.name(), Debuglevel.LEVEL_4);
             ItemStack randomItem = getRandomItem();
             if (config.contains(allBlock.name()) && config.getItemStack(allBlock.name()) != null) {
-                instance.log("Item in loottable file found", Debuglevel.LEVEL_4);
+                plugin.log("Item in loottable file found", Debuglevel.LEVEL_4);
                 randomItem = config.getItemStack(allBlock.name());
             } else {
-                instance.log("Item in loottable file not found", Debuglevel.LEVEL_4);
+                plugin.log("Item in loottable file not found", Debuglevel.LEVEL_4);
             }
 
             config.set(allBlock.name(), randomItem);
             try {
-                config.save(instance.getRandomBlocksLoottableConfigFile());
+                config.save(plugin.getRandomBlocksLoottableConfigFile());
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
@@ -68,10 +65,10 @@ public class ChallengeRandomisation {
     }
 
     private void initRandomMobLoottable() {
-        instance.log("Initiating mob loottable", Debuglevel.LEVEL_3);
-        YamlConfiguration config = YamlConfiguration.loadConfiguration(instance.getRandomMobsLoottableConfigFile());
+        plugin.log("Initiating mob loottable", Debuglevel.LEVEL_3);
+        YamlConfiguration config = YamlConfiguration.loadConfiguration(plugin.getRandomMobsLoottableConfigFile());
         for (EntityType allEntity : allEntities) {
-            instance.log(allEntity.name(), Debuglevel.LEVEL_4);
+            plugin.log(allEntity.name(), Debuglevel.LEVEL_4);
             List<ItemStack> randomDrops = new ArrayList<>();
 
             for (int i = 0; i < 4; i++) {
@@ -90,18 +87,18 @@ public class ChallengeRandomisation {
                 List<?> rmlconfigList = config.getList(allEntity.name());
                 try {
                     randomDrops = (List<ItemStack>) rmlconfigList;
-                    instance.log("Loottable list file found", Debuglevel.LEVEL_4);
+                    plugin.log("Loottable list file found", Debuglevel.LEVEL_4);
                 } catch (ClassCastException e) {
                     e.printStackTrace();
                 }
             } else {
-                instance.log("Loottable list file not found", Debuglevel.LEVEL_4);
+                plugin.log("Loottable list file not found", Debuglevel.LEVEL_4);
             }
 
             //randomMobLoottableMap.put(allEntity, randomDrops);
             config.set(allEntity.name(), randomDrops);
             try {
-                config.save(instance.getRandomMobsLoottableConfigFile());
+                config.save(plugin.getRandomMobsLoottableConfigFile());
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
@@ -113,17 +110,17 @@ public class ChallengeRandomisation {
         Material randomItemMaterial = randomItem.getType();
 
         if (randomItemMaterial.equals(Material.ENCHANTED_BOOK)) {
-            instance.log(randomItemMaterial.name() + " Book", Debuglevel.LEVEL_5);
+            plugin.log(randomItemMaterial.name() + " Book", Debuglevel.LEVEL_5);
             Enchantment randomEnchantment = getRandomEnchantment();
             int level;
             level = getRandomEnchantmentLevel(randomEnchantment);
             randomItem.addUnsafeEnchantment(randomEnchantment, level);
         } else if (randomItemMaterial.equals(Material.POTION) || randomItemMaterial.equals(Material.LINGERING_POTION) || randomItemMaterial.equals(Material.SPLASH_POTION) || randomItemMaterial.equals(Material.TIPPED_ARROW)) {
-            instance.log(randomItemMaterial.name() + " Potion", Debuglevel.LEVEL_5);
+            plugin.log(randomItemMaterial.name() + " Potion", Debuglevel.LEVEL_5);
             randomItem.setItemMeta(getRandomPotionMeta(randomItem));
         }
 
-        instance.log("Random " + randomItemMaterial.name(), Debuglevel.LEVEL_4);
+        plugin.log("Random " + randomItemMaterial.name(), Debuglevel.LEVEL_4);
         return randomItem;
     }
 

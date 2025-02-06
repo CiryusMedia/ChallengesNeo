@@ -11,7 +11,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +18,7 @@ import java.util.List;
 @SuppressWarnings("DataFlowIssue")
 public class ChallengeEndListener implements Listener {
 
-    ChallengesPluginNeo instance = ChallengesPluginNeo.getInstance();
-    Plugin plugin = ChallengesPluginNeo.getPlugin(ChallengesPluginNeo.class);
+    ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
 
     @EventHandler
     public void onDragonDeath(EntityDeathEvent event) {
@@ -28,7 +26,7 @@ public class ChallengeEndListener implements Listener {
         if (!(event.getEntity() instanceof EnderDragon))
             return;
 
-        ChallengeTimer timerOLD = instance.getTimer();
+        ChallengeTimer timerOLD = plugin.getTimer();
 
         StringBuilder usedChallenges = new StringBuilder();
         List<String> usedChallengesList = new ArrayList<>();
@@ -48,7 +46,7 @@ public class ChallengeEndListener implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
-        ChallengeTimer timer = instance.getTimer();
+        ChallengeTimer timer = plugin.getTimer();
         String deathMessage = event.getDeathMessage();
 
         StringBuilder usedChallenges = new StringBuilder();
@@ -78,12 +76,12 @@ public class ChallengeEndListener implements Listener {
     }
 
     private void getActiveChallenges(StringBuilder usedChallenges, List<String> usedChallengesList) {
-        instance.getCho().CHALLENGES.forEach(challenge -> {
+        plugin.getCho().CHALLENGES.forEach(challenge -> {
             if (challenge.isEnabled()){
                 usedChallengesList.add(challenge.getDisplayName());
-                instance.log("Active challenge " + challenge.getDisplayName(), Debuglevel.LEVEL_3);
+                plugin.log("Active challenge " + challenge.getDisplayName(), Debuglevel.LEVEL_3);
             }
-            instance.log("Active challenges: " + usedChallengesList, Debuglevel.LEVEL_3);
+            plugin.log("Active challenges: " + usedChallengesList, Debuglevel.LEVEL_3);
         });
 
         for (int i = 0; i < usedChallengesList.toArray().length; i++) {

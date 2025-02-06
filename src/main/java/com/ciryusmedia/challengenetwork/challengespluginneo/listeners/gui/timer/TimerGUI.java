@@ -8,7 +8,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-@SuppressWarnings("DataFlowIssue")
 public class TimerGUI extends AGUIListener implements Listener, TimerGuiItems {
 
     @Override
@@ -38,10 +37,9 @@ public class TimerGUI extends AGUIListener implements Listener, TimerGuiItems {
     @Override
     public void updateInventory() {
         emptyInventoryItemFiller(inv, fillerItem, lineFillerItem);
-        //timerInv.setItem(0, fullUiFillerItem);
 
         inv.setItem(11, colorInventory);
-        if (instance.getTimer().isRunning()) {
+        if (plugin.getTimer().isRunning()) {
             inv.setItem(13, stopTimer);
         } else {
             inv.setItem(13, startTimer);

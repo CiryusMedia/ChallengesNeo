@@ -8,14 +8,13 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameRule;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Locale;
 
 public class ChallengeTimer {
 
-    Plugin plugin = ChallengesPluginNeo.getPlugin(ChallengesPluginNeo.class);
+    ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
 
     boolean running;
     int time;

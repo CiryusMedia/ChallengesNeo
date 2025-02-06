@@ -13,7 +13,7 @@ public abstract class ARandomEntitiesDeath extends ARandomEntities {
         if (!challenge.isEnabled() || !timer.isRunning() || event.getEntityType().equals(EntityType.BLAZE))
             return;
 
-        instance.log(event.getEventName(), Debuglevel.LEVEL_3);
+        plugin.log(event.getEventName(), Debuglevel.LEVEL_3);
 
         handleRandomEntityDeathLogic(event);
     }

@@ -16,14 +16,14 @@ import java.util.List;
 
 public class ChallengeCommand implements CommandExecutor, Texts {
 
-    ChallengesPluginNeo instance = ChallengesPluginNeo.getInstance();
-    ChallengesOutsourcing coo = instance.getCho();
+    ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
+    ChallengesOutsourcing coo = plugin.getCho();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
 
         if (strings.length == 0) {
-            instance.log("Handling challenge command for gui", Debuglevel.LEVEL_3);
+            plugin.log("Handling challenge command for gui", Debuglevel.LEVEL_3);
             if (sender instanceof Player player) {
                 if (player.hasPermission("challenge.challenges.view")) {
                     ChallengesPluginNeo.challengeGUI.updateInventory();

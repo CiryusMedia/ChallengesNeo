@@ -8,16 +8,10 @@ import io.papermc.paper.event.player.PlayerInventorySlotChangeEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityPickupItemEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryDragEvent;
-import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerItemDamageEvent;
 
 public class InventorySyncListener extends AChallengeListener implements Listener {
 
-    ChallengesPluginNeo instance = ChallengesPluginNeo.getInstance();
+    ChallengesPluginNeo instance = ChallengesPluginNeo.getChallengePlugin();
 
     @EventHandler
     public void onPlayerInventorySlotChange(PlayerInventorySlotChangeEvent e) {
