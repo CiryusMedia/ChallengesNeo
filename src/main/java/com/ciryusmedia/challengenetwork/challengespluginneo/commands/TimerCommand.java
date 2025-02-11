@@ -15,11 +15,10 @@ import org.bukkit.entity.Player;
 
 import java.util.Locale;
 
-@SuppressWarnings({"ConstantValue", "DataFlowIssue"})
+@SuppressWarnings({"ConstantValue"})
 public class TimerCommand implements CommandExecutor {
 
     ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
-    ColorOutsourcing clo = plugin.getClo();
     ChallengeTimer timer;
 
     @Override
@@ -182,7 +181,7 @@ public class TimerCommand implements CommandExecutor {
                     player.openInventory(Inventories.timerPausedColorGUI);
                 }
             } else if (args.length >= 3) {
-                if (clo.isValidChatColor(args[2])) {
+                if (ColorOutsourcing.isValidChatColor(args[2])) {
                     ChatColor color = ChatColor.valueOf(args[2].toUpperCase());
                     plugin.getConfig().set(colorType + "Color", args[2]);
                     plugin.saveConfig();

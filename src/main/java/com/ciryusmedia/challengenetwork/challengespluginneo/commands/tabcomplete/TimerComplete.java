@@ -13,7 +13,6 @@ public class TimerComplete implements TabCompleter {
 
 
     private final ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
-    private final ColorOutsourcing clo = plugin.getClo();
 
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
@@ -47,7 +46,7 @@ public class TimerComplete implements TabCompleter {
         } else if (strings.length == 3) {
             List<String> args = new ArrayList<>();
             if (strings[0].equalsIgnoreCase("color")) {
-                args.addAll(clo.chatColorToWool.keySet());
+                args.addAll(ColorOutsourcing.chatColorToWool.keySet());
             }
 
             return args;

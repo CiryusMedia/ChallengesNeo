@@ -54,13 +54,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     private ChallengeTimer timer;
 
     private File randomBlocksLoottableConfigFile;
-
     private File randomMobsLoottableConfigFile;
-
-    //Handling these with central objects might be changed
-    private ChallengesOutsourcing cho;
-    private ColorOutsourcing clo;
-    private ChallengeRandomisation rro;
 
     private Scoreboard scoreboard;
 
@@ -156,13 +150,10 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         log("Timer", Debuglevel.LEVEL_2);
         timer = new ChallengeTimer(false, 0);
         timer.setTime(getConfig().getInt("Time"));
-        log("Initiating cho", Debuglevel.LEVEL_2);
-        cho = new ChallengesOutsourcing();
-        log("Initiating clo", Debuglevel.LEVEL_2);
-        clo = new ColorOutsourcing();
 
-        log("Initiating rro", Debuglevel.LEVEL_2);
-        rro = new ChallengeRandomisation();
+        ChallengesOutsourcing.initChallenges();
+        ColorOutsourcing.initColorOutsourcing();
+        ChallengeRandomisation.initRandomisation();
 
         //Initiate and enable
         log("Initiating objects", Debuglevel.LEVEL_1);
@@ -314,12 +305,12 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
         //Challenges
         log("Challenge listeners", Debuglevel.LEVEL_2);
-        getServer().getPluginManager().registerEvents(new RandomBlocksLoottableListener(cho.RANDOM_BLOCKS_LOOTTABLE), this);
-        getServer().getPluginManager().registerEvents(new RandomBlocksFullListener(cho.RANDOM_BLOCKS_FULL), this);
-        getServer().getPluginManager().registerEvents(new RandomMobsLoottableListener(cho.RANDOM_MOBS_LOOTTABLE), this);
-        getServer().getPluginManager().registerEvents(new RandomMobsFullListener(cho.RANDOM_MOBS_FULL), this);
+        getServer().getPluginManager().registerEvents(new RandomBlocksLoottableListener(ChallengesOutsourcing.RANDOM_BLOCKS_LOOTTABLE), this);
+        getServer().getPluginManager().registerEvents(new RandomBlocksFullListener(ChallengesOutsourcing.RANDOM_BLOCKS_FULL), this);
+        getServer().getPluginManager().registerEvents(new RandomMobsLoottableListener(ChallengesOutsourcing.RANDOM_MOBS_LOOTTABLE), this);
+        getServer().getPluginManager().registerEvents(new RandomMobsFullListener(ChallengesOutsourcing.RANDOM_MOBS_FULL), this);
 
-        getServer().getPluginManager().registerEvents(new InventorySyncListener(cho.INVENTORY_SYNC), this);
+        getServer().getPluginManager().registerEvents(new InventorySyncListener(ChallengesOutsourcing.INVENTORY_SYNC), this);
     }
 
     private void initItems() {
@@ -370,18 +361,6 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
     public ChallengeTimer getTimer() {
         return timer;
-    }
-
-    public ChallengesOutsourcing getCho() {
-        return cho;
-    }
-
-    public ColorOutsourcing getClo() {
-        return clo;
-    }
-
-    public ChallengeRandomisation getRro() {
-        return rro;
     }
 
     public Scoreboard getScoreboard() {

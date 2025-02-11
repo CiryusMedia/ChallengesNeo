@@ -2,6 +2,7 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.listeners.system;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
+import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ChallengesOutsourcing;
 import com.ciryusmedia.challengenetwork.challengespluginneo.system.ChallengeTimer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -76,7 +77,7 @@ public class ChallengeEndListener implements Listener {
     }
 
     private void getActiveChallenges(StringBuilder usedChallenges, List<String> usedChallengesList) {
-        plugin.getCho().CHALLENGES.forEach(challenge -> {
+        ChallengesOutsourcing.CHALLENGES.forEach(challenge -> {
             if (challenge.isEnabled()){
                 usedChallengesList.add(challenge.getDisplayName());
                 plugin.log("Active challenge " + challenge.getDisplayName(), Debuglevel.LEVEL_3);

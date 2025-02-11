@@ -7,10 +7,7 @@ import org.bukkit.event.Listener;
 
 public abstract class ARandomEntities extends AChallengeListener implements Listener {
 
-    ChallengeRandomisation rro;
-
     public ARandomEntities(Challenge challenge) {
         super(challenge);
-        this.rro = plugin.getRro();
     }
 }

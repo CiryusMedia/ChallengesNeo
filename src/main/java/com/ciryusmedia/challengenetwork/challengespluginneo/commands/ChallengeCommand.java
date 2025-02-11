@@ -17,10 +17,10 @@ import java.util.List;
 public class ChallengeCommand implements CommandExecutor, Texts {
 
     ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
-    ChallengesOutsourcing coo = plugin.getCho();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
+        ChallengesOutsourcing.checkInitialized();
 
         if (strings.length == 0) {
             plugin.log("Handling challenge command for gui", Debuglevel.LEVEL_3);
@@ -49,7 +49,7 @@ public class ChallengeCommand implements CommandExecutor, Texts {
                     sender.sendMessage(PREFIX + NOT_ENOUGH_ARGUMENTS);
                     break;
                 } else {
-                    Challenge challenge = coo.getChallengeFromName(strings[1]);
+                    Challenge challenge = ChallengesOutsourcing.getChallengeFromName(strings[1]);
                     if (challenge == null) {
                         sender.sendMessage(PREFIX + INVALID_CHALLENGE);
                         break;
@@ -81,7 +81,7 @@ public class ChallengeCommand implements CommandExecutor, Texts {
             } else
                 sender.sendMessage(PREFIX + NOT_PLAYER);
         } else {
-            Challenge challenge = coo.getChallengeFromName(args[1]);
+            Challenge challenge = ChallengesOutsourcing.getChallengeFromName(args[1]);
             if (challenge == null) {
                 sender.sendMessage(PREFIX + INVALID_CHALLENGE);
             } else if (args.length >= 3) {
@@ -107,7 +107,7 @@ public class ChallengeCommand implements CommandExecutor, Texts {
             return;
         }
         if (challenge.hasSubtype() && arg) {
-            List<Challenge> challengesWithSameSuptybe = coo.getChallengesFromSubtype(challenge.getSubType());
+            List<Challenge> challengesWithSameSuptybe = ChallengesOutsourcing.getChallengesFromSubtype(challenge.getSubType());
             if (!challengesWithSameSuptybe.isEmpty()) {
                 challengesWithSameSuptybe.forEach(c -> c.setEnabled(false));
             }

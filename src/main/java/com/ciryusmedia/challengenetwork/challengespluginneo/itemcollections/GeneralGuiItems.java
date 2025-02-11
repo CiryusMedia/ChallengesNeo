@@ -12,8 +12,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 public interface GeneralGuiItems {
 
     ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
-    ChallengesOutsourcing coo = ChallengesPluginNeo.getChallengePlugin().getCho();
-    ColorOutsourcing clo = plugin.getClo();
 
     ItemStack defaultFillerItem = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
     ItemStack defaultLineFillerItem = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);

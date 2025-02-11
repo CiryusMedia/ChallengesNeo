@@ -14,12 +14,11 @@ import java.util.List;
 
 public class ChallengeComplete implements TabCompleter {
 
-    ChallengesOutsourcing cho = ChallengesPluginNeo.getChallengePlugin().getCho();
     ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
-
+        ChallengesOutsourcing.checkInitialized();
         List<String> list = new ArrayList<>();
 
         switch (strings.length) {
@@ -28,9 +27,9 @@ public class ChallengeComplete implements TabCompleter {
                 list.add("sync");
                 break;
             case 2:
-                plugin.log(strings[0] + " " + cho.isValidType(strings[0]), Debuglevel.LEVEL_4);
-                if (cho.isValidType(strings[0])) {
-                    cho.getChallengesFromType(strings[0]).forEach(challenge -> {
+                plugin.log(strings[0] + " " + ChallengesOutsourcing.isValidType(strings[0]), Debuglevel.LEVEL_4);
+                if (ChallengesOutsourcing.isValidType(strings[0])) {
+                    ChallengesOutsourcing.getChallengesFromType(strings[0]).forEach(challenge -> {
                         list.add(challenge.getName());
                     });
                 }

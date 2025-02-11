@@ -7,27 +7,33 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.random.bl
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.random.entities.RandomMobsFull;
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.random.entities.RandomMobsLoottable;
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.synched.InventorySync;
+import com.ciryusmedia.challengenetwork.challengespluginneo.exceptions.DataNotInitializedException;
+import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChallengesOutsourcing {
 
-    ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
+    static ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
 
-    public final List<Challenge> CHALLENGES = new ArrayList<>();
+    private static boolean isInitialized = false;
 
-    public final List<String> TYPES = new ArrayList<>();
+    public static final List<Challenge> CHALLENGES = new ArrayList<>();
+
+    public static final List<String> TYPES = new ArrayList<>();
 
     //Random Challenges
-    public final Challenge RANDOM_BLOCKS_LOOTTABLE = new RandomBlocksLoottable();
-    public final Challenge RANDOM_BLOCKS_FULL = new RandomBlocksFull();
-    public final Challenge RANDOM_MOBS_LOOTTABLE = new RandomMobsLoottable();
-    public final Challenge RANDOM_MOBS_FULL = new RandomMobsFull();
+    public static final Challenge RANDOM_BLOCKS_LOOTTABLE = new RandomBlocksLoottable();
+    public static final Challenge RANDOM_BLOCKS_FULL = new RandomBlocksFull();
+    public static final Challenge RANDOM_MOBS_LOOTTABLE = new RandomMobsLoottable();
+    public static final Challenge RANDOM_MOBS_FULL = new RandomMobsFull();
 
-    public final Challenge INVENTORY_SYNC = new InventorySync();
+    public static final Challenge INVENTORY_SYNC = new InventorySync();
 
-    public void initChallenges() {
+    public static void initChallenges() {
+        plugin.log("Initiating cho", Debuglevel.LEVEL_2);
+
         //Challenges
         CHALLENGES.add(RANDOM_BLOCKS_LOOTTABLE);
         CHALLENGES.add(RANDOM_BLOCKS_FULL);
@@ -41,9 +47,11 @@ public class ChallengesOutsourcing {
         //Subtypes
         TYPES.add("random");
         TYPES.add("sync");
+
+        isInitialized = true;
     }
 
-    public Challenge getChallengeFromName(String name) {
+    public static Challenge getChallengeFromName(String name) {
         if (CHALLENGES.stream().anyMatch(c -> c.getName().equalsIgnoreCase(name))) {
             return CHALLENGES.stream().filter(c -> c.getName().equalsIgnoreCase(name)).findFirst().get();
         } else {
@@ -51,7 +59,7 @@ public class ChallengesOutsourcing {
         }
     }
 
-    public List<Challenge> getChallengesFromSubtype(String subtype) {
+    public static List<Challenge> getChallengesFromSubtype(String subtype) {
         List<Challenge> challenges = new ArrayList<>();
 
         CHALLENGES.forEach(c -> {
@@ -61,7 +69,7 @@ public class ChallengesOutsourcing {
         return challenges;
     }
 
-    public List<Challenge> getChallengesFromType(String subtype) {
+    public static List<Challenge> getChallengesFromType(String subtype) {
         List<Challenge> challenges = new ArrayList<>();
 
         CHALLENGES.forEach(c -> {
@@ -71,16 +79,18 @@ public class ChallengesOutsourcing {
         return challenges;
     }
 
-    public boolean isValidType(String subtype) {
+    public static boolean isValidType(String subtype) {
         return TYPES.contains(subtype);
     }
 
-    public ChallengesOutsourcing() {
-        initChallenges();
+    public static List<Challenge> getCHALLENGES() {
+        return CHALLENGES;
     }
 
-    public List<Challenge> getCHALLENGES() {
-        return CHALLENGES;
+    public static void checkInitialized() throws DataNotInitializedException {
+        if (!isInitialized) {
+            throw new DataNotInitializedException("ColorOutsourcing from ChallengesPluginNeo is not initialized!");
+        }
     }
 
 }

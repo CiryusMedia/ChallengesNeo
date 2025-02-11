@@ -25,8 +25,6 @@ import java.util.Random;
 
 public abstract class ARandomBlocks extends AChallengeListener implements Listener {
 
-    ChallengeRandomisation rro;
-
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
 
@@ -142,6 +140,5 @@ public abstract class ARandomBlocks extends AChallengeListener implements Listen
 
     public ARandomBlocks(Challenge challenge) {
         super(challenge);
-        this.rro = plugin.getRro();
     }
 }

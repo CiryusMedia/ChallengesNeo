@@ -2,6 +2,7 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenge
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
+import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ChallengeRandomisation;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
@@ -15,6 +16,8 @@ public class RandomBlocksLoottableListener extends ARandomBlocks {
         if (!challenge.isEnabled() || !timer.isRunning()) {
             return;
         }
+
+        ChallengeRandomisation.checkInitialized();
 
         plugin.log(drops.toString(), Debuglevel.LEVEL_4);
 

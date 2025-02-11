@@ -1,6 +1,7 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
+import com.ciryusmedia.challengenetwork.challengespluginneo.exceptions.DataNotInitializedException;
 import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -19,13 +20,15 @@ import java.util.*;
 
 public class ChallengeRandomisation {
 
-    ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
+    private static final ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
 
-    public Material[] allBlocks = Arrays.stream(Material.values()).filter(Material::isBlock).toArray(Material[]::new);
+    private static boolean isInitialized = false;
 
-    public EntityType[] allEntities = EntityType.values();
+    public static Material[] allBlocks = Arrays.stream(Material.values()).filter(Material::isBlock).toArray(Material[]::new);
 
-    public void initRandomLoottable() {
+    public static EntityType[] allEntities = EntityType.values();
+
+    public static void initRandomLoottable() {
 
         plugin.log("Setting default config for challenge randomisation stuff", Debuglevel.LEVEL_3);
         if (!plugin.getConfig().contains("UnsafeRandomEnchantments"))
@@ -42,7 +45,7 @@ public class ChallengeRandomisation {
         initRandomMobLoottable();
     }
 
-    private void initRandomBlockLoottable() {
+    private static void initRandomBlockLoottable() {
         plugin.log("Initiating block loottable", Debuglevel.LEVEL_3);
         YamlConfiguration config = YamlConfiguration.loadConfiguration(plugin.getRandomBlocksLoottableConfigFile());
         for (Material allBlock : allBlocks) {
@@ -64,7 +67,7 @@ public class ChallengeRandomisation {
         }
     }
 
-    private void initRandomMobLoottable() {
+    private static void initRandomMobLoottable() {
         plugin.log("Initiating mob loottable", Debuglevel.LEVEL_3);
         YamlConfiguration config = YamlConfiguration.loadConfiguration(plugin.getRandomMobsLoottableConfigFile());
         for (EntityType allEntity : allEntities) {
@@ -105,7 +108,7 @@ public class ChallengeRandomisation {
         }
     }
 
-    public @NotNull ItemStack getRandomItem() {
+    public static @NotNull ItemStack getRandomItem() {
         ItemStack randomItem = new ItemStack(getRandomItemMaterial());
         Material randomItemMaterial = randomItem.getType();
 
@@ -124,7 +127,7 @@ public class ChallengeRandomisation {
         return randomItem;
     }
 
-    public Material getRandomItemMaterial() {
+    public static Material getRandomItemMaterial() {
         Random random = new Random();
         Material material;
         Material[] itemMaterials = Arrays.stream(Material.values()).filter(Material::isItem).toArray(Material[]::new);
@@ -134,11 +137,11 @@ public class ChallengeRandomisation {
         return material;
     }
 
-    public Enchantment getRandomEnchantment() {
+    public static Enchantment getRandomEnchantment() {
         return Enchantment.values()[new Random().nextInt(Enchantment.values().length)];
     }
 
-    public int getRandomEnchantmentLevel(Enchantment randomEnchantment) {
+    public static int getRandomEnchantmentLevel(Enchantment randomEnchantment) {
         boolean isUnsafe = plugin.getConfig().getBoolean("UnsafeRandomEnchantments");
         int level;
         if (isUnsafe) {
@@ -149,15 +152,15 @@ public class ChallengeRandomisation {
         return level;
     }
 
-    public int getSafeEnchantmentLevel(Enchantment enchantment) {
+    public static int getSafeEnchantmentLevel(Enchantment enchantment) {
         return new Random().nextInt(enchantment.getMaxLevel()) + 1;
     }
 
-    public int getUnsafeEnchantmentLevel(int bounds) {
+    public static int getUnsafeEnchantmentLevel(int bounds) {
         return new Random().nextInt(bounds);
     }
 
-    public @NotNull PotionMeta getRandomPotionMeta(ItemStack randomItem) {
+    public static @NotNull PotionMeta getRandomPotionMeta(ItemStack randomItem) {
         boolean isUnsafe = plugin.getConfig().getBoolean("UnsafeRandomPotions");
         PotionMeta randomPotionMeta = (PotionMeta) randomItem.getItemMeta();
         PotionType randomPotionType = getRandomPotionType();
@@ -194,23 +197,31 @@ public class ChallengeRandomisation {
         return randomPotionMeta;
     }
 
-    public PotionType getRandomPotionType() {
+    public static PotionType getRandomPotionType() {
         return PotionType.values()[new Random().nextInt(PotionType.values().length)];
     }
 
-    public int getUnsafePotionLevel(int bounds) {
+    public static int getUnsafePotionLevel(int bounds) {
         return new Random().nextInt(bounds);
     }
 
-    public int getSafePotionLevel(PotionType potionType) {
+    public static int getSafePotionLevel(PotionType potionType) {
         return new Random().nextInt(potionType.getMaxLevel());
     }
 
-    public int getPotionDuration(int bounds) {
+    public static int getPotionDuration(int bounds) {
         return (new Random().nextInt(bounds) + 1) * 20 * 60;
     }
 
-    public ChallengeRandomisation() {
+    public static void checkInitialized() throws DataNotInitializedException {
+        if (!isInitialized) {
+            throw new DataNotInitializedException("ColorOutsourcing from ChallengesPluginNeo is not initialized!");
+        }
+    }
+
+    public static void initRandomisation() {
+        plugin.log("Initiating rro", Debuglevel.LEVEL_2);
         initRandomLoottable();
+        isInitialized = true;
     }
 }
