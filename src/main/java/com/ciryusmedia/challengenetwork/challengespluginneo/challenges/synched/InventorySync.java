@@ -1,13 +1,13 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.challenges.synched;
 
-import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
+import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.ChallengeOld;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InventorySync extends Challenge {
+public class InventorySync extends ChallengeOld {
 
     public InventorySync() {
         super("InventorySync", "Inventory Sync", "sync", "inventorySync");

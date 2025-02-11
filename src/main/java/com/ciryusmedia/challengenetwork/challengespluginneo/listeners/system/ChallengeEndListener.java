@@ -77,7 +77,7 @@ public class ChallengeEndListener implements Listener {
     }
 
     private void getActiveChallenges(StringBuilder usedChallenges, List<String> usedChallengesList) {
-        ChallengesOutsourcing.CHALLENGES.forEach(challenge -> {
+        ChallengesOutsourcing.CHALLENGE_OLDS.forEach(challenge -> {
             if (challenge.isEnabled()){
                 usedChallengesList.add(challenge.getDisplayName());
                 plugin.log("Active challenge " + challenge.getDisplayName(), Debuglevel.LEVEL_3);

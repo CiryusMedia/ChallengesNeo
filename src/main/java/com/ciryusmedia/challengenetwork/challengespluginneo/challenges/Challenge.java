@@ -3,61 +3,76 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.challenges;
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Arrays;
 import java.util.List;
 
-public abstract class Challenge {
+public enum Challenge {
 
-    protected ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
+    //<editor-fold desc="Random Challenges" defaultstate="collapsed">
+    RANDOM_BLOCKS_FULL(
+            "RandomBlocksFull",
+            "Random Blocks Full",
+            ChallengeType.RANDOM,
+            ChallengeSubtype.RANDOM_BLOCKS,
+            Material.STONE,
+            new String[]{"Makes every Blockdrop random,", "not with a pattern, just straight up random\n"}),
+    RANDOM_BLOCKS_LOOTTABLE("RandomBlocksLoottable",
+            "Random Blocks Loottable",
+            ChallengeType.RANDOM,
+            ChallengeSubtype.RANDOM_BLOCKS,
+            Material.GRASS_BLOCK,
+            new String[]{"Makes every Blockdrop random, but still", "with a pattern, making it predictably random\n"}),
 
-    protected String name;
-    protected String displayName;
-    protected String description;
-    protected String type;
-    protected String subType;
-    protected ItemStack menuItem;
-    protected List<String> itemDescription;
-    protected boolean enabled = false;
+    RANDOM_MOBS_FULL(
+            "RandomMobsFull",
+            "Random Mobs Full",
+            ChallengeType.RANDOM,
+            ChallengeSubtype.RANDOM_MOBS,
+            Material.PUFFERFISH,
+            new String[]{"Makes every Mobdrop random,", "not with a pattern, just straight up random\n"}),
+    RANDOM_MOBS_LOOTTABLE(
+            "RandomMobsLoottable",
+            "Random Mobs Loottable",
+            ChallengeType.RANDOM,
+            ChallengeSubtype.RANDOM_MOBS,
+            Material.SNIFFER_SPAWN_EGG,
+            new String[]{"Makes every Mobdrop random, but still", "with a pattern, making it predictably random\n"}),
+    //</editor-fold>
 
-    /**
-     * The constructor for a challenge class
-     * @param name The in-code name of the challenge, how it is saved in the config.yml
-     * @param displayName The name that is supposed to show up on the menu item
-     * @param type What type of challenge is this?
-     * @param subType Used to avoid having multiple challenges active, that do similar things
-     */
-    public Challenge(String name, String displayName, String type, String subType) {
-        this.name = name;
-        this.displayName = displayName;
-        updateItemDescription();
-        this.description = String.valueOf(itemDescription);
-        createMenuItem();
-        this.type = type;
-        this.subType = subType;
-    }
+    //<editor-fold desc="Sync Challenges" defaultstate="collapsed">
+    INVENTORY_SYNC(
+            "InventorySync",
+            "Inventory Sync",
+            ChallengeType.SYNC,
+            ChallengeSubtype.INVENTORY_SYNC,
+            Material.CRAFTING_TABLE,
+            new String[]{"Gives every player the same inventory", "This means that every item in your", "inventories is identical\n"});
+    //</editor-fold>
 
-    public abstract void createMenuItem();
-
-    public abstract void updateItemDescription();
+    private final ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
+    public final String name;
+    public final String displayName;
+    public final List<String> description;
+    public final ChallengeType type;
+    public final ChallengeSubtype subType;
+    public ItemStack menuItem;
+    public List<String> itemDescription;
+    public boolean enabled = false;
 
     public void updateMenuItem() {
-        updateItemDescription();
+
 
         ItemMeta itemMeta = menuItem.getItemMeta();
-        List<String> lore = itemDescription;
+        List<String> lore = description;
 
         itemMeta.setEnchantmentGlintOverride(enabled);
 
-        if (isEnabled()) {
-            itemMeta.setDisplayName(ChatColor.GREEN + displayName);
-            lore.add(displayName + " is currently " + ChatColor.GREEN + "enabled");
-
-        } else {
-            itemMeta.setDisplayName(ChatColor.RED + displayName);
-            lore.add(displayName + "is currently " + ChatColor.RED + "disabled");
-        }
+        itemMeta.setDisplayName(enabled ? ChatColor.GREEN + displayName : ChatColor.RED + displayName);
+        lore.add(displayName + " is currently " + (enabled ? ChatColor.GREEN + "enabled" : ChatColor.RED + "disabled"));
 
         itemMeta.setLore(lore);
 
@@ -65,51 +80,25 @@ public abstract class Challenge {
     }
 
     public void setEnabled(boolean enabled) {
-        plugin.log("Setting challenge " + getName() + " to " + enabled, Debuglevel.LEVEL_3);
+        plugin.log("Setting challenge " + name + " to " + enabled, Debuglevel.LEVEL_3);
         plugin.getConfig().set(name, enabled);
         plugin.saveConfig();
         this.enabled = enabled;
-        plugin.log("Challenge " + getName() + " is now " + isEnabled(), Debuglevel.LEVEL_3);
+        plugin.log("Challenge " + name + " is now " + enabled, Debuglevel.LEVEL_3);
         updateMenuItem();
     }
 
-    public void setMenuItem(ItemStack item) {
-        this.menuItem = item;
+    private Challenge(String name, String displayName, ChallengeType type, ChallengeSubtype subType, Material menuMaterial, String[] description) {
+        this(name, displayName, type, subType, new ItemStack(menuMaterial), description);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getSubType() {
-        return subType;
-    }
-
-    public ItemStack getMenuItem() {
-        return menuItem;
-    }
-
-    public List<String> getItemDescription() {
-        return itemDescription;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public boolean hasSubtype() {
-        return subType != null;
+    Challenge(String name, String displayName, ChallengeType type, ChallengeSubtype subType, ItemStack menuItem, String[] description) {
+        this.name = name;
+        this.displayName = displayName;
+        this.description = Arrays.stream(description).toList();
+        this.type = type;
+        this.subType = subType;
+        this.menuItem = menuItem;
+        updateMenuItem();
     }
 }

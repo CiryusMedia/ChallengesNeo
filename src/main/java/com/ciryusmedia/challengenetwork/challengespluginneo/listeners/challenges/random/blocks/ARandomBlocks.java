@@ -1,9 +1,8 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.random.blocks;
 
-import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
+import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.ChallengeOld;
 import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
 import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.AChallengeListener;
-import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ChallengeRandomisation;
 import com.destroystokyo.paper.event.block.BlockDestroyEvent;
 import org.bukkit.ExplosionResult;
 import org.bukkit.Material;
@@ -33,11 +32,11 @@ public abstract class ARandomBlocks extends AChallengeListener implements Listen
         boolean badBisectedHalf = false;
 
         //Shit for blocks with 2 block in volume
-        if (timer.isRunning() && challenge.isEnabled()) {
+        if (timer.isRunning() && challengeOld.isEnabled()) {
             plugin.log(e.getEventName(), Debuglevel.LEVEL_3);
             plugin.log(b.translationKey() + " " + b.getType().translationKey() + " "
                     + b.getLocation().getBlockX() + b.getLocation().getBlockY() + b.getLocation().getBlockZ(), Debuglevel.LEVEL_5);
-            plugin.log(challenge.getDisplayName() + " is " + challenge.isEnabled(), Debuglevel.LEVEL_5);
+            plugin.log(challengeOld.getDisplayName() + " is " + challengeOld.isEnabled(), Debuglevel.LEVEL_5);
             plugin.log("Timer is " + timer.isRunning(), Debuglevel.LEVEL_5);
 
             //Code for the "top" part of bisected blocks
@@ -60,7 +59,7 @@ public abstract class ARandomBlocks extends AChallengeListener implements Listen
                 plugin.log("Block is not bisected", Debuglevel.LEVEL_4);
             }
         } else {
-            plugin.log(challenge.getDisplayName() + " is " + challenge.isEnabled(), Debuglevel.LEVEL_5);
+            plugin.log(challengeOld.getDisplayName() + " is " + challengeOld.isEnabled(), Debuglevel.LEVEL_5);
             plugin.log("Timer is " + timer.isRunning(), Debuglevel.LEVEL_5);
         }
 
@@ -73,7 +72,7 @@ public abstract class ARandomBlocks extends AChallengeListener implements Listen
             plugin.log("Not dropping...", Debuglevel.LEVEL_3);
         }
 
-        if (challenge.isEnabled())
+        if (challengeOld.isEnabled())
             e.setDropItems(false); //Cancel drop of the original itemdrops
     }
 
@@ -82,7 +81,7 @@ public abstract class ARandomBlocks extends AChallengeListener implements Listen
 
         Block block = e.getBlock();
 
-        if (challenge.isEnabled()) {
+        if (challengeOld.isEnabled()) {
             plugin.log(e.getEventName(), Debuglevel.LEVEL_3);
             plugin.log(e.getEventName() + " cancelled", Debuglevel.LEVEL_3);
             e.setCancelled(true);
@@ -101,7 +100,7 @@ public abstract class ARandomBlocks extends AChallengeListener implements Listen
         float y = e.getYield();
         List<Block> bs = e.blockList();
 
-        if (challenge.isEnabled()
+        if (challengeOld.isEnabled()
             && (e.getExplosionResult().equals(ExplosionResult.DESTROY) //Only call the code if the explosion actually destroys blocks (unlike the wind charge)
             || e.getExplosionResult().equals(ExplosionResult.DESTROY_WITH_DECAY))) {
 
@@ -123,7 +122,7 @@ public abstract class ARandomBlocks extends AChallengeListener implements Listen
     public void onBlockDestroy(BlockDestroyEvent e) {
         Block b = e.getBlock();
 
-        if (challenge.isEnabled() && timer.isRunning()) {
+        if (challengeOld.isEnabled() && timer.isRunning()) {
             plugin.log(e.getEventName() + " " + b.getType().name() + " " + b.getType().translationKey() + " "
                     + b.getLocation().getBlockX() + b.getLocation().getBlockY() + b.getLocation().getBlockZ(), Debuglevel.LEVEL_5);
             e.setWillDrop(false); //Cancel drop of the original itemdrops
@@ -138,7 +137,7 @@ public abstract class ARandomBlocks extends AChallengeListener implements Listen
         handleRandomBlocks(block, block.getDrops());
     }
 
-    public ARandomBlocks(Challenge challenge) {
-        super(challenge);
+    public ARandomBlocks(ChallengeOld challengeOld) {
+        super(challengeOld);
     }
 }

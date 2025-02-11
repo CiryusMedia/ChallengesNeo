@@ -1,13 +1,13 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.challenges.random.blocks;
 
-import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
+import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.ChallengeOld;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RandomBlocksFull extends Challenge {
+public class RandomBlocksFull extends ChallengeOld {
 
     public RandomBlocksFull() {
         super("RandomBlocksFull", "Random Blocks Full", "random", "randomBlocks");

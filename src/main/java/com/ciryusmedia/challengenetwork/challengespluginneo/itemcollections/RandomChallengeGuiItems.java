@@ -1,6 +1,6 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.itemcollections;
 
-import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
+import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.ChallengeOld;
 import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ChallengesOutsourcing;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -25,7 +25,7 @@ public interface RandomChallengeGuiItems extends ChallengeGuiItems {
 
     default void updateRandomChallengeGuiItems() {
         ChallengesOutsourcing.checkInitialized();
-        ChallengesOutsourcing.getCHALLENGES().forEach(Challenge::updateMenuItem);
+        ChallengesOutsourcing.getCHALLENGES().forEach(ChallengeOld::updateMenuItem);
     }
 
 }

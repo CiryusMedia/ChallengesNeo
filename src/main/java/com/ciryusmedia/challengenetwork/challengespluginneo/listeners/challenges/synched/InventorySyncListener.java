@@ -1,7 +1,7 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.synched;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
-import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
+import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.ChallengeOld;
 import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
 import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.AChallengeListener;
 import io.papermc.paper.event.player.PlayerInventorySlotChangeEvent;
@@ -16,7 +16,7 @@ public class InventorySyncListener extends AChallengeListener implements Listene
     @EventHandler
     public void onPlayerInventorySlotChange(PlayerInventorySlotChangeEvent e) {
 
-        if (!challenge.isEnabled() || !timer.isRunning()) {
+        if (!challengeOld.isEnabled() || !timer.isRunning()) {
             return;
         }
 
@@ -28,7 +28,7 @@ public class InventorySyncListener extends AChallengeListener implements Listene
         });
     }
 
-    public InventorySyncListener(Challenge challenge) {
-        super(challenge);
+    public InventorySyncListener(ChallengeOld challengeOld) {
+        super(challengeOld);
     }
 }
