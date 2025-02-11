@@ -95,28 +95,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
             getConfig().set("isReset", false);
         }
         if (getConfig().getBoolean("isReset")) {
-            log("Resetting world files", Debuglevel.LEVEL_1);
-            try {
-                File world = new File(Bukkit.getWorldContainer(), "world");
-                File world_nether = new File(Bukkit.getWorldContainer(), "world_nether");
-                File world_the_end = new File(Bukkit.getWorldContainer(), "world_the_end");
-
-                log("Deleting world files", Debuglevel.LEVEL_2);
-                deleteWorldFiles(world);
-                log("Deleting world_nether files", Debuglevel.LEVEL_2);
-                deleteWorldFiles(world_nether);
-                log("Deleting world_the_end files", Debuglevel.LEVEL_2);
-                deleteWorldFiles(world_the_end);
-
-                log("Making world files", Debuglevel.LEVEL_2);
-                makeWorldFiles(world);
-                log("Making world_nether files", Debuglevel.LEVEL_2);
-                makeWorldFiles(world_nether);
-                log("Making world_the_end files", Debuglevel.LEVEL_2);
-                makeWorldFiles(world_the_end);
-            } catch (IOException e) {
-                log(ChatColor.RED + "Could not reset world files! Cause: " + Arrays.toString(e.getStackTrace()), Debuglevel.LEVEL_0);
-            }
+            resetWorld();
             getConfig().set("Time", 0);
             getConfig().set("isReset", false);
             saveConfig();
@@ -129,15 +108,14 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
             throw new RuntimeException(e);
         }
 
-        createRandomBlocksLoottableConfig();
-        createRandomMobsLoottableConfig();
+        createRandomLoottableConfigs();
     }
 
     @Override
     public void onEnable() {
         // Plugin startup logic
         //Messages
-        log("Enabling Ciryus Challenge Plugin version " + getDescription().getVersion(), Debuglevel.LEVEL_0);
+        log("Enabling Ciryus Challenge Plugin " + getDescription().getVersion(), Debuglevel.LEVEL_0);
 
         //Bungeecord messenger channels
         log("Registering plugin channels", Debuglevel.LEVEL_1);
@@ -157,18 +135,12 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
         //Initiate and enable
         log("Initiating objects", Debuglevel.LEVEL_1);
-        log("Items", Debuglevel.LEVEL_2);
         initItems();
-        log("Inventories", Debuglevel.LEVEL_2);
         initinventories();
         log("Enabling plugin logic", Debuglevel.LEVEL_1);
-        log("Events", Debuglevel.LEVEL_2);
         enableEvents();
-        log("Scoreboard objectives", Debuglevel.LEVEL_2);
         initScoreboard();
-        log("Commands", Debuglevel.LEVEL_2);
         enableCommands();
-        log("Tabcomplete", Debuglevel.LEVEL_2);
         enableTabcomplete();
 
         //Config
@@ -235,17 +207,39 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         }.runTaskTimer(ChallengesPluginNeo.getChallengePlugin(), 20, 20);
     }
 
-    private void createRandomBlocksLoottableConfig() {
+    private void resetWorld() {
+        log("Resetting world files", Debuglevel.LEVEL_1);
+        try {
+            File world = new File(Bukkit.getWorldContainer(), "world");
+            File world_nether = new File(Bukkit.getWorldContainer(), "world_nether");
+            File world_the_end = new File(Bukkit.getWorldContainer(), "world_the_end");
+
+            log("Deleting world files", Debuglevel.LEVEL_2);
+            deleteWorldFiles(world);
+            log("Deleting world_nether files", Debuglevel.LEVEL_2);
+            deleteWorldFiles(world_nether);
+            log("Deleting world_the_end files", Debuglevel.LEVEL_2);
+            deleteWorldFiles(world_the_end);
+
+            log("Making world files", Debuglevel.LEVEL_2);
+            makeWorldFiles(world);
+            log("Making world_nether files", Debuglevel.LEVEL_2);
+            makeWorldFiles(world_nether);
+            log("Making world_the_end files", Debuglevel.LEVEL_2);
+            makeWorldFiles(world_the_end);
+        } catch (IOException e) {
+            log(ChatColor.RED + "Could not reset world files! Cause: " + Arrays.toString(e.getStackTrace()), Debuglevel.LEVEL_0);
+        }
+    }
+
+    private void createRandomLoottableConfigs() {
         randomBlocksLoottableConfigFile = new File(getDataFolder(), "randomblocksloottablemap.yml");
+        randomMobsLoottableConfigFile = new File(getDataFolder(), "randommobsloottablemap.yml");
 
         if (!randomBlocksLoottableConfigFile.exists()) {
             randomBlocksLoottableConfigFile.getParentFile().mkdirs();
             saveResource("randomblocksloottablemap.yml", false);
         }
-    }
-
-    private void createRandomMobsLoottableConfig() {
-        randomMobsLoottableConfigFile = new File(getDataFolder(), "randommobsloottablemap.yml");
 
         if (!randomMobsLoottableConfigFile.exists()) {
             randomMobsLoottableConfigFile.getParentFile().mkdirs();
@@ -272,6 +266,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
     //Inits and enablers
     private void enableCommands() {
+        log("Commands", Debuglevel.LEVEL_2);
         getCommand("debug").setExecutor(new DebugCommand());
         getCommand("challenge").setExecutor(new ChallengeCommand());
         getCommand("reset").setExecutor(new ResetCommand());
@@ -281,12 +276,14 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     }
 
     private void enableTabcomplete() {
+        log("Tabcomplete", Debuglevel.LEVEL_2);
         getCommand("timer").setTabCompleter(new TimerComplete());
         getCommand("challenge").setTabCompleter(new ChallengeComplete());
         getCommand("debug").setTabCompleter(new DebugComplete());
     }
 
     private void enableEvents() {
+        log("Events", Debuglevel.LEVEL_2);
         //System
         log("System listeners", Debuglevel.LEVEL_2);
         getServer().getPluginManager().registerEvents(new PlayerJoinLeaveListener(), this);
@@ -314,11 +311,13 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     }
 
     private void initItems() {
+        log("Items", Debuglevel.LEVEL_2);
         GeneralGuiItems.initGeneralGuiItems();
         TimerGuiItems.initTimerGuiItems();
     }
 
     private void initinventories() {
+        log("Inventories", Debuglevel.LEVEL_2);
         timerGUI = new TimerGUI();
         timerColorGui = new TimerColorInvGUI();
         timerRunningColorGUI = new TimerRunningColorGUI();
@@ -345,6 +344,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     }
 
     private void initScoreboard() {
+        log("Scoreboard objectives", Debuglevel.LEVEL_2);
         Bukkit.getScheduler().runTask(this, () -> { //Using a Scheduler to avoid nullpointerexceptions, as the scoreboard manager gets loaded after the world, but this plugin get loaded before the world
             scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
