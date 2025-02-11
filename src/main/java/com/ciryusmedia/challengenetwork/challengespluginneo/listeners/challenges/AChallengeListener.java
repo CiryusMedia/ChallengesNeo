@@ -1,18 +1,18 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
-import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.ChallengeOld;
+import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.system.ChallengeTimer;
 
 public abstract class AChallengeListener {
 
     protected ChallengesPluginNeo plugin;
     protected ChallengeTimer timer;
-    protected ChallengeOld challengeOld;
+    protected Challenge challenge;
 
-    public AChallengeListener(ChallengeOld challengeOld) {
+    public AChallengeListener(Challenge challenge) {
         this.plugin = ChallengesPluginNeo.getChallengePlugin();
         this.timer = this.plugin.getTimer();
-        this.challengeOld = challengeOld;
+        this.challenge = challenge;
     }
 }

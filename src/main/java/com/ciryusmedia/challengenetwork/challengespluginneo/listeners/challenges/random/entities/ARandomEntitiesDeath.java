@@ -1,6 +1,6 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.random.entities;
 
-import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.ChallengeOld;
+import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
@@ -10,7 +10,7 @@ public abstract class ARandomEntitiesDeath extends ARandomEntities {
 
     @EventHandler
     public void onEntityDeath(EntityDeathEvent event) {
-        if (!challengeOld.isEnabled() || !timer.isRunning() || event.getEntityType().equals(EntityType.BLAZE))
+        if (!challenge.enabled || !timer.isRunning() || event.getEntityType().equals(EntityType.BLAZE))
             return;
 
 
@@ -22,7 +22,7 @@ public abstract class ARandomEntitiesDeath extends ARandomEntities {
 
     public abstract void handleRandomEntityDeathLogic(EntityDeathEvent event);
 
-    public ARandomEntitiesDeath(ChallengeOld challengeOld) {
-        super(challengeOld);
+    public ARandomEntitiesDeath(Challenge challenge) {
+        super(challenge);
     }
 }

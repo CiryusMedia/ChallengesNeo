@@ -1,10 +1,9 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.commands;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
-import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.ChallengeOld;
+import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
 import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Texts;
-import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ChallengesOutsourcing;
 import com.ciryusmedia.challengenetwork.challengespluginneo.system.Inventories;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -20,7 +19,6 @@ public class ChallengeCommand implements CommandExecutor, Texts {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
-        ChallengesOutsourcing.checkInitialized();
 
         if (strings.length == 0) {
             plugin.log("Handling challenge command for gui", Debuglevel.LEVEL_3);
@@ -49,26 +47,50 @@ public class ChallengeCommand implements CommandExecutor, Texts {
                     sender.sendMessage(PREFIX + NOT_ENOUGH_ARGUMENTS);
                     break;
                 } else {
-                    ChallengeOld challengeOld = ChallengesOutsourcing.getChallengeFromName(strings[1]);
-                    if (challengeOld == null) {
+                    Challenge challenge = Challenge.getChallengeFromName(strings[1]);
+                    if (challenge == null) {
                         sender.sendMessage(PREFIX + INVALID_CHALLENGE);
                         break;
                     }
                     if (strings.length >= 3) {
-                        handleChallenge(challengeOld, strings[2], sender);
+                        handleChallenge(challenge, strings[2], sender);
                         break;
                     }
-                    if (challengeOld.isEnabled()) {
-                        sender.sendMessage(PREFIX + challengeOld.getDisplayName() + " is " + ChatColor.GREEN + "enabled");
+                    if (challenge.enabled) {
+                        sender.sendMessage(PREFIX + challenge.displayName + " is " + ChatColor.GREEN + "enabled");
                         break;
                     } else {
-                        sender.sendMessage(PREFIX + challengeOld.getDisplayName() + " is " + ChatColor.RED + "disabled");
+                        sender.sendMessage(PREFIX + challenge.displayName + " is " + ChatColor.RED + "disabled");
                         break;
                     }
                 }
         }
 
         return true;
+    }
+
+    public void handleChallenge(Challenge challenge, String argument, CommandSender sender) {
+        boolean arg;
+        if (argument.equalsIgnoreCase("true") || argument.equalsIgnoreCase("on")) {
+            arg = true;
+        } else if (argument.equalsIgnoreCase("false") || argument.equalsIgnoreCase("off")) {
+            arg = false;
+        } else {
+            sender.sendMessage(PREFIX + INVALID_ARGUMENTS);
+            return;
+        }
+        if (arg) {
+            List<Challenge> challengesWithSameSuptybe = Challenge.getChallengesFromSubtype(challenge.subType);
+            if (!challengesWithSameSuptybe.isEmpty()) {
+                challengesWithSameSuptybe.forEach(c -> c.setEnabled(false));
+            }
+        }
+
+        challenge.setEnabled(arg);
+
+        sender.sendMessage(PREFIX + challenge.displayName + " is now " +
+                (challenge.enabled ? ChatColor.GREEN + "enabled" : ChatColor.RED + "disabled")
+        );
     }
 
     public void handleRandomChallenges(String[] args, CommandSender sender) {
@@ -81,44 +103,16 @@ public class ChallengeCommand implements CommandExecutor, Texts {
             } else
                 sender.sendMessage(PREFIX + NOT_PLAYER);
         } else {
-            ChallengeOld challengeOld = ChallengesOutsourcing.getChallengeFromName(args[1]);
-            if (challengeOld == null) {
+            Challenge challenge = Challenge.getChallengeFromName(args[1]);
+            if (challenge == null) {
                 sender.sendMessage(PREFIX + INVALID_CHALLENGE);
             } else if (args.length >= 3) {
-                handleChallenge(challengeOld, args[2], sender);
+                handleChallenge(challenge, args[2], sender);
             } else {
-                if (challengeOld.isEnabled()) {
-                    sender.sendMessage(PREFIX + challengeOld.getDisplayName() + " is " + ChatColor.GREEN + "enabled");
-                } else {
-                    sender.sendMessage(PREFIX + challengeOld.getDisplayName() + " is " + ChatColor.RED + "disabled");
-                }
+                sender.sendMessage(PREFIX + challenge.displayName + " is now " +
+                        (challenge.enabled ? ChatColor.GREEN + "enabled" : ChatColor.RED + "disabled")
+                );
             }
-        }
-    }
-
-    public void handleChallenge(ChallengeOld challengeOld, String argument, CommandSender sender) {
-        boolean arg;
-        if (argument.equalsIgnoreCase("true") || argument.equalsIgnoreCase("on")) {
-            arg = true;
-        } else if (argument.equalsIgnoreCase("false") || argument.equalsIgnoreCase("off")) {
-            arg = false;
-        } else {
-            sender.sendMessage(PREFIX + INVALID_ARGUMENTS);
-            return;
-        }
-        if (challengeOld.hasSubtype() && arg) {
-            List<ChallengeOld> challengesWithSameSuptybe = ChallengesOutsourcing.getChallengesFromSubtype(challengeOld.getSubType());
-            if (!challengesWithSameSuptybe.isEmpty()) {
-                challengesWithSameSuptybe.forEach(c -> c.setEnabled(false));
-            }
-        }
-
-        challengeOld.setEnabled(arg);
-
-        if (challengeOld.isEnabled()) {
-            sender.sendMessage(PREFIX + challengeOld.getDisplayName() + " is now " + ChatColor.GREEN + "enabled");
-        } else {
-            sender.sendMessage(PREFIX + challengeOld.getDisplayName() + " is now " + ChatColor.RED + "disabled");
         }
     }
 }

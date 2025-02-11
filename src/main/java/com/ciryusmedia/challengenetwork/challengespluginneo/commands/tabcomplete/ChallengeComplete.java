@@ -1,8 +1,9 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.commands.tabcomplete;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
+import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
+import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.ChallengeType;
 import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
-import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ChallengesOutsourcing;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -18,7 +19,6 @@ public class ChallengeComplete implements TabCompleter {
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
-        ChallengesOutsourcing.checkInitialized();
         List<String> list = new ArrayList<>();
 
         switch (strings.length) {
@@ -27,10 +27,10 @@ public class ChallengeComplete implements TabCompleter {
                 list.add("sync");
                 break;
             case 2:
-                plugin.log(strings[0] + " " + ChallengesOutsourcing.isValidType(strings[0]), Debuglevel.LEVEL_4);
-                if (ChallengesOutsourcing.isValidType(strings[0])) {
-                    ChallengesOutsourcing.getChallengesFromType(strings[0]).forEach(challenge -> {
-                        list.add(challenge.getName());
+                plugin.log(strings[0] + " " + ChallengeType.isValidType(strings[0]), Debuglevel.LEVEL_4);
+                if (ChallengeType.isValidType(strings[0])) {
+                    Challenge.getChallengesFromType(strings[0]).forEach(challenge -> {
+                        list.add(challenge.name);
                     });
                 }
                 break;

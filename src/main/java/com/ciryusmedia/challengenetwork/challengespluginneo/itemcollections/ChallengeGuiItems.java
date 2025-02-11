@@ -1,6 +1,6 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.itemcollections;
 
-import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ChallengesOutsourcing;
+import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -18,7 +18,7 @@ public interface ChallengeGuiItems extends GeneralGuiItems {
     //Challenges
     ItemStack randomChallenges = new ItemStack(Material.LIGHT_WEIGHTED_PRESSURE_PLATE);
 
-    ItemStack inventorySync = ChallengesOutsourcing.INVENTORY_SYNC.getMenuItem();
+    ItemStack inventorySync = Challenge.INVENTORY_SYNC.menuItem;
 
 
     Material[] randomChallengeMaterials = new Material[Arrays.stream(Material.values()).filter(Material::isItem).toArray().length];

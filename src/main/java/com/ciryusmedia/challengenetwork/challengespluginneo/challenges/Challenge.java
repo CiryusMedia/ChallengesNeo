@@ -7,10 +7,11 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public enum Challenge {
+public enum Challenge { //TODO doesn't yet work
 
     //<editor-fold desc="Random Challenges" defaultstate="collapsed">
     RANDOM_BLOCKS_FULL(
@@ -54,12 +55,14 @@ public enum Challenge {
     //</editor-fold>
 
     private final ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
+    public static final List<Challenge> challenges = Arrays.stream(Challenge.values()).toList();
+
     public final String name;
     public final String displayName;
-    public final List<String> description;
+    public List<String> description;
     public final ChallengeType type;
     public final ChallengeSubtype subType;
-    public ItemStack menuItem;
+    public final ItemStack menuItem;
     public List<String> itemDescription;
     public boolean enabled = false;
 
@@ -88,7 +91,43 @@ public enum Challenge {
         updateMenuItem();
     }
 
-    private Challenge(String name, String displayName, ChallengeType type, ChallengeSubtype subType, Material menuMaterial, String[] description) {
+    public static Challenge getChallengeFromName(String name) {
+        if (challenges.stream().anyMatch(challenge -> challenge.name.equalsIgnoreCase(name))) {
+            return challenges.stream().filter(challenge -> challenge.name.equalsIgnoreCase(name)).findFirst().get();
+        } else {
+            return null;
+        }
+    }
+
+    public static List<Challenge> getChallengesFromType(String type) {
+        return getChallengesFromType(ChallengeType.valueOf(type));
+    }
+
+    public static List<Challenge> getChallengesFromType(ChallengeType type) {
+        List<Challenge> validChallenges = new ArrayList<>();
+
+        challenges.forEach(c -> {
+            if (c.type.equals(type)) validChallenges.add(c);
+        });
+
+        return validChallenges;
+    }
+
+    public static List<Challenge> getChallengesFromSubtype(String subtype) {
+        return getChallengesFromSubtype(ChallengeSubtype.valueOf(subtype.toUpperCase()));
+    }
+
+    public static List<Challenge> getChallengesFromSubtype(ChallengeSubtype subtype) {
+        List<Challenge> challenges = new ArrayList<>();
+
+        Arrays.stream(values()).toList().forEach(c -> {
+            if (c.subType.name.equalsIgnoreCase(subtype.name)) challenges.add(c);
+        });
+
+        return challenges;
+    }
+
+    Challenge(String name, String displayName, ChallengeType type, ChallengeSubtype subType, Material menuMaterial, String[] description) {
         this(name, displayName, type, subType, new ItemStack(menuMaterial), description);
     }
 

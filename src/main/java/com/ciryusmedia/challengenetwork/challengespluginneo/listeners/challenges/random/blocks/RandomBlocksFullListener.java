@@ -1,6 +1,6 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.random.blocks;
 
-import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.ChallengeOld;
+import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
 import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ChallengeRandomisation;
 import org.bukkit.Location;
@@ -15,7 +15,7 @@ public class RandomBlocksFullListener extends ARandomBlocks {
 
     @Override
     public void handleRandomBlocks(Block block, Collection<ItemStack> drops) {
-        if (!challengeOld.isEnabled() || !timer.isRunning()) {
+        if (!challenge.enabled || !timer.isRunning()) {
             return;
         }
 
@@ -40,8 +40,8 @@ public class RandomBlocksFullListener extends ARandomBlocks {
         }
     }
 
-    public RandomBlocksFullListener(ChallengeOld challengeOld) {
-        super(challengeOld);
+    public RandomBlocksFullListener(Challenge challenge) {
+        super(challenge);
     }
 
 }

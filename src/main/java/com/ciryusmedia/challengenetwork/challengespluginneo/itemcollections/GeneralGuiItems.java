@@ -1,8 +1,6 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.itemcollections;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
-import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ChallengesOutsourcing;
-import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ColorOutsourcing;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;

@@ -1,5 +1,6 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo;
 
+import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.commands.*;
 import com.ciryusmedia.challengenetwork.challengespluginneo.commands.tabcomplete.ChallengeComplete;
 import com.ciryusmedia.challengenetwork.challengespluginneo.commands.tabcomplete.DebugComplete;
@@ -22,7 +23,6 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.gui.timer.
 import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.system.BlockBreakListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.system.ChallengeEndListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.system.PlayerJoinLeaveListener;
-import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ChallengesOutsourcing;
 import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ColorOutsourcing;
 import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ChallengeRandomisation;
 import com.ciryusmedia.challengenetwork.challengespluginneo.scoreboards.HealthScoreboard;
@@ -129,7 +129,6 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         timer = new ChallengeTimer(false, 0);
         timer.setTime(getConfig().getInt("Time"));
 
-        ChallengesOutsourcing.initChallenges();
         ColorOutsourcing.initColorOutsourcing();
         ChallengeRandomisation.initRandomisation();
 
@@ -302,12 +301,12 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
         //Challenges
         log("Challenge listeners", Debuglevel.LEVEL_2);
-        getServer().getPluginManager().registerEvents(new RandomBlocksLoottableListener(ChallengesOutsourcing.RANDOM_BLOCKS_LOOTTABLE), this);
-        getServer().getPluginManager().registerEvents(new RandomBlocksFullListener(ChallengesOutsourcing.RANDOM_BLOCKS_FULL), this);
-        getServer().getPluginManager().registerEvents(new RandomMobsLoottableListener(ChallengesOutsourcing.RANDOM_MOBS_LOOTTABLE), this);
-        getServer().getPluginManager().registerEvents(new RandomMobsFullListener(ChallengesOutsourcing.RANDOM_MOBS_FULL), this);
+        getServer().getPluginManager().registerEvents(new RandomBlocksLoottableListener(Challenge.RANDOM_BLOCKS_LOOTTABLE), this);
+        getServer().getPluginManager().registerEvents(new RandomBlocksFullListener(Challenge.RANDOM_BLOCKS_FULL), this);
+        getServer().getPluginManager().registerEvents(new RandomMobsLoottableListener(Challenge.RANDOM_MOBS_LOOTTABLE), this);
+        getServer().getPluginManager().registerEvents(new RandomMobsFullListener(Challenge.RANDOM_MOBS_FULL), this);
 
-        getServer().getPluginManager().registerEvents(new InventorySyncListener(ChallengesOutsourcing.INVENTORY_SYNC), this);
+        getServer().getPluginManager().registerEvents(new InventorySyncListener(Challenge.INVENTORY_SYNC), this);
     }
 
     private void initItems() {

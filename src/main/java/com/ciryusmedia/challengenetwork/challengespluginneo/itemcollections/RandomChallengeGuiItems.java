@@ -1,16 +1,17 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.itemcollections;
 
-import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.ChallengeOld;
-import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ChallengesOutsourcing;
+import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Arrays;
+
 public interface RandomChallengeGuiItems extends ChallengeGuiItems {
 
-    ItemStack randomBlocksLoottable = ChallengesOutsourcing.RANDOM_BLOCKS_LOOTTABLE.getMenuItem();
-    ItemStack randomBlocksFull = ChallengesOutsourcing.RANDOM_BLOCKS_FULL.getMenuItem();
-    ItemStack randomMobsLoottable = ChallengesOutsourcing.RANDOM_MOBS_LOOTTABLE.getMenuItem();
-    ItemStack randomMobsFull = ChallengesOutsourcing.RANDOM_MOBS_FULL.getMenuItem();
+    ItemStack randomBlocksLoottable = Challenge.RANDOM_BLOCKS_LOOTTABLE.menuItem;
+    ItemStack randomBlocksFull = Challenge.RANDOM_BLOCKS_FULL.menuItem;
+    ItemStack randomMobsLoottable = Challenge.RANDOM_MOBS_LOOTTABLE.menuItem;
+    ItemStack randomMobsFull = Challenge.RANDOM_MOBS_FULL.menuItem;
 
     default void initRandomChallengeGuiItems() {
 
@@ -24,8 +25,7 @@ public interface RandomChallengeGuiItems extends ChallengeGuiItems {
     }
 
     default void updateRandomChallengeGuiItems() {
-        ChallengesOutsourcing.checkInitialized();
-        ChallengesOutsourcing.getCHALLENGES().forEach(ChallengeOld::updateMenuItem);
+        Challenge.challenges.stream().forEach(Challenge::updateMenuItem);
     }
 
 }

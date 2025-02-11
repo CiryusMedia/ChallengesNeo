@@ -1,8 +1,8 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.listeners.gui.challenges.random;
 
+import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.itemcollections.RandomChallengeGuiItems;
 import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.gui.AGUIListener;
-import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ChallengesOutsourcing;
 import com.ciryusmedia.challengenetwork.challengespluginneo.system.Inventories;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -44,10 +44,10 @@ public class RandomChallengesGUI extends AGUIListener implements Listener, Rando
 
         updateRandomChallengeGuiItems();
 
-        inv.setItem(10, ChallengesOutsourcing.RANDOM_BLOCKS_LOOTTABLE.getMenuItem());
-        inv.setItem(11, ChallengesOutsourcing.RANDOM_BLOCKS_FULL.getMenuItem());
-        inv.setItem(15, ChallengesOutsourcing.RANDOM_MOBS_LOOTTABLE.getMenuItem());
-        inv.setItem(16, ChallengesOutsourcing.RANDOM_MOBS_FULL.getMenuItem());
+        inv.setItem(10, Challenge.RANDOM_BLOCKS_LOOTTABLE.menuItem);
+        inv.setItem(11, Challenge.RANDOM_BLOCKS_FULL.menuItem);
+        inv.setItem(15, Challenge.RANDOM_MOBS_LOOTTABLE.menuItem);
+        inv.setItem(16, Challenge.RANDOM_MOBS_FULL.menuItem);
         inv.setItem(inv.getSize() - 1,  exitItem);
     }
 

@@ -1,6 +1,6 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.random.entities;
 
-import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.ChallengeOld;
+import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
 import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ChallengeRandomisation;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -29,7 +29,7 @@ public class RandomMobsFullListener extends ARandomEntitiesDeath {
         }
     }
 
-    public RandomMobsFullListener(ChallengeOld challengeOld) {
-        super(challengeOld);
+    public RandomMobsFullListener(Challenge challenge) {
+        super(challenge);
     }
 }

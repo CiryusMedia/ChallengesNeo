@@ -1,6 +1,6 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.random.entities;
 
-import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.ChallengeOld;
+import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
 import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ChallengeRandomisation;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -23,7 +23,7 @@ public class RandomMobsLoottableListener extends ARandomEntitiesDeath {
         plugin.log(event.getDrops().toString(), Debuglevel.LEVEL_4);
     }
 
-    public RandomMobsLoottableListener(ChallengeOld challengeOld) {
-        super(challengeOld);
+    public RandomMobsLoottableListener(Challenge challenge) {
+        super(challenge);
     }
 }
