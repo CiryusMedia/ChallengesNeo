@@ -2,8 +2,8 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.commands;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
-import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
-import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Texts;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevelOld;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.Texts;
 import com.ciryusmedia.challengenetwork.challengespluginneo.system.Inventories;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -21,7 +21,7 @@ public class ChallengeCommand implements CommandExecutor, Texts {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
 
         if (strings.length == 0) {
-            plugin.log("Handling challenge command for gui", Debuglevel.LEVEL_3);
+            plugin.log("Handling challenge command for gui", DebugLevelOld.LEVEL_3);
             if (sender instanceof Player player) {
                 if (player.hasPermission("challenge.challenges.view")) {
                     ChallengesPluginNeo.challengeGUI.updateInventory();

@@ -2,7 +2,7 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenge
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
-import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevelOld;
 import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.AChallengeListener;
 import io.papermc.paper.event.player.PlayerInventorySlotChangeEvent;
 import org.bukkit.Bukkit;
@@ -20,7 +20,7 @@ public class InventorySyncListener extends AChallengeListener implements Listene
             return;
         }
 
-        instance.log(e.getEventName(), Debuglevel.LEVEL_4);
+        instance.log(e.getEventName(), DebugLevelOld.LEVEL_4);
 
         Bukkit.getOnlinePlayers().forEach(player -> {
             player.getInventory().setContents(e.getPlayer().getInventory().getContents());

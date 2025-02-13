@@ -1,7 +1,7 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.listeners.system;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
-import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevelOld;
 import com.ciryusmedia.challengenetwork.challengespluginneo.system.ChallengeTimer;
 import com.destroystokyo.paper.event.block.BlockDestroyEvent;
 import org.bukkit.event.EventHandler;
@@ -18,7 +18,7 @@ public class BlockBreakListener implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {
         if (!timer.isRunning()) {
-            plugin.log("Cancelling block breaking", Debuglevel.LEVEL_3);
+            plugin.log("Cancelling block breaking", DebugLevelOld.LEVEL_3);
             e.setCancelled(true);
         }
     }
@@ -26,7 +26,7 @@ public class BlockBreakListener implements Listener {
     @EventHandler
     public void onLeavesDecay(LeavesDecayEvent e) {
         if (!timer.isRunning()) {
-            plugin.log("Cancelling leaves decaying", Debuglevel.LEVEL_3);
+            plugin.log("Cancelling leaves decaying", DebugLevelOld.LEVEL_3);
             e.setCancelled(true);
         }
     }
@@ -34,7 +34,7 @@ public class BlockBreakListener implements Listener {
     @EventHandler
     public void onEntityExplode(EntityExplodeEvent e) {
         if (!timer.isRunning()) {
-            plugin.log("Cancelling blocks exploding", Debuglevel.LEVEL_3);
+            plugin.log("Cancelling blocks exploding", DebugLevelOld.LEVEL_3);
             e.setYield(0);
         }
     }
@@ -42,7 +42,7 @@ public class BlockBreakListener implements Listener {
     @EventHandler
     public void onBlockDestroy(BlockDestroyEvent e) {
         if (!timer.isRunning()) {
-            plugin.log("Cancelling block being destroyed", Debuglevel.LEVEL_3);
+            plugin.log("Cancelling block being destroyed", DebugLevelOld.LEVEL_3);
             e.setCancelled(true);
         }
     }

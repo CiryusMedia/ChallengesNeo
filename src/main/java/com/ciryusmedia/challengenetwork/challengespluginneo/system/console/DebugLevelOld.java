@@ -1,8 +1,8 @@
-package com.ciryusmedia.challengenetwork.challengespluginneo.interfaces;
+package com.ciryusmedia.challengenetwork.challengespluginneo.system.console;
 
 import org.bukkit.ChatColor;
 
-public interface Debuglevel {
+public interface DebugLevelOld {
     int LEVEL_0 = 0; //None
     int LEVEL_1 = 1; //Basic (Gold)
     int LEVEL_2 = 2; //A little bit of extra info on startup (Yellow)

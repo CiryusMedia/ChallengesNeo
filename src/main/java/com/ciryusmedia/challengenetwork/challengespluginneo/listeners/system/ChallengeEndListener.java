@@ -2,7 +2,7 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.listeners.system;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
-import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevelOld;
 import com.ciryusmedia.challengenetwork.challengespluginneo.system.ChallengeTimer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -14,7 +14,6 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @SuppressWarnings("DataFlowIssue")
@@ -81,9 +80,9 @@ public class ChallengeEndListener implements Listener {
         Challenge.challenges.forEach(challenge -> {
             if (challenge.enabled){
                 usedChallengesList.add(challenge.displayName);
-                plugin.log("Active challenge " + challenge.displayName, Debuglevel.LEVEL_3);
+                plugin.log("Active challenge " + challenge.displayName, DebugLevelOld.LEVEL_3);
             }
-            plugin.log("Active challenges: " + usedChallengesList, Debuglevel.LEVEL_3);
+            plugin.log("Active challenges: " + usedChallengesList, DebugLevelOld.LEVEL_3);
         });
 
         for (int i = 0; i < usedChallengesList.toArray().length; i++) {

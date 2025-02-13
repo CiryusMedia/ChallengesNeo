@@ -1,4 +1,4 @@
-package com.ciryusmedia.challengenetwork.challengespluginneo.interfaces;
+package com.ciryusmedia.challengenetwork.challengespluginneo.system.console;
 
 import org.bukkit.ChatColor;
 

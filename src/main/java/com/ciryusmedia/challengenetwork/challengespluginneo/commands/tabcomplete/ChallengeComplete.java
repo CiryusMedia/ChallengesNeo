@@ -3,7 +3,7 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.commands.tabcomplet
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.ChallengeType;
-import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevelOld;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -27,7 +27,7 @@ public class ChallengeComplete implements TabCompleter {
                 list.add("sync");
                 break;
             case 2:
-                plugin.log(strings[0] + " " + ChallengeType.isValidType(strings[0]), Debuglevel.LEVEL_4);
+                plugin.log(strings[0] + " " + ChallengeType.isValidType(strings[0]), DebugLevelOld.LEVEL_4);
                 if (ChallengeType.isValidType(strings[0])) {
                     Challenge.getChallengesFromType(strings[0]).forEach(challenge -> {
                         list.add(challenge.name);

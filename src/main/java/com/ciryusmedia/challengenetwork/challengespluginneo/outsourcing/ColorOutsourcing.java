@@ -2,9 +2,8 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.exceptions.DataNotInitializedException;
-import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevelOld;
 import org.bukkit.Material;
-import org.bukkit.plugin.Plugin;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -67,7 +66,7 @@ public class ColorOutsourcing {
     }
 
     public static void initColorOutsourcing() {
-        plugin.log("Initiating clo", Debuglevel.LEVEL_2);
+        plugin.log("Initiating clo", DebugLevelOld.LEVEL_2);
         initChatColorToItemColorMap();
         isInitialized = true;
     }

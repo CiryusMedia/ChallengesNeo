@@ -1,7 +1,7 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.random.blocks;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
-import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevelOld;
 import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ChallengeRandomisation;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -26,17 +26,17 @@ public class RandomBlocksFullListener extends ARandomBlocks {
             Location location = block.getLocation();
             World world = block.getWorld();
 
-            plugin.log("Random dropping...", Debuglevel.LEVEL_3);
-            plugin.log(block.getType().name(), Debuglevel.LEVEL_4);
-            plugin.log(randomItem.getType().name(), Debuglevel.LEVEL_4);
-            plugin.log(location.toString(), Debuglevel.LEVEL_4);
-            plugin.log(world.toString(), Debuglevel.LEVEL_4);
+            plugin.log("Random dropping...", DebugLevelOld.LEVEL_3);
+            plugin.log(block.getType().name(), DebugLevelOld.LEVEL_4);
+            plugin.log(randomItem.getType().name(), DebugLevelOld.LEVEL_4);
+            plugin.log(location.toString(), DebugLevelOld.LEVEL_4);
+            plugin.log(world.toString(), DebugLevelOld.LEVEL_4);
 
             Item droppedItem = world.dropItemNaturally(location, randomItem);
 
-            plugin.log(droppedItem.getItemStack().getType().name(), Debuglevel.LEVEL_4);
-            plugin.log(droppedItem.getLocation().toString(), Debuglevel.LEVEL_4);
-            plugin.log(block.getDrops().toString(), Debuglevel.LEVEL_4);
+            plugin.log(droppedItem.getItemStack().getType().name(), DebugLevelOld.LEVEL_4);
+            plugin.log(droppedItem.getLocation().toString(), DebugLevelOld.LEVEL_4);
+            plugin.log(block.getDrops().toString(), DebugLevelOld.LEVEL_4);
         }
     }
 

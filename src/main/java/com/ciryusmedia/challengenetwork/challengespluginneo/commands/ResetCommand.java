@@ -1,7 +1,7 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.commands;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
-import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Debuglevel;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevelOld;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -16,7 +16,7 @@ public class ResetCommand implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         //Kicking everyone
         Bukkit.getOnlinePlayers().forEach(player -> player.kickPlayer("Server Reset"));
-        plugin.log(ChatColor.RED + "Resetting Server", Debuglevel.LEVEL_0);
+        plugin.log(ChatColor.RED + "Resetting Server", DebugLevelOld.LEVEL_0);
 
         //Setting timer
         plugin.getTimer().setRunning(false);

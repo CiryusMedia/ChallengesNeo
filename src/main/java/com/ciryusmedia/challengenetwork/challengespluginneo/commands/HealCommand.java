@@ -1,6 +1,6 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.commands;
 
-import com.ciryusmedia.challengenetwork.challengespluginneo.interfaces.Texts;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.Texts;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
