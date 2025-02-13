@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public enum Challenge { //TODO doesn't yet work
+public enum Challenge {
 
     //<editor-fold desc="Random Challenges" defaultstate="collapsed">
     RANDOM_BLOCKS_FULL(
@@ -59,7 +59,7 @@ public enum Challenge { //TODO doesn't yet work
 
     public final String name;
     public final String displayName;
-    public List<String> description;
+    public final List<String> description;
     public final ChallengeType type;
     public final ChallengeSubtype subType;
     public final ItemStack menuItem;
@@ -67,10 +67,8 @@ public enum Challenge { //TODO doesn't yet work
     public boolean enabled = false;
 
     public void updateMenuItem() {
-
-
         ItemMeta itemMeta = menuItem.getItemMeta();
-        List<String> lore = description;
+        List<String> lore = new ArrayList<>(description);
 
         itemMeta.setEnchantmentGlintOverride(enabled);
 
