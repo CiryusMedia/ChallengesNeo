@@ -8,30 +8,38 @@ public class ChallengeDebugger {
 
     private static final ChallengeDebugger DEBUGGER = new ChallengeDebugger();
 
-    public String messagePrefix = "";
-    private int debugLevel = 0;
+    private static String messagePrefix = "";
+    private static int debugLevel = 0;
 
-    public void log(String message, int messageDebuglevel) {
-        ChatColor color = DebugLevelOld.debugColor(messageDebuglevel);
-        if (messageDebuglevel <= debugLevel) {
+    public void log(String message, int level) {
+        log(message, DebugLevel.getDebugLevel(level));
+    }
+
+    public void log(String message, DebugLevel level) {
+        ChatColor color = level.color;
+        if (level.level <= debugLevel) {
             getServer().getConsoleSender().sendMessage(messagePrefix + color + message);
         }
     }
 
     /**
      * Sets the message prefix of debug messages to your chosen prefix
-     * @param messagePrefix A message prefix
+     * @param prefix A message prefix
      */
-    public void setMessagePrefix(String messagePrefix) {
-        this.messagePrefix = messagePrefix;
+    public void setMessagePrefix(String prefix) {
+        messagePrefix = prefix;
     }
 
     /**
      * Sets the level of debug, how "deep" the debug messages should go
-     * @param debugLevel DebugLevel
+     * @param level DebugLevel
      */
-    public void setDebugLevel(int debugLevel) {
-        this.debugLevel = debugLevel;
+    public void setDebugLevel(int level) {
+        debugLevel = level;
+    }
+
+    public void setDebugLevel(DebugLevel level) {
+        debugLevel = level.level;
     }
 
     public String getMessagePrefix() {

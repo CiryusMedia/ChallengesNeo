@@ -5,6 +5,8 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.commands.*;
 import com.ciryusmedia.challengenetwork.challengespluginneo.commands.tabcomplete.ChallengeComplete;
 import com.ciryusmedia.challengenetwork.challengespluginneo.commands.tabcomplete.DebugComplete;
 import com.ciryusmedia.challengenetwork.challengespluginneo.commands.tabcomplete.TimerComplete;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.ChallengeDebugger;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevel;
 import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevelOld;
 import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.Texts;
 import com.ciryusmedia.challengenetwork.challengespluginneo.itemcollections.GeneralGuiItems;
@@ -27,6 +29,7 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ColorOut
 import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ChallengeRandomisation;
 import com.ciryusmedia.challengenetwork.challengespluginneo.scoreboards.HealthScoreboard;
 import com.ciryusmedia.challengenetwork.challengespluginneo.system.ChallengeTimer;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.fileloaders.WorldLoader;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 import org.bukkit.Bukkit;
@@ -41,9 +44,9 @@ import java.io.File;
 import java.io.IOException;
 
 @SuppressWarnings({"DataFlowIssue", "deprecation"})
-public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessageListener {
+public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessageListener, WorldLoader {
 
-    public static int debugLevel;
+    private static final ChallengeDebugger DEBUGGER = ChallengeDebugger.getDebugger();
 
     private static ChallengesPluginNeo instance;
 
@@ -69,7 +72,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     //Startup and shutdown
     @Override
     public void onLoad() {
-        log("Loading Ciryus Challenge Plugin version " + getDescription().getVersion(), DebugLevelOld.LEVEL_0);
+        DEBUGGER.log("Loading Ciryus Challenge Plugin version " + getDescription().getVersion(), DebugLevel.LEVEL_0);
 
         instance = this;
 
@@ -79,10 +82,10 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         saveConfig();
         if (!getConfig().contains("DebugLevel") || getConfig().getInt("DebugLevel") < 0) {
             getConfig().set("DebugLevel", DebugLevelOld.LEVEL_1);
-            log("Debuglevel not found, setting to \"LEVEL_1\"", DebugLevelOld.LEVEL_1);
+            DEBUGGER.log("Debuglevel not found, setting to \"LEVEL_1\"", DebugLevel.LEVEL_1);
         }
-        debugLevel = getConfig().getInt("DebugLevel");
-        log("Debuglevel: " + debugLevel, DebugLevelOld.LEVEL_1);
+        DEBUGGER.setDebugLevel(getConfig().getInt("DebugLevel"));
+        DEBUGGER.log("Debuglevel: " + DEBUGGER.getDebugLevel(), DebugLevel.LEVEL_1);
         saveConfig();
         reloadConfig();
 
@@ -99,7 +102,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
         try {
             String dataFolderPath = getDataFolder().getCanonicalPath();
-            log(dataFolderPath, DebugLevelOld.LEVEL_5);
+            DEBUGGER.log(dataFolderPath, DebugLevel.LEVEL_5);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -111,17 +114,17 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     public void onEnable() {
         // Plugin startup logic
         //Messages
-        log("Enabling Ciryus Challenge Plugin " + getDescription().getVersion(), DebugLevelOld.LEVEL_0);
+        DEBUGGER.log("Enabling Ciryus Challenge Plugin " + getDescription().getVersion(), DebugLevel.LEVEL_0);
 
         //Bungeecord messenger channels
-        log("Registering plugin channels", DebugLevelOld.LEVEL_1);
+        DEBUGGER.log("Registering plugin channels", DebugLevel.LEVEL_1);
 
-        log("Incoming custom:network", DebugLevelOld.LEVEL_2);
+        DEBUGGER.log("Incoming custom:network", DebugLevel.LEVEL_2);
         getServer().getMessenger().registerIncomingPluginChannel(this, "custom:network", this);
 
         //Challenge
-        log("Challenge system", DebugLevelOld.LEVEL_1);
-        log("Timer", DebugLevelOld.LEVEL_2);
+        DEBUGGER.log("Challenge system", DebugLevel.LEVEL_1);
+        DEBUGGER.log("Timer", DebugLevel.LEVEL_2);
         timer = new ChallengeTimer(false, 0);
         timer.setTime(getConfig().getInt("Time"));
 
@@ -129,27 +132,27 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         ChallengeRandomisation.initRandomisation();
 
         //Initiate and enable
-        log("Initiating objects", DebugLevelOld.LEVEL_1);
+        DEBUGGER.log("Initiating objects", DebugLevel.LEVEL_1);
         initItems();
         initinventories();
-        log("Enabling plugin logic", DebugLevelOld.LEVEL_1);
+        DEBUGGER.log("Enabling plugin logic", DebugLevel.LEVEL_1);
         enableEvents();
         initScoreboard();
         enableCommands();
         enableTabcomplete();
 
         //Config
-        log("Loading default config", DebugLevelOld.LEVEL_2);
+        DEBUGGER.log("Loading default config", DebugLevel.LEVEL_2);
         getConfig().options().copyDefaults();
         saveDefaultConfig();
 
         //Activating tick
-        log("Starting tick", DebugLevelOld.LEVEL_1);
+        DEBUGGER.log("Starting tick", DebugLevel.LEVEL_1);
         tick();
 
         //Finished loading
-        log(ChatColor.RESET + Texts.STARTUP_LOGO, DebugLevelOld.LEVEL_0);
-        log("Challenge Plugin Loaded and Enabled", DebugLevelOld.LEVEL_0);
+        DEBUGGER.log(ChatColor.RESET + Texts.STARTUP_LOGO, DebugLevel.LEVEL_0);
+        DEBUGGER.log("Challenge Plugin Loaded and Enabled", DebugLevel.LEVEL_0);
 
         //Test restarts
 //        getRandomBlocksLoottableConfigFile().delete();
@@ -189,7 +192,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
             @Override
             public void run() {
                 reloadConfig();
-                debugLevel = getConfig().getInt("DebugLevel");
+                DEBUGGER.setDebugLevel(getConfig().getInt("DebugLevel"));
                 updateInventories();
             }
         }.runTaskTimer(ChallengesPluginNeo.getChallengePlugin(), 20, 20);
@@ -212,7 +215,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
     //Inits and enablers
     private void enableCommands() {
-        log("Commands", DebugLevelOld.LEVEL_2);
+        DEBUGGER.log("Commands", DebugLevel.LEVEL_2);
         getCommand("debug").setExecutor(new DebugCommand());
         getCommand("challenge").setExecutor(new ChallengeCommand());
         getCommand("reset").setExecutor(new ResetCommand());
@@ -222,22 +225,22 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     }
 
     private void enableTabcomplete() {
-        log("Tabcomplete", DebugLevelOld.LEVEL_2);
+        DEBUGGER.log("Tabcomplete", DebugLevel.LEVEL_2);
         getCommand("timer").setTabCompleter(new TimerComplete());
         getCommand("challenge").setTabCompleter(new ChallengeComplete());
         getCommand("debug").setTabCompleter(new DebugComplete());
     }
 
     private void enableEvents() {
-        log("Events", DebugLevelOld.LEVEL_2);
+        DEBUGGER.log("Events", DebugLevel.LEVEL_2);
         //System
-        log("System listeners", DebugLevelOld.LEVEL_2);
+        DEBUGGER.log("System listeners", DebugLevel.LEVEL_2);
         getServer().getPluginManager().registerEvents(new PlayerJoinLeaveListener(), this);
         getServer().getPluginManager().registerEvents(new ChallengeEndListener(), this);
         getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
 
         //GUI
-        log("GUI listeners", DebugLevelOld.LEVEL_2);
+        DEBUGGER.log("GUI listeners", DebugLevel.LEVEL_2);
         getServer().getPluginManager().registerEvents(timerGUI, this);
         getServer().getPluginManager().registerEvents(timerColorGui, this);
         getServer().getPluginManager().registerEvents(timerRunningColorGUI, this);
@@ -247,7 +250,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         getServer().getPluginManager().registerEvents(randomChallengesGUI, this);
 
         //Challenges
-        log("Challenge listeners", DebugLevelOld.LEVEL_2);
+        DEBUGGER.log("Challenge listeners", DebugLevel.LEVEL_2);
         getServer().getPluginManager().registerEvents(new RandomBlocksLoottableListener(Challenge.RANDOM_BLOCKS_LOOTTABLE), this);
         getServer().getPluginManager().registerEvents(new RandomBlocksFullListener(Challenge.RANDOM_BLOCKS_FULL), this);
         getServer().getPluginManager().registerEvents(new RandomMobsLoottableListener(Challenge.RANDOM_MOBS_LOOTTABLE), this);
@@ -257,13 +260,13 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     }
 
     private void initItems() {
-        log("Items", DebugLevelOld.LEVEL_2);
+        DEBUGGER.log("Items", DebugLevel.LEVEL_2);
         GeneralGuiItems.initGeneralGuiItems();
         TimerGuiItems.initTimerGuiItems();
     }
 
     private void initinventories() {
-        log("Inventories", DebugLevelOld.LEVEL_2);
+        DEBUGGER.log("Inventories", DebugLevel.LEVEL_2);
         timerGUI = new TimerGUI();
         timerColorGui = new TimerColorInvGUI();
         timerRunningColorGUI = new TimerRunningColorGUI();
@@ -290,7 +293,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     }
 
     private void initScoreboard() {
-        log("Scoreboard objectives", DebugLevelOld.LEVEL_2);
+        DEBUGGER.log("Scoreboard objectives", DebugLevel.LEVEL_2);
         Bukkit.getScheduler().runTask(this, () -> { //Using a Scheduler to avoid nullpointerexceptions, as the scoreboard manager gets loaded after the world, but this plugin get loaded before the world
             scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
