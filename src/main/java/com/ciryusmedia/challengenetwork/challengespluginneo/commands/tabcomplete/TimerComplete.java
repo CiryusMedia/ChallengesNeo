@@ -30,7 +30,7 @@ public class TimerComplete implements TabCompleter {
             args.add("stop");
 
             return args;
-        } else if(strings.length == 2) {
+        } else if (strings.length == 2) {
             List<String> args = new ArrayList<>();
             if (strings[0].equalsIgnoreCase("display")) {
                 args.add("paused");

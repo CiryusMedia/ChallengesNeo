@@ -1,7 +1,7 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.random.entities;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
-import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevelOld;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevel;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -15,7 +15,7 @@ public abstract class ARandomEntitiesDeath extends ARandomEntities {
 
 
 
-        plugin.log(event.getEventName(), DebugLevelOld.LEVEL_3);
+        DEBUGGER.log(event.getEventName(), DebugLevel.LEVEL_3);
 
         handleRandomEntityDeathLogic(event);
     }

@@ -17,13 +17,6 @@ public interface WorldLoader {
     ChallengeDebugger DEBUGGER = ChallengeDebugger.getDebugger();
 
     //Reset Stuff
-    default void deleteWorldFiles(File worldFolder) throws IOException {
-        Files.walk(worldFolder.toPath())
-                .sorted(Comparator.reverseOrder())
-                .map(Path::toFile)
-                .forEach(File::delete);
-    }
-
     default void resetWorld() {
         DEBUGGER.log("Resetting world files", DebugLevel.LEVEL_1);
         try {
@@ -49,6 +42,13 @@ public interface WorldLoader {
         }
     }
 
+    default void deleteWorldFiles(File worldFolder) throws IOException {
+        Files.walk(worldFolder.toPath())
+                .sorted(Comparator.reverseOrder())
+                .map(Path::toFile)
+                .forEach(File::delete);
+    }
+
     default void makeWorldFiles(File worldFolder) {
         worldFolder.mkdirs();
         new File(worldFolder, "data").mkdirs();
@@ -57,5 +57,4 @@ public interface WorldLoader {
         new File(worldFolder, "poi").mkdirs();
         new File(worldFolder, "region").mkdirs();
     }
-
 }

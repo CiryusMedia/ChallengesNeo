@@ -1,7 +1,8 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.commands;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
-import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevelOld;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.ChallengeDebugger;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevel;
 import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.Texts;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -11,6 +12,7 @@ import org.bukkit.command.CommandSender;
 public class DebugCommand implements CommandExecutor {
 
     ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
+    private static final ChallengeDebugger DEBUGGER = ChallengeDebugger.getDebugger();
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
@@ -22,10 +24,10 @@ public class DebugCommand implements CommandExecutor {
             try {
                 plugin.getConfig().set("DebugLevel", Integer.parseInt(strings[0]));
 
-                plugin.log("Debug level successfully set", DebugLevelOld.LEVEL_3);
+                DEBUGGER.log("Debug level successfully set", DebugLevel.LEVEL_3);
                 commandSender.sendMessage(Texts.PREFIX + ChatColor.YELLOW + "Debug level has been set to " + ChatColor.AQUA + plugin.getConfig().getInt("DebugLevel"));
             } catch (NumberFormatException e) {
-                plugin.log("Debug level is not a number", DebugLevelOld.LEVEL_3);
+                DEBUGGER.log("Debug level is not a number", DebugLevel.LEVEL_3);
                 commandSender.sendMessage(Texts.PREFIX + ChatColor.RED + "Time must be a number!");
             }
             plugin.saveConfig();

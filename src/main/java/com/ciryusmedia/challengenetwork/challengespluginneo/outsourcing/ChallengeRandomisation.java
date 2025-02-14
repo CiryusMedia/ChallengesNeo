@@ -2,7 +2,8 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.exceptions.DataNotInitializedException;
-import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevelOld;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.ChallengeDebugger;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevel;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -21,6 +22,7 @@ import java.util.*;
 public class ChallengeRandomisation {
 
     private static final ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
+    private static final ChallengeDebugger DEBUGGER = ChallengeDebugger.getDebugger();
 
     private static boolean isInitialized = false;
 
@@ -30,14 +32,14 @@ public class ChallengeRandomisation {
 
     public static void initRandomLoottable() {
 
-        plugin.log("Setting default config for challenge randomisation stuff", DebugLevelOld.LEVEL_3);
+        DEBUGGER.log("Setting default config for challenge randomisation stuff", DebugLevel.LEVEL_3);
         if (!plugin.getConfig().contains("UnsafeRandomEnchantments"))
             plugin.getConfig().set("UnsafeRandomEnchantments", true);
 
         if (!plugin.getConfig().contains("UnsafeEnchantmentBounds"))
             plugin.getConfig().set("UnsafeEnchantmentBounds", 100);
 
-        plugin.log("Saving config", DebugLevelOld.LEVEL_3);
+        DEBUGGER.log("Saving config", DebugLevel.LEVEL_3);
         plugin.saveConfig();
 
         initRandomBlockLoottable();
@@ -46,16 +48,16 @@ public class ChallengeRandomisation {
     }
 
     private static void initRandomBlockLoottable() {
-        plugin.log("Initiating block loottable", DebugLevelOld.LEVEL_3);
+        DEBUGGER.log("Initiating block loottable", DebugLevel.LEVEL_3);
         YamlConfiguration config = YamlConfiguration.loadConfiguration(plugin.getRandomBlocksLoottableConfigFile());
         for (Material allBlock : allBlocks) {
-            plugin.log(allBlock.name(), DebugLevelOld.LEVEL_4);
+            DEBUGGER.log(allBlock.name(), DebugLevel.LEVEL_4);
             ItemStack randomItem = getRandomItem();
             if (config.contains(allBlock.name()) && config.getItemStack(allBlock.name()) != null) {
-                plugin.log("Item in loottable file found", DebugLevelOld.LEVEL_4);
+                DEBUGGER.log("Item in loottable file found", DebugLevel.LEVEL_4);
                 randomItem = config.getItemStack(allBlock.name());
             } else {
-                plugin.log("Item in loottable file not found", DebugLevelOld.LEVEL_4);
+                DEBUGGER.log("Item in loottable file not found", DebugLevel.LEVEL_4);
             }
 
             config.set(allBlock.name(), randomItem);
@@ -68,10 +70,10 @@ public class ChallengeRandomisation {
     }
 
     private static void initRandomMobLoottable() {
-        plugin.log("Initiating mob loottable", DebugLevelOld.LEVEL_3);
+        DEBUGGER.log("Initiating mob loottable", DebugLevel.LEVEL_3);
         YamlConfiguration config = YamlConfiguration.loadConfiguration(plugin.getRandomMobsLoottableConfigFile());
         for (EntityType allEntity : allEntities) {
-            plugin.log(allEntity.name(), DebugLevelOld.LEVEL_4);
+            DEBUGGER.log(allEntity.name(), DebugLevel.LEVEL_4);
             List<ItemStack> randomDrops = new ArrayList<>();
 
             for (int i = 0; i < 4; i++) {
@@ -90,12 +92,12 @@ public class ChallengeRandomisation {
                 List<?> rmlconfigList = config.getList(allEntity.name());
                 try {
                     randomDrops = (List<ItemStack>) rmlconfigList;
-                    plugin.log("Loottable list file found", DebugLevelOld.LEVEL_4);
+                    DEBUGGER.log("Loottable list file found", DebugLevel.LEVEL_4);
                 } catch (ClassCastException e) {
                     e.printStackTrace();
                 }
             } else {
-                plugin.log("Loottable list file not found", DebugLevelOld.LEVEL_4);
+                DEBUGGER.log("Loottable list file not found", DebugLevel.LEVEL_4);
             }
 
             //randomMobLoottableMap.put(allEntity, randomDrops);
@@ -113,17 +115,17 @@ public class ChallengeRandomisation {
         Material randomItemMaterial = randomItem.getType();
 
         if (randomItemMaterial.equals(Material.ENCHANTED_BOOK)) {
-            plugin.log(randomItemMaterial.name() + " Book", DebugLevelOld.LEVEL_5);
+            DEBUGGER.log(randomItemMaterial.name() + " Book", DebugLevel.LEVEL_5);
             Enchantment randomEnchantment = getRandomEnchantment();
             int level;
             level = getRandomEnchantmentLevel(randomEnchantment);
             randomItem.addUnsafeEnchantment(randomEnchantment, level);
         } else if (randomItemMaterial.equals(Material.POTION) || randomItemMaterial.equals(Material.LINGERING_POTION) || randomItemMaterial.equals(Material.SPLASH_POTION) || randomItemMaterial.equals(Material.TIPPED_ARROW)) {
-            plugin.log(randomItemMaterial.name() + " Potion", DebugLevelOld.LEVEL_5);
+            DEBUGGER.log(randomItemMaterial.name() + " Potion", DebugLevel.LEVEL_5);
             randomItem.setItemMeta(getRandomPotionMeta(randomItem));
         }
 
-        plugin.log("Random " + randomItemMaterial.name(), DebugLevelOld.LEVEL_4);
+        DEBUGGER.log("Random " + randomItemMaterial.name(), DebugLevel.LEVEL_4);
         return randomItem;
     }
 
@@ -220,7 +222,7 @@ public class ChallengeRandomisation {
     }
 
     public static void initRandomisation() {
-        plugin.log("Initiating rro", DebugLevelOld.LEVEL_2);
+        DEBUGGER.log("Initiating rro", DebugLevel.LEVEL_2);
         initRandomLoottable();
         isInitialized = true;
     }

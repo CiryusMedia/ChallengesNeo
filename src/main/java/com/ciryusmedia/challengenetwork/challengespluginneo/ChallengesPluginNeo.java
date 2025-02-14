@@ -7,7 +7,6 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.commands.tabcomplete
 import com.ciryusmedia.challengenetwork.challengespluginneo.commands.tabcomplete.TimerComplete;
 import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.ChallengeDebugger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevel;
-import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevelOld;
 import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.Texts;
 import com.ciryusmedia.challengenetwork.challengespluginneo.itemcollections.GeneralGuiItems;
 import com.ciryusmedia.challengenetwork.challengespluginneo.itemcollections.TimerGuiItems;
@@ -81,7 +80,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         getConfig().options().copyDefaults(true);
         saveConfig();
         if (!getConfig().contains("DebugLevel") || getConfig().getInt("DebugLevel") < 0) {
-            getConfig().set("DebugLevel", DebugLevelOld.LEVEL_1);
+            getConfig().set("DebugLevel", DebugLevel.LEVEL_1.level);
             DEBUGGER.log("Debuglevel not found, setting to \"LEVEL_1\"", DebugLevel.LEVEL_1);
         }
         DEBUGGER.setDebugLevel(getConfig().getInt("DebugLevel"));

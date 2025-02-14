@@ -1,8 +1,8 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.random.blocks;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
-import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevelOld;
 import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.AChallengeListener;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevel;
 import com.destroystokyo.paper.event.block.BlockDestroyEvent;
 import org.bukkit.ExplosionResult;
 import org.bukkit.Material;
@@ -33,43 +33,43 @@ public abstract class ARandomBlocks extends AChallengeListener implements Listen
 
         //Shit for blocks with 2 block in volume
         if (timer.isRunning() && challenge.enabled) {
-            plugin.log(e.getEventName(), DebugLevelOld.LEVEL_3);
-            plugin.log(b.translationKey() + " " + b.getType().translationKey() + " "
-                    + b.getLocation().getBlockX() + b.getLocation().getBlockY() + b.getLocation().getBlockZ(), DebugLevelOld.LEVEL_5);
-            plugin.log(challenge.displayName + " is " + challenge.enabled, DebugLevelOld.LEVEL_5);
-            plugin.log("Timer is " + timer.isRunning(), DebugLevelOld.LEVEL_5);
+            DEBUGGER.log(e.getEventName(), DebugLevel.LEVEL_3);
+            DEBUGGER.log(b.translationKey() + " " + b.getType().translationKey() + " "
+                    + b.getLocation().getBlockX() + b.getLocation().getBlockY() + b.getLocation().getBlockZ(), DebugLevel.LEVEL_5);
+            DEBUGGER.log(challenge.displayName + " is " + challenge.enabled, DebugLevel.LEVEL_5);
+            DEBUGGER.log("Timer is " + timer.isRunning(), DebugLevel.LEVEL_5);
 
             //Code for the "top" part of bisected blocks
             if (b.getBlockData() instanceof Bed bedData) {
-                plugin.log("Block is a bed", DebugLevelOld.LEVEL_4);
-                plugin.log(bedData.getPart().toString(), DebugLevelOld.LEVEL_4);
+                DEBUGGER.log("Block is a bed", DebugLevel.LEVEL_4);
+                DEBUGGER.log(bedData.getPart().toString(), DebugLevel.LEVEL_4);
                 if (bedData.getPart() == Bed.Part.FOOT) {
                     bedData.setPart(Bed.Part.HEAD);
                     b.setBlockData(bedData);
                     badBisectedHalf = true;
                 }
             } else if (b.getBlockData() instanceof Bisected bisectedData) {
-                plugin.log("Block is bisected", DebugLevelOld.LEVEL_4);
-                plugin.log(bisectedData.getHalf().toString(), DebugLevelOld.LEVEL_4);
+                DEBUGGER.log("Block is bisected", DebugLevel.LEVEL_4);
+                DEBUGGER.log(bisectedData.getHalf().toString(), DebugLevel.LEVEL_4);
                 if (bisectedData.getHalf() == Bisected.Half.TOP) {
                     badBisectedHalf = true;
                     b.setType(Material.AIR);
                 }
             } else {
-                plugin.log("Block is not bisected", DebugLevelOld.LEVEL_4);
+                DEBUGGER.log("Block is not bisected", DebugLevel.LEVEL_4);
             }
         } else {
-            plugin.log(challenge.displayName + " is " + challenge.displayName, DebugLevelOld.LEVEL_5);
-            plugin.log("Timer is " + timer.isRunning(), DebugLevelOld.LEVEL_5);
+            DEBUGGER.log(challenge.displayName + " is " + challenge.displayName, DebugLevel.LEVEL_5);
+            DEBUGGER.log("Timer is " + timer.isRunning(), DebugLevel.LEVEL_5);
         }
 
         Collection<ItemStack> orgDrops = b.getDrops(p.getInventory().getItemInMainHand());
 
         if (!orgDrops.isEmpty() && !badBisectedHalf) {
-            plugin.log(orgDrops.toString(), DebugLevelOld.LEVEL_3);
+            DEBUGGER.log(orgDrops.toString(), DebugLevel.LEVEL_3);
             handleRandomBlocks(b, orgDrops);
         } else {
-            plugin.log("Not dropping...", DebugLevelOld.LEVEL_3);
+            DEBUGGER.log("Not dropping...", DebugLevel.LEVEL_3);
         }
 
         if (challenge.enabled)
@@ -82,15 +82,15 @@ public abstract class ARandomBlocks extends AChallengeListener implements Listen
         Block block = e.getBlock();
 
         if (challenge.enabled) {
-            plugin.log(e.getEventName(), DebugLevelOld.LEVEL_3);
-            plugin.log(e.getEventName() + " cancelled", DebugLevelOld.LEVEL_3);
+            DEBUGGER.log(e.getEventName(), DebugLevel.LEVEL_3);
+            DEBUGGER.log(e.getEventName() + " cancelled", DebugLevel.LEVEL_3);
             e.setCancelled(true);
 
             BlockData blockData = block.getBlockData();
             BlockDestroyEvent blockDestroyEvent = new BlockDestroyEvent(block, blockData, blockData, 0, true); //Sending a new BlockDestroyEvent, it just is easier to handle :)
             blockDestroyEvent.callEvent();
 
-            plugin.log("Setting block to air", DebugLevelOld.LEVEL_3);
+            DEBUGGER.log("Setting block to air", DebugLevel.LEVEL_3);
             block.setType(Material.AIR);
         }
     }
@@ -104,10 +104,10 @@ public abstract class ARandomBlocks extends AChallengeListener implements Listen
             && (e.getExplosionResult().equals(ExplosionResult.DESTROY) //Only call the code if the explosion actually destroys blocks (unlike the wind charge)
             || e.getExplosionResult().equals(ExplosionResult.DESTROY_WITH_DECAY))) {
 
-            plugin.log(e.getEventName(), DebugLevelOld.LEVEL_3);
-            plugin.log(String.valueOf(y), DebugLevelOld.LEVEL_4);
-            plugin.log(e.getExplosionResult().toString(), DebugLevelOld.LEVEL_4);
-            plugin.log(e.getEntityType().toString(), DebugLevelOld.LEVEL_4);
+            DEBUGGER.log(e.getEventName(), DebugLevel.LEVEL_3);
+            DEBUGGER.log(String.valueOf(y), DebugLevel.LEVEL_4);
+            DEBUGGER.log(e.getExplosionResult().toString(), DebugLevel.LEVEL_4);
+            DEBUGGER.log(e.getEntityType().toString(), DebugLevel.LEVEL_4);
 
             for (Block b : bs) {
                 Random r = new Random();
@@ -123,8 +123,8 @@ public abstract class ARandomBlocks extends AChallengeListener implements Listen
         Block b = e.getBlock();
 
         if (challenge.enabled && timer.isRunning()) {
-            plugin.log(e.getEventName() + " " + b.getType().name() + " " + b.getType().translationKey() + " "
-                    + b.getLocation().getBlockX() + b.getLocation().getBlockY() + b.getLocation().getBlockZ(), DebugLevelOld.LEVEL_5);
+            DEBUGGER.log(e.getEventName() + " " + b.getType().name() + " " + b.getType().translationKey() + " "
+                    + b.getLocation().getBlockX() + b.getLocation().getBlockY() + b.getLocation().getBlockZ(), DebugLevel.LEVEL_5);
             e.setWillDrop(false); //Cancel drop of the original itemdrops
         }
 

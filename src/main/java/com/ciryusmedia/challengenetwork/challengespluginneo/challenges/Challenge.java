@@ -3,7 +3,6 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.challenges;
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.ChallengeDebugger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevel;
-import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevelOld;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;

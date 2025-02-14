@@ -2,7 +2,8 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.exceptions.DataNotInitializedException;
-import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevelOld;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.ChallengeDebugger;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevel;
 import org.bukkit.Material;
 
 import java.util.HashMap;
@@ -10,7 +11,7 @@ import java.util.Map;
 
 public class ColorOutsourcing {
 
-    static ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
+    private static final ChallengeDebugger DEBUGGER = ChallengeDebugger.getDebugger();
     private static boolean isInitialized = false;
 
     //Wool map
@@ -66,7 +67,7 @@ public class ColorOutsourcing {
     }
 
     public static void initColorOutsourcing() {
-        plugin.log("Initiating clo", DebugLevelOld.LEVEL_2);
+        DEBUGGER.log("Initiating clo", DebugLevel.LEVEL_2);
         initChatColorToItemColorMap();
         isInitialized = true;
     }

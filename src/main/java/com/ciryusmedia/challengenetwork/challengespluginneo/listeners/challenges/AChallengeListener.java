@@ -3,10 +3,12 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenge
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.system.ChallengeTimer;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.ChallengeDebugger;
 
 public abstract class AChallengeListener {
 
     protected ChallengesPluginNeo plugin;
+    protected static final ChallengeDebugger DEBUGGER = ChallengeDebugger.getDebugger();
     protected ChallengeTimer timer;
     protected Challenge challenge;
 

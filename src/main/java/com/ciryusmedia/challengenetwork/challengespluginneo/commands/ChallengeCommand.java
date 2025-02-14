@@ -2,9 +2,10 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.commands;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
-import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevelOld;
-import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.Texts;
 import com.ciryusmedia.challengenetwork.challengespluginneo.system.Inventories;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.ChallengeDebugger;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevel;
+import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.Texts;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,13 +16,13 @@ import java.util.List;
 
 public class ChallengeCommand implements CommandExecutor, Texts {
 
-    ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
+    private static final ChallengeDebugger DEBUGGER = ChallengeDebugger.getDebugger();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
 
         if (strings.length == 0) {
-            plugin.log("Handling challenge command for gui", DebugLevelOld.LEVEL_3);
+            DEBUGGER.log("Handling challenge command for gui", DebugLevel.LEVEL_3);
             if (sender instanceof Player player) {
                 if (player.hasPermission("challenge.challenges.view")) {
                     ChallengesPluginNeo.challengeGUI.updateInventory();
