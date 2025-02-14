@@ -6,7 +6,7 @@
 
     <groupId>com.ciryusmedia</groupId>
     <artifactId>challengesneo</artifactId>
-    <version>dev-1.2.0</version>
+    <version>release-1.2.0</version>
     <packaging>jar</packaging>
 
     <name>challengesneo</name>

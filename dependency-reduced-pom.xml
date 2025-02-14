@@ -4,7 +4,7 @@
   <groupId>com.ciryusmedia</groupId>
   <artifactId>challengesneo</artifactId>
   <name>challengesneo</name>
-  <version>dev-1.2.0</version>
+  <version>release-1.2.0</version>
   <build>
     <defaultGoal>clean package</defaultGoal>
     <resources>
