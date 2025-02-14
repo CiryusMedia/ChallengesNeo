@@ -53,7 +53,7 @@ public class ChallengeGUI extends AGUIListener implements Listener, ChallengeGui
                 updateInventory();
 
             }
-        }.runTaskTimer(ChallengesPluginNeo.getInstance(), 20, 20);
+        }.runTaskTimer(ChallengesPluginNeo.getChallengePlugin(), 20, 20);
     }
 
     public Inventory getInventory() {

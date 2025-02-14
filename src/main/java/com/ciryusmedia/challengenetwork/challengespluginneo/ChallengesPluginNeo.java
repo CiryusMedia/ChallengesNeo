@@ -31,9 +31,6 @@ import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
@@ -57,12 +54,10 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     private ChallengeTimer timer;
 
     private File randomBlocksLoottableConfigFile;
-    private FileConfiguration randomBlocksLoottableConfig;
 
     private File randomMobsLoottableConfigFile;
-    private FileConfiguration randomMobsLoottableConfig;
 
-    //Handling these with central objects might be chaged
+    //Handling these with central objects might be changed
     private ChallengesOutsourcing cho;
     private ColorOutsourcing clo;
     private ChallengeRandomisation rro;
@@ -165,6 +160,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         cho = new ChallengesOutsourcing();
         log("Initiating clo", Debuglevel.LEVEL_2);
         clo = new ColorOutsourcing();
+
         log("Initiating rro", Debuglevel.LEVEL_2);
         rro = new ChallengeRandomisation();
 
@@ -196,6 +192,13 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         //Finished loading
         log(ChatColor.RESET + Texts.STARTUP_LOGO, Debuglevel.LEVEL_0);
         log("Challenge Plugin Loaded and Enabled", Debuglevel.LEVEL_0);
+
+        //Test restarts
+//        getRandomBlocksLoottableConfigFile().delete();
+//        getRandomMobsLoottableConfigFile().delete();
+//        getConfig().set("isReset", true);
+//        saveConfig();
+//        Bukkit.shutdown();
     }
 
     @Override
@@ -238,7 +241,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
                 debugLevel = getConfig().getInt("DebugLevel");
                 updateInventories();
             }
-        }.runTaskTimer(ChallengesPluginNeo.getInstance(), 20, 20);
+        }.runTaskTimer(ChallengesPluginNeo.getChallengePlugin(), 20, 20);
     }
 
     private void createRandomBlocksLoottableConfig() {
@@ -248,13 +251,6 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
             randomBlocksLoottableConfigFile.getParentFile().mkdirs();
             saveResource("randomblocksloottablemap.yml", false);
         }
-
-        randomBlocksLoottableConfig = new YamlConfiguration();
-        try {
-            randomBlocksLoottableConfig.load(randomBlocksLoottableConfigFile);
-        } catch (IOException | InvalidConfigurationException exception) {
-            exception.printStackTrace();
-        }
     }
 
     private void createRandomMobsLoottableConfig() {
@@ -263,29 +259,6 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         if (!randomMobsLoottableConfigFile.exists()) {
             randomMobsLoottableConfigFile.getParentFile().mkdirs();
             saveResource("randommobsloottablemap.yml", false);
-        }
-
-        randomMobsLoottableConfig = new YamlConfiguration();
-        try {
-            randomMobsLoottableConfig.load(randomMobsLoottableConfigFile);
-        } catch (IOException | InvalidConfigurationException exception) {
-            exception.printStackTrace();
-        }
-    }
-
-    public void saveRandomBlocksLoottableConfig() {
-        try {
-            randomBlocksLoottableConfig.save(randomBlocksLoottableConfigFile);
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
-    }
-
-    public void saveRandomMobsLoottableConfig() {
-        try {
-            randomMobsLoottableConfig.save(randomMobsLoottableConfigFile);
-        } catch (IOException exception) {
-            exception.printStackTrace();
         }
     }
 
@@ -391,7 +364,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     }
 
     //Getter
-    public static ChallengesPluginNeo getInstance() {
+    public static ChallengesPluginNeo getChallengePlugin() {
         return instance;
     }
 
@@ -413,14 +386,6 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
     public Scoreboard getScoreboard() {
         return scoreboard;
-    }
-
-    public FileConfiguration getRandomBlocksLoottableConfig() {
-        return randomBlocksLoottableConfig;
-    }
-
-    public FileConfiguration getRandomMobsLoottableConfig() {
-        return randomMobsLoottableConfig;
     }
 
     public File getRandomBlocksLoottableConfigFile() {

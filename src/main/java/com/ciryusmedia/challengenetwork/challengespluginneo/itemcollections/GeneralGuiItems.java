@@ -9,13 +9,11 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-@SuppressWarnings("DataFlowIssue")
 public interface GeneralGuiItems {
 
-    ChallengesPluginNeo instance = ChallengesPluginNeo.getInstance();
-    ChallengesOutsourcing coo = ChallengesPluginNeo.getInstance().getCho();
-    ColorOutsourcing clo = instance.getClo();
-    ChallengesPluginNeo plugin = ChallengesPluginNeo.getPlugin(ChallengesPluginNeo.class);
+    ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
+    ChallengesOutsourcing coo = ChallengesPluginNeo.getChallengePlugin().getCho();
+    ColorOutsourcing clo = plugin.getClo();
 
     ItemStack defaultFillerItem = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
     ItemStack defaultLineFillerItem = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);

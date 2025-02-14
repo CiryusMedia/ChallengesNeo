@@ -12,8 +12,8 @@ import java.util.List;
 public class TimerComplete implements TabCompleter {
 
 
-    private static final ChallengesPluginNeo instance = ChallengesPluginNeo.getInstance();
-    private static final ColorOutsourcing clo = instance.getClo();
+    private final ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
+    private final ColorOutsourcing clo = plugin.getClo();
 
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {

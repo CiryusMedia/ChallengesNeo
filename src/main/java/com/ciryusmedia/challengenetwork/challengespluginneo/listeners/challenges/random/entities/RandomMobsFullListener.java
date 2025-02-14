@@ -16,9 +16,9 @@ public class RandomMobsFullListener extends ARandomEntitiesDeath {
 
         List<ItemStack> oldDrops = new ArrayList<>(event.getDrops());
 
-        instance.log("Clearing drops", Debuglevel.LEVEL_3);
+        plugin.log("Clearing drops", Debuglevel.LEVEL_3);
         event.getDrops().clear();
-        instance.log("Replacing drops", Debuglevel.LEVEL_3);
+        plugin.log("Replacing drops", Debuglevel.LEVEL_3);
         for (int i = 0; i < noOfDrops; i++) {
             ItemStack randomItem = rro.getRandomItem();
             randomItem.setAmount(oldDrops.get(i).getAmount());

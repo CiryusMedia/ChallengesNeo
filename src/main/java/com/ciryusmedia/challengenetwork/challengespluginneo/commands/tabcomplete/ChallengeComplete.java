@@ -14,8 +14,8 @@ import java.util.List;
 
 public class ChallengeComplete implements TabCompleter {
 
-    ChallengesOutsourcing cho = ChallengesPluginNeo.getInstance().getCho();
-    ChallengesPluginNeo instance = ChallengesPluginNeo.getInstance();
+    ChallengesOutsourcing cho = ChallengesPluginNeo.getChallengePlugin().getCho();
+    ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
@@ -28,7 +28,7 @@ public class ChallengeComplete implements TabCompleter {
                 list.add("sync");
                 break;
             case 2:
-                instance.log(strings[0] + " " + cho.isValidType(strings[0]), Debuglevel.LEVEL_4);
+                plugin.log(strings[0] + " " + cho.isValidType(strings[0]), Debuglevel.LEVEL_4);
                 if (cho.isValidType(strings[0])) {
                     cho.getChallengesFromType(strings[0]).forEach(challenge -> {
                         list.add(challenge.getName());

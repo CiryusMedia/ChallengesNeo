@@ -7,14 +7,13 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.random.bl
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.random.entities.RandomMobsFull;
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.random.entities.RandomMobsLoottable;
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.synched.InventorySync;
-import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChallengesOutsourcing {
 
-    Plugin plugin = ChallengesPluginNeo.getPlugin(ChallengesPluginNeo.class);
+    ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
 
     public final List<Challenge> CHALLENGES = new ArrayList<>();
 

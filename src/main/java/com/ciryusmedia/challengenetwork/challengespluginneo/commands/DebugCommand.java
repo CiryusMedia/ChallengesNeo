@@ -7,12 +7,10 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.Plugin;
 
 public class DebugCommand implements CommandExecutor {
 
-    ChallengesPluginNeo instance = ChallengesPluginNeo.getInstance();
-    Plugin plugin = ChallengesPluginNeo.getPlugin(ChallengesPluginNeo.class);
+    ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
@@ -24,10 +22,10 @@ public class DebugCommand implements CommandExecutor {
             try {
                 plugin.getConfig().set("DebugLevel", Integer.parseInt(strings[0]));
 
-                instance.log("Debug level successfully set", Debuglevel.LEVEL_3);
+                plugin.log("Debug level successfully set", Debuglevel.LEVEL_3);
                 commandSender.sendMessage(Texts.PREFIX + ChatColor.YELLOW + "Debug level has been set to " + ChatColor.AQUA + plugin.getConfig().getInt("DebugLevel"));
             } catch (NumberFormatException e) {
-                instance.log("Debug level is not a number", Debuglevel.LEVEL_3);
+                plugin.log("Debug level is not a number", Debuglevel.LEVEL_3);
                 commandSender.sendMessage(Texts.PREFIX + ChatColor.RED + "Time must be a number!");
             }
             plugin.saveConfig();
