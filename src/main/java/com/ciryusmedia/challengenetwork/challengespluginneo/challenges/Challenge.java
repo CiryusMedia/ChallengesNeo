@@ -138,6 +138,7 @@ public enum Challenge {
         this.type = type;
         this.subType = subType;
         this.menuItem = menuItem;
+        this.enabled = plugin.getConfig().getBoolean(name);
         updateMenuItem();
     }
 }
