@@ -21,13 +21,13 @@ public enum Challenge {
             ChallengeType.RANDOM,
             ChallengeSubtype.RANDOM_BLOCKS,
             Material.STONE,
-            new String[]{"Makes every Blockdrop random,", "not with a pattern, just straight up random\n"}),
+            new String[]{"Makes every Blockdrop random,", "not with a pattern, just straight up random"}),
     RANDOM_BLOCKS_LOOTTABLE("RandomBlocksLoottable",
             "Random Blocks Loottable",
             ChallengeType.RANDOM,
             ChallengeSubtype.RANDOM_BLOCKS,
             Material.GRASS_BLOCK,
-            new String[]{"Makes every Blockdrop random, but still", "with a pattern, making it predictably random\n"}),
+            new String[]{"Makes every Blockdrop random, but still", "with a pattern, making it predictably random"}),
 
     RANDOM_MOBS_FULL(
             "RandomMobsFull",
@@ -35,14 +35,14 @@ public enum Challenge {
             ChallengeType.RANDOM,
             ChallengeSubtype.RANDOM_MOBS,
             Material.PUFFERFISH,
-            new String[]{"Makes every Mobdrop random,", "not with a pattern, just straight up random\n"}),
+            new String[]{"Makes every Mobdrop random,", "not with a pattern, just straight up random"}),
     RANDOM_MOBS_LOOTTABLE(
             "RandomMobsLoottable",
             "Random Mobs Loottable",
             ChallengeType.RANDOM,
             ChallengeSubtype.RANDOM_MOBS,
             Material.SNIFFER_SPAWN_EGG,
-            new String[]{"Makes every Mobdrop random, but still", "with a pattern, making it predictably random\n"}),
+            new String[]{"Makes every Mobdrop random, but still", "with a pattern, making it predictably random"}),
     //</editor-fold>
 
     //<editor-fold desc="Sync Challenges" defaultstate="collapsed">
@@ -52,7 +52,7 @@ public enum Challenge {
             ChallengeType.SYNC,
             ChallengeSubtype.INVENTORY_SYNC,
             Material.CRAFTING_TABLE,
-            new String[]{"Gives every player the same inventory", "This means that every item in your", "inventories is identical\n"});
+            new String[]{"Gives every player the same inventory", "This means that every item in your", "inventories is identical"});
     //</editor-fold>
 
     private final ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
@@ -66,7 +66,7 @@ public enum Challenge {
     public final ChallengeSubtype subType;
     public final ItemStack menuItem;
     public List<String> itemDescription;
-    public boolean enabled = false;
+    public boolean enabled;
 
     public void updateMenuItem() {
         ItemMeta itemMeta = menuItem.getItemMeta();
@@ -75,6 +75,7 @@ public enum Challenge {
         itemMeta.setEnchantmentGlintOverride(enabled);
 
         itemMeta.setDisplayName(enabled ? ChatColor.GREEN + displayName : ChatColor.RED + displayName);
+        lore.add(""); //Empty spacer line
         lore.add(displayName + " is currently " + (enabled ? ChatColor.GREEN + "enabled" : ChatColor.RED + "disabled"));
 
         itemMeta.setLore(lore);
