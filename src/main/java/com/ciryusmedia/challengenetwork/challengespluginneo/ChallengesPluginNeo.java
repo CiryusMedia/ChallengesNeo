@@ -73,6 +73,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     public void onLoad() {
         DEBUGGER.log("Loading Ciryus Challenge Plugin version " + getDescription().getVersion(), DebugLevel.LEVEL_0);
 
+        DEBUGGER.setMessagePrefix(ChatColor.AQUA + "Challenge" + ChatColor.DARK_GRAY + "> ");
         instance = this;
 
         //Config stuff
