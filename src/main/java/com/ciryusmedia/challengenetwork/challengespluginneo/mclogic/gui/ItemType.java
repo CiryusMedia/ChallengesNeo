@@ -4,7 +4,7 @@ public enum ItemType {
 
     FILLER(1),
     LINE_FILLER(3),
-    EXIT()
+    EXIT(1),
     MENU(-1);
 
     public final int CUSTOM_MODEL_DATA_ID;

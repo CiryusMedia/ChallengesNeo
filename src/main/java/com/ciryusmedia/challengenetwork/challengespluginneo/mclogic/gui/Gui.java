@@ -5,6 +5,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Collection;
+
+@SuppressWarnings("deprecation")
 public enum Gui {
 
     //<editor-fold desc="Timer" defaultstate="collapsed">
@@ -20,6 +23,8 @@ public enum Gui {
     public final ItemStack fillerItem;
     public final ItemStack lineFillerItem;
 
+    public Collection<GuiItem> options;
+
     private void fillInventory() {
         for (int currentSlot = 0; currentSlot < inv.getSize(); currentSlot++) {
             inv.setItem(currentSlot, fillerItem);
@@ -27,16 +32,23 @@ public enum Gui {
                 inv.setItem(currentSlot, lineFillerItem);
             }
         }
+
+
     }
 
-    Gui(String title, int size, ItemStack fillerItem, ItemStack lineFillerItem) {
-        this(Bukkit.createInventory(null, size, title), fillerItem, lineFillerItem);
+    public void updateInventory() {
+
     }
 
-    Gui(Inventory inv, ItemStack fillerItem, ItemStack lineFillerItem) {
-        this.inv = inv;
+    public void setOptions(Collection<GuiItem> options) {
+        this.options = options;
+    }
+
+    Gui(String title, int size, ItemStack fillerItem, ItemStack lineFillerItem, Collection<GuiItem> options) {
+        this.inv = Bukkit.createInventory(null, size, title);
         this.fillerItem = fillerItem;
         this.lineFillerItem = lineFillerItem;
+        this.options = options;
 
         fillInventory();
     }
