@@ -1,34 +1,35 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
-import com.ciryusmedia.challengenetwork.challengespluginneo.commands.*;
-import com.ciryusmedia.challengenetwork.challengespluginneo.commands.tabcomplete.ChallengeComplete;
-import com.ciryusmedia.challengenetwork.challengespluginneo.commands.tabcomplete.DebugComplete;
-import com.ciryusmedia.challengenetwork.challengespluginneo.commands.tabcomplete.TimerComplete;
-import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.ChallengeDebugger;
-import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.DebugLevel;
-import com.ciryusmedia.challengenetwork.challengespluginneo.system.console.Texts;
-import com.ciryusmedia.challengenetwork.challengespluginneo.itemcollections.GeneralGuiItems;
-import com.ciryusmedia.challengenetwork.challengespluginneo.itemcollections.TimerGuiItems;
-import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.random.blocks.RandomBlocksFullListener;
-import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.random.blocks.RandomBlocksLoottableListener;
-import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.random.entities.RandomMobsFullListener;
-import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.random.entities.RandomMobsLoottableListener;
-import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.challenges.synched.InventorySyncListener;
-import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.gui.challenges.ChallengeGUI;
-import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.gui.challenges.random.RandomChallengesGUI;
-import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.gui.timer.TimerColorInvGUI;
-import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.gui.timer.TimerGUI;
-import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.gui.timer.color.TimerPausedColorGUI;
-import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.gui.timer.color.TimerRunningColorGUI;
-import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.system.BlockBreakListener;
-import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.system.ChallengeEndListener;
-import com.ciryusmedia.challengenetwork.challengespluginneo.listeners.system.PlayerJoinLeaveListener;
+import com.ciryusmedia.challengenetwork.challengespluginneo.fileloaders.FileLoader;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.commands.*;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.commands.tabcomplete.ChallengeComplete;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.commands.tabcomplete.DebugComplete;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.commands.tabcomplete.TimerComplete;
+import com.ciryusmedia.challengenetwork.challengespluginneo.console.ChallengeDebugger;
+import com.ciryusmedia.challengenetwork.challengespluginneo.console.DebugLevel;
+import com.ciryusmedia.challengenetwork.challengespluginneo.console.Texts;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.itemcollections.GeneralGuiItems;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.itemcollections.TimerGuiItems;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.listeners.challenges.random.blocks.RandomBlocksFullListener;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.listeners.challenges.random.blocks.RandomBlocksLoottableListener;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.listeners.challenges.random.entities.RandomMobsFullListener;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.listeners.challenges.random.entities.RandomMobsLoottableListener;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.listeners.challenges.synched.InventorySyncListener;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.challenges.ChallengeGUI;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.challenges.random.RandomChallengesGUI;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.timer.TimerColorInvGUI;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.timer.TimerGUI;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.timer.color.TimerPausedColorGUI;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.timer.color.TimerRunningColorGUI;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.listeners.system.BlockBreakListener;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.listeners.system.ChallengeEndListener;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.listeners.system.PlayerJoinLeaveListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ColorOutsourcing;
 import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ChallengeRandomisation;
-import com.ciryusmedia.challengenetwork.challengespluginneo.scoreboards.HealthScoreboard;
-import com.ciryusmedia.challengenetwork.challengespluginneo.system.ChallengeTimer;
-import com.ciryusmedia.challengenetwork.challengespluginneo.system.fileloaders.WorldLoader;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.scoreboards.HealthScoreboard;
+import com.ciryusmedia.challengenetwork.challengespluginneo.timer.ChallengeTimer;
+import com.ciryusmedia.challengenetwork.challengespluginneo.fileloaders.WorldLoader;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 import org.bukkit.Bukkit;
@@ -39,7 +40,6 @@ import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Scoreboard;
 
-import java.io.File;
 import java.io.IOException;
 
 @SuppressWarnings({"DataFlowIssue", "deprecation"})
@@ -50,9 +50,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     private static ChallengesPluginNeo instance;
 
     private ChallengeTimer timer;
-
-    private File randomBlocksLoottableConfigFile;
-    private File randomMobsLoottableConfigFile;
+    private FileLoader fileLoader;
 
     private Scoreboard scoreboard;
 
@@ -107,7 +105,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
             throw new RuntimeException(e);
         }
 
-        createRandomLoottableConfigs();
+        fileLoader = new FileLoader(this);
     }
 
     @Override
@@ -196,21 +194,6 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
                 updateInventories();
             }
         }.runTaskTimer(ChallengesPluginNeo.getChallengePlugin(), 20, 20);
-    }
-
-    private void createRandomLoottableConfigs() {
-        randomBlocksLoottableConfigFile = new File(getDataFolder(), "randomblocksloottablemap.yml");
-        randomMobsLoottableConfigFile = new File(getDataFolder(), "randommobsloottablemap.yml");
-
-        if (!randomBlocksLoottableConfigFile.exists()) {
-            randomBlocksLoottableConfigFile.getParentFile().mkdirs();
-            saveResource("randomblocksloottablemap.yml", false);
-        }
-
-        if (!randomMobsLoottableConfigFile.exists()) {
-            randomMobsLoottableConfigFile.getParentFile().mkdirs();
-            saveResource("randommobsloottablemap.yml", false);
-        }
     }
 
     //Inits and enablers
@@ -316,11 +299,11 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         return scoreboard;
     }
 
-    public File getRandomBlocksLoottableConfigFile() {
-        return randomBlocksLoottableConfigFile;
+    public FileLoader getFileLoader() {
+        return fileLoader;
     }
 
-    public File getRandomMobsLoottableConfigFile() {
-        return randomMobsLoottableConfigFile;
+    public void setFileLoader(FileLoader fileLoader) {
+        this.fileLoader = fileLoader;
     }
 }
