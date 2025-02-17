@@ -1,8 +1,8 @@
-package com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.challenges;
+package com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.guiold.challenges;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
-import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.itemcollections.ChallengeGuiItems;
-import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.AGUIListener;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.guiold.itemcollections.ChallengeGuiItems;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.guiold.AGUIListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;

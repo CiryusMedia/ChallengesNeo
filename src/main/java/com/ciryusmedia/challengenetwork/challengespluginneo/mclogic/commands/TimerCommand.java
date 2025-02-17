@@ -3,7 +3,7 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.commands;
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ColorOutsourcing;
 import com.ciryusmedia.challengenetwork.challengespluginneo.timer.ChallengeTimer;
-import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.Inventories;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.InventoryCollection;
 import com.ciryusmedia.challengenetwork.challengespluginneo.console.ChallengeDebugger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.console.DebugLevel;
 import com.ciryusmedia.challengenetwork.challengespluginneo.console.Texts;
@@ -32,7 +32,7 @@ public class TimerCommand implements CommandExecutor {
             if (args.length == 0) {
                 DEBUGGER.log("Opening timer gui for player " + player.getName(), DebugLevel.LEVEL_3);
                 plugin.updateInventories();
-                player.openInventory(Inventories.timerGUI);
+                player.openInventory(InventoryCollection.timerGUI);
                 return true;
             }
 
@@ -124,7 +124,7 @@ public class TimerCommand implements CommandExecutor {
                 DEBUGGER.log("Handling timer color command", DebugLevel.LEVEL_3);
                 if (args.length == 1 && sender instanceof Player player) {
                     DEBUGGER.log("Opening inventory for player", DebugLevel.LEVEL_3);
-                    player.openInventory(Inventories.timerColorGui);
+                    player.openInventory(InventoryCollection.timerColorGui);
                 } else {
                     colorHandler(sender, args);
                 }
@@ -177,10 +177,10 @@ public class TimerCommand implements CommandExecutor {
             } else if (args.length == 2 && sender instanceof Player player) {
                 if (colorType.equalsIgnoreCase("running")) {
                     DEBUGGER.log("Opening timer running color gui for player", DebugLevel.LEVEL_3);
-                    player.openInventory(Inventories.timerRunningColorGUI);
+                    player.openInventory(InventoryCollection.timerRunningColorGUI);
                 } else {
                     DEBUGGER.log("Opening timer paused color gui for player", DebugLevel.LEVEL_3);
-                    player.openInventory(Inventories.timerPausedColorGUI);
+                    player.openInventory(InventoryCollection.timerPausedColorGUI);
                 }
             } else if (args.length >= 3) {
                 if (ColorOutsourcing.isValidChatColor(args[2])) {

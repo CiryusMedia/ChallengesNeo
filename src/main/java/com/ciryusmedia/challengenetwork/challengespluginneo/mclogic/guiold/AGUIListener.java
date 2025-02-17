@@ -1,6 +1,6 @@
-package com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui;
+package com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.guiold;
 
-import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.itemcollections.GeneralGuiItems;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.guiold.itemcollections.GeneralGuiItems;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
 import org.bukkit.entity.Player;

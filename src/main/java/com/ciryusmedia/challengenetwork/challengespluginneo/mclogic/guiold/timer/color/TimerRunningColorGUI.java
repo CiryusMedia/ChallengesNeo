@@ -1,8 +1,8 @@
-package com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.timer.color;
+package com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.guiold.timer.color;
 
-import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.itemcollections.TimerGuiItems;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.guiold.itemcollections.TimerGuiItems;
 import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ColorOutsourcing;
-import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.Inventories;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.InventoryCollection;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -22,7 +22,7 @@ public class TimerRunningColorGUI extends ATimerColorGui implements Listener, Ti
 
     @Override
     public void exitInventory(Player player) {
-        player.openInventory(Inventories.timerColorGui);
+        player.openInventory(InventoryCollection.timerColorGui);
     }
 
     @Override

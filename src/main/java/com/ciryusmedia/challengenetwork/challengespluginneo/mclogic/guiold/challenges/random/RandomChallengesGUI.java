@@ -1,9 +1,9 @@
-package com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.challenges.random;
+package com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.guiold.challenges.random;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
-import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.itemcollections.RandomChallengeGuiItems;
-import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.AGUIListener;
-import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.Inventories;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.guiold.itemcollections.RandomChallengeGuiItems;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.guiold.AGUIListener;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.InventoryCollection;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -27,7 +27,7 @@ public class RandomChallengesGUI extends AGUIListener implements Listener, Rando
 
     @Override
     public void exitInventory(Player player) {
-        player.openInventory(Inventories.challengeGUI);
+        player.openInventory(InventoryCollection.challengeGUI);
     }
 
     @Override

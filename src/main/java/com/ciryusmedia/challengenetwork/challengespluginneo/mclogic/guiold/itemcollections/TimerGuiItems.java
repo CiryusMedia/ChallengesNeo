@@ -1,4 +1,4 @@
-package com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.itemcollections;
+package com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.guiold.itemcollections;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ColorOutsourcing;
 import org.bukkit.ChatColor;

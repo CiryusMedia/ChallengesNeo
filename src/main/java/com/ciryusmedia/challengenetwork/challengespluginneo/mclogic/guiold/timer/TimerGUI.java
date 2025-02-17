@@ -1,7 +1,7 @@
-package com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.timer;
+package com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.guiold.timer;
 
-import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.itemcollections.TimerGuiItems;
-import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.AGUIListener;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.guiold.itemcollections.TimerGuiItems;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.guiold.AGUIListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;

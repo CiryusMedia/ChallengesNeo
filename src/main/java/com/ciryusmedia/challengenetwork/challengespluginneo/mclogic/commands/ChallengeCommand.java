@@ -2,7 +2,7 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.commands;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.challenges.Challenge;
-import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.Inventories;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.InventoryCollection;
 import com.ciryusmedia.challengenetwork.challengespluginneo.console.ChallengeDebugger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.console.DebugLevel;
 import com.ciryusmedia.challengenetwork.challengespluginneo.console.Texts;
@@ -26,7 +26,7 @@ public class ChallengeCommand implements CommandExecutor, Texts {
             if (sender instanceof Player player) {
                 if (player.hasPermission("challenge.challenges.view")) {
                     ChallengesPluginNeo.challengeGUI.updateInventory();
-                    player.openInventory(Inventories.challengeGUI);
+                    player.openInventory(InventoryCollection.challengeGUI);
                     return true;
                 } else {
                     player.sendMessage(PREFIX + NO_PERMISSION);
@@ -99,7 +99,7 @@ public class ChallengeCommand implements CommandExecutor, Texts {
             if (sender instanceof Player player) {
                 switch (args[0].toLowerCase()) {
                     case "random":
-                        player.openInventory(Inventories.randomChallengesGUI);
+                        player.openInventory(InventoryCollection.randomChallengesGUI);
                 }
             } else
                 sender.sendMessage(PREFIX + NOT_PLAYER);

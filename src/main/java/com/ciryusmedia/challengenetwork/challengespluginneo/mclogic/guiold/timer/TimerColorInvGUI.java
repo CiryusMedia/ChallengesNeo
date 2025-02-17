@@ -1,8 +1,8 @@
-package com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.timer;
+package com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.guiold.timer;
 
-import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.itemcollections.TimerGuiItems;
-import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.gui.AGUIListener;
-import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.Inventories;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.guiold.itemcollections.TimerGuiItems;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.guiold.AGUIListener;
+import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.InventoryCollection;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -22,7 +22,7 @@ public class TimerColorInvGUI extends AGUIListener implements Listener, TimerGui
 
     @Override
     public void exitInventory(Player player) {
-        player.openInventory(Inventories.timerGUI);
+        player.openInventory(InventoryCollection.timerGUI);
     }
 
     @Override
