@@ -24,6 +24,7 @@ public enum Gui {
     public final ItemStack lineFillerItem;
 
     public Collection<GuiItem> options;
+    public final int spacing;
 
     private void fillInventory() {
         for (int currentSlot = 0; currentSlot < inv.getSize(); currentSlot++) {
@@ -44,11 +45,12 @@ public enum Gui {
         this.options = options;
     }
 
-    Gui(String title, int size, ItemStack fillerItem, ItemStack lineFillerItem, Collection<GuiItem> options) {
+    Gui(String title, int size, ItemStack fillerItem, ItemStack lineFillerItem, Collection<GuiItem> options, int spacing) {
         this.inv = Bukkit.createInventory(null, size, title);
         this.fillerItem = fillerItem;
         this.lineFillerItem = lineFillerItem;
         this.options = options;
+        this.spacing = spacing;
 
         fillInventory();
     }
