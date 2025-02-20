@@ -1,7 +1,7 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.commands;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
-import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ColorOutsourcing;
+import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ColorWoolUtils;
 import com.ciryusmedia.challengenetwork.challengespluginneo.timer.ChallengeTimer;
 import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.InventoryCollection;
 import com.ciryusmedia.challengenetwork.challengespluginneo.console.ChallengeDebugger;
@@ -183,7 +183,7 @@ public class TimerCommand implements CommandExecutor {
                     player.openInventory(InventoryCollection.timerPausedColorGUI);
                 }
             } else if (args.length >= 3) {
-                if (ColorOutsourcing.isValidChatColor(args[2])) {
+                if (ColorWoolUtils.isValidChatColor(args[2])) {
                     ChatColor color = ChatColor.valueOf(args[2].toUpperCase());
                     plugin.getConfig().set(colorType + "Color", args[2]);
                     plugin.saveConfig();

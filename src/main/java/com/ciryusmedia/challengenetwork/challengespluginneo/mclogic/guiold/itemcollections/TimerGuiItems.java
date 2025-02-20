@@ -1,6 +1,6 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.guiold.itemcollections;
 
-import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ColorOutsourcing;
+import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ColorWoolUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -25,8 +25,8 @@ public interface TimerGuiItems extends GeneralGuiItems {
     ItemStack invisibleTimer = new ItemStack(Material.GRAY_DYE);
 
     //Timer Color Inv
-    ItemStack timerRunningColor = new ItemStack(ColorOutsourcing.colorStringToWool(plugin.getConfig().getString("RunningColor")));
-    ItemStack timerPausedColor = new ItemStack(ColorOutsourcing.colorStringToWool(plugin.getConfig().getString("PausedColor")));
+    ItemStack timerRunningColor = new ItemStack(ColorWoolUtils.colorStringToWool(plugin.getConfig().getString("RunningColor")));
+    ItemStack timerPausedColor = new ItemStack(ColorWoolUtils.colorStringToWool(plugin.getConfig().getString("PausedColor")));
 
     //Timer Running Color Inv
     List<ItemStack> runningColorItems = new ArrayList<>();
@@ -136,14 +136,14 @@ public interface TimerGuiItems extends GeneralGuiItems {
 
     static void updateColors() {
         //Timer Running Color
-        timerRunningColor.setType(ColorOutsourcing.colorStringToWool(plugin.getConfig().getString("RunningColor")));
+        timerRunningColor.setType(ColorWoolUtils.colorStringToWool(plugin.getConfig().getString("RunningColor")));
         ItemMeta timerRunningColorMeta = timerRunningColor.getItemMeta();
         timerRunningColorMeta.setDisplayName(ChatColor.valueOf(plugin.getConfig().getString("RunningColor").toUpperCase()) + "Running Color");
 
         timerRunningColor.setItemMeta(timerRunningColorMeta);
 
         //Timer Paused Color
-        timerPausedColor.setType(ColorOutsourcing.colorStringToWool(plugin.getConfig().getString("PausedColor")));
+        timerPausedColor.setType(ColorWoolUtils.colorStringToWool(plugin.getConfig().getString("PausedColor")));
         ItemMeta timerPausedColorMeta = timerPausedColor.getItemMeta();
         timerPausedColorMeta.setDisplayName(ChatColor.valueOf(plugin.getConfig().getString("PausedColor").toUpperCase()) + "Paused Color");
 

@@ -1,7 +1,7 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.guiold.timer.color;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.guiold.itemcollections.TimerGuiItems;
-import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ColorOutsourcing;
+import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ColorWoolUtils;
 import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.InventoryCollection;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -14,7 +14,7 @@ public class TimerPausedColorGUI extends ATimerColorGui implements Listener, Tim
 
     @Override
     public void inventoryClickHandler(ItemStack item, Player player) {
-        if (ColorOutsourcing.isWool(item.getType())) {
+        if (ColorWoolUtils.isWool(item.getType())) {
             String colorName = ChatColor.stripColor(item.getItemMeta().getDisplayName().toLowerCase().replace(' ', '_'));
             player.chat("/timer color paused " + colorName);
         }

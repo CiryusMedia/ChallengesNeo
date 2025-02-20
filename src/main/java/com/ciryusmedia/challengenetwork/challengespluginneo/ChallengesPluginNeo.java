@@ -25,7 +25,6 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.guiold.timer
 import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.listeners.system.BlockBreakListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.listeners.system.ChallengeEndListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.listeners.system.PlayerJoinLeaveListener;
-import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ColorOutsourcing;
 import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ChallengeRandomisation;
 import com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.scoreboards.HealthScoreboard;
 import com.ciryusmedia.challengenetwork.challengespluginneo.timer.ChallengeTimer;
@@ -126,7 +125,6 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         timer = new ChallengeTimer(false, 0);
         timer.setTime(getConfig().getInt("Time"));
 
-        ColorOutsourcing.initColorOutsourcing();
         ChallengeRandomisation.initRandomisation();
 
         //Initiate and enable

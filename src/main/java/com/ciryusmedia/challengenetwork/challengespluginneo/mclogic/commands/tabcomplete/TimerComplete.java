@@ -1,7 +1,7 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.mclogic.commands.tabcomplete;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
-import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ColorOutsourcing;
+import com.ciryusmedia.challengenetwork.challengespluginneo.outsourcing.ColorWoolUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -46,7 +46,7 @@ public class TimerComplete implements TabCompleter {
         } else if (strings.length == 3) {
             List<String> args = new ArrayList<>();
             if (strings[0].equalsIgnoreCase("color")) {
-                args.addAll(ColorOutsourcing.chatColorToWool.keySet());
+                args.addAll(ColorWoolUtils.COLOT_WOOL_MAP.keySet());
             }
 
             return args;
