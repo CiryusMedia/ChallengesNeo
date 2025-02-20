@@ -34,6 +34,7 @@ public enum Gui {
             }
         }
 
+        inv.setItem(inv.getSize() - 1, GuiItem.EXIT.itemStack);
 
     }
 
