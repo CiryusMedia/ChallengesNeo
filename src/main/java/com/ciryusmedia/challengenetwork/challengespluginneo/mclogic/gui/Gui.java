@@ -15,6 +15,7 @@ public enum Gui {
     //</editor-fold>
 
     //<editor-fold desc="Challenge" defaultstate="collapsed">
+    CHALLENGE_GUI("Challenges", 9*3, GuiItem.CHALLENGE_FILLER.itemStack, GuiItem.CHALLENGE_LINE_FILLER.itemStack, GuiOptions.CHALLENGE_OPTIONS, 1)
     ;
     //</editor-fold>
 
@@ -23,7 +24,7 @@ public enum Gui {
     public final ItemStack fillerItem;
     public final ItemStack lineFillerItem;
 
-    public Collection<GuiItem> options;
+    public GuiOptions options;
     public final int spacing;
 
     private void fillInventory() {
@@ -42,11 +43,11 @@ public enum Gui {
 
     }
 
-    public void setOptions(Collection<GuiItem> options) {
+    public void setOptions(GuiOptions options) {
         this.options = options;
     }
 
-    Gui(String title, int size, ItemStack fillerItem, ItemStack lineFillerItem, Collection<GuiItem> options, int spacing) {
+    Gui(String title, int size, ItemStack fillerItem, ItemStack lineFillerItem, GuiOptions options, int spacing) {
         this.inv = Bukkit.createInventory(null, size, title);
         this.fillerItem = fillerItem;
         this.lineFillerItem = lineFillerItem;
