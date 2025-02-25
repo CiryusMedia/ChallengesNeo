@@ -7,13 +7,26 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum GuiOptions {
-    CHALLENGE_OPTIONS(Arrays.stream(new ItemStack[]{
+    CHALLENGE_OPTIONS(new ItemStack[]{
             GuiItem.RANDOM_CHALLENGES.itemStack,
             Challenge.INVENTORY_SYNC.menuItem
-    }).toList())
+    }),
+    RANDOM_CHALLENGES_OPTIONS(new ItemStack[]{
+            Challenge.RANDOM_BLOCKS_FULL.menuItem,
+            Challenge.RANDOM_BLOCKS_LOOTTABLE.menuItem,
+            GuiItem.CHALLENGE_FILLER.itemStack,
+            GuiItem.CHALLENGE_FILLER.itemStack,
+            GuiItem.CHALLENGE_FILLER.itemStack,
+            Challenge.RANDOM_MOBS_FULL.menuItem,
+            Challenge.RANDOM_MOBS_LOOTTABLE.menuItem
+    })
     ;
 
     public final List<ItemStack> items;
+
+    GuiOptions(ItemStack[] items) {
+        this(Arrays.stream(items).toList());
+    }
 
     GuiOptions(List<ItemStack> items) {
         this.items = items;
