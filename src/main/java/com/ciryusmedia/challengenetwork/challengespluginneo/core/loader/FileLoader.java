@@ -1,4 +1,4 @@
-package com.ciryusmedia.challengenetwork.challengespluginneo.core.fileloaders;
+package com.ciryusmedia.challengenetwork.challengespluginneo.core.loader;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 

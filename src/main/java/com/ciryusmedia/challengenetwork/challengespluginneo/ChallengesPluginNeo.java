@@ -1,7 +1,7 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges.Challenge;
-import com.ciryusmedia.challengenetwork.challengespluginneo.core.fileloaders.FileLoader;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.loader.FileLoader;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.*;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.tabcomplete.ChallengeComplete;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.tabcomplete.DebugComplete;
@@ -28,7 +28,7 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.s
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ChallengeRandomisation;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.scoreboards.HealthScoreboard;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.timer.ChallengeTimer;
-import com.ciryusmedia.challengenetwork.challengespluginneo.core.fileloaders.WorldLoader;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.loader.WorldLoader;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 import org.bukkit.Bukkit;
