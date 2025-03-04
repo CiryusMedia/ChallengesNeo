@@ -2,7 +2,7 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
-import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ChallengeRandomisation;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.RandomisationUtils;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -19,10 +19,10 @@ public class RandomBlocksFullListener extends ARandomBlocks {
             return;
         }
 
-        ChallengeRandomisation.checkInitialized();
+        RandomisationUtils.checkInitialized();
 
         if (!drops.isEmpty()) {
-            ItemStack randomItem = ChallengeRandomisation.getRandomItem();
+            ItemStack randomItem = RandomisationUtils.getRandomItem();
             Location location = block.getLocation();
             World world = block.getWorld();
 

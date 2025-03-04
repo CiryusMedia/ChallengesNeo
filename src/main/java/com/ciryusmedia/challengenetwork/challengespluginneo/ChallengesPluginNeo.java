@@ -25,7 +25,7 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.timer.c
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.system.BlockBreakListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.system.ChallengeEndListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.system.PlayerJoinLeaveListener;
-import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ChallengeRandomisation;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.RandomisationUtils;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.scoreboards.HealthScoreboard;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.timer.ChallengeTimer;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.loader.WorldLoader;
@@ -125,7 +125,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         timer = new ChallengeTimer(false, 0);
         timer.setTime(getConfig().getInt("Time"));
 
-        ChallengeRandomisation.initRandomisation();
+        RandomisationUtils.initRandomisation();
 
         //Initiate and enable
         DEBUGGER.log("Initiating objects", DebugLevel.LEVEL_1);

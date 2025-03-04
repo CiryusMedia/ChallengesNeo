@@ -2,7 +2,7 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
-import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ChallengeRandomisation;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.RandomisationUtils;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
@@ -13,7 +13,7 @@ public class RandomMobsLoottableListener extends ARandomEntitiesDeath {
 
     @Override
     public void handleRandomEntityDeathLogic(EntityDeathEvent event) {
-        ChallengeRandomisation.checkInitialized();
+        RandomisationUtils.checkInitialized();
         YamlConfiguration loottable = YamlConfiguration.loadConfiguration(plugin.getFileLoader().getRandomMobsLoottableConfigFile());
         DEBUGGER.log("Drops: " + event.getDrops().size(), DebugLevel.LEVEL_4);
         DEBUGGER.log("Clearing drops", DebugLevel.LEVEL_3);

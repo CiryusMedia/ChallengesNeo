@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.util.*;
 
-public class ChallengeRandomisation {
+public abstract class RandomisationUtils {
 
     private static final ChallengesPluginNeo PLUGIN = ChallengesPluginNeo.getChallengePlugin();
     private static final ChallengeDebugger DEBUGGER = ChallengeDebugger.getDebugger();

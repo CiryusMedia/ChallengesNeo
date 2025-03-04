@@ -2,7 +2,7 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
-import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ChallengeRandomisation;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.RandomisationUtils;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -13,7 +13,7 @@ public class RandomMobsFullListener extends ARandomEntitiesDeath {
 
     @Override
     public void handleRandomEntityDeathLogic(EntityDeathEvent event) {
-        ChallengeRandomisation.checkInitialized();
+        RandomisationUtils.checkInitialized();
 
         int noOfDrops = event.getDrops().size();
 
@@ -23,7 +23,7 @@ public class RandomMobsFullListener extends ARandomEntitiesDeath {
         event.getDrops().clear();
         DEBUGGER.log("Replacing drops", DebugLevel.LEVEL_3);
         for (int i = 0; i < noOfDrops; i++) {
-            ItemStack randomItem = ChallengeRandomisation.getRandomItem();
+            ItemStack randomItem = RandomisationUtils.getRandomItem();
             randomItem.setAmount(oldDrops.get(i).getAmount());
             event.getDrops().add(randomItem);
         }
