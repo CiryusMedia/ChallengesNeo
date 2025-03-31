@@ -8,23 +8,23 @@ import java.util.Map;
 public abstract class ColorWoolUtils {
 
     //Wool map
-    public static final Map<String, Material> COLOT_WOOL_MAP = new HashMap<>(){{
-        COLOT_WOOL_MAP.put("BLACK", Material.BLACK_WOOL);
-        COLOT_WOOL_MAP.put("DARK_BLUE", Material.BLUE_WOOL);
-        COLOT_WOOL_MAP.put("DARK_GREEN", Material.GREEN_WOOL);
-        COLOT_WOOL_MAP.put("DARK_AQUA", Material.CYAN_WOOL);
-        COLOT_WOOL_MAP.put("DARK_RED", Material.RED_WOOL);
-        COLOT_WOOL_MAP.put("DARK_PURPLE", Material.PURPLE_WOOL);
-        COLOT_WOOL_MAP.put("GOLD", Material.YELLOW_WOOL);
-        COLOT_WOOL_MAP.put("GRAY", Material.LIGHT_GRAY_WOOL);
-        COLOT_WOOL_MAP.put("DARK_GRAY", Material.GRAY_WOOL);
-        COLOT_WOOL_MAP.put("BLUE", Material.BLUE_WOOL);
-        COLOT_WOOL_MAP.put("GREEN", Material.LIME_WOOL);
-        COLOT_WOOL_MAP.put("AQUA", Material.CYAN_WOOL);
-        COLOT_WOOL_MAP.put("RED", Material.RED_WOOL);
-        COLOT_WOOL_MAP.put("LIGHT_PURPLE", Material.MAGENTA_WOOL);
-        COLOT_WOOL_MAP.put("YELLOW", Material.YELLOW_WOOL);
-        COLOT_WOOL_MAP.put("WHITE", Material.WHITE_WOOL);
+    public static final Map<String, Material> COLOR_WOOL_MAP = new HashMap<>(){{
+        put("BLACK", Material.BLACK_WOOL);
+        put("DARK_BLUE", Material.BLUE_WOOL);
+        put("DARK_GREEN", Material.GREEN_WOOL);
+        put("DARK_AQUA", Material.CYAN_WOOL);
+        put("DARK_RED", Material.RED_WOOL);
+        put("DARK_PURPLE", Material.PURPLE_WOOL);
+        put("GOLD", Material.YELLOW_WOOL);
+        put("GRAY", Material.LIGHT_GRAY_WOOL);
+        put("DARK_GRAY", Material.GRAY_WOOL);
+        put("BLUE", Material.BLUE_WOOL);
+        put("GREEN", Material.LIME_WOOL);
+        put("AQUA", Material.CYAN_WOOL);
+        put("RED", Material.RED_WOOL);
+        put("LIGHT_PURPLE", Material.MAGENTA_WOOL);
+        put("YELLOW", Material.YELLOW_WOOL);
+        put("WHITE", Material.WHITE_WOOL);
     }};
 
     //ChatColors: BLACK, DARK_BLUE, DARK_GREEN, DARK_AQUA, DARK_RED, DARK_PURPLE, GOLD, GRAY, DARK_GRAY, BLUE, GREEN, AQUA, RED, LIGHT_PURPLE, YELLOW, WHITE
@@ -35,17 +35,17 @@ public abstract class ColorWoolUtils {
         Material returnWool = Material.WHITE_WOOL;
 
         if (isValidChatColor(colorString)) {
-            returnWool = COLOT_WOOL_MAP.get(colorString.toUpperCase());
+            returnWool = COLOR_WOOL_MAP.get(colorString.toUpperCase());
         }
 
         return returnWool;
     }
 
     public static boolean isWool(Material material) {
-        return COLOT_WOOL_MAP.containsValue(material);
+        return COLOR_WOOL_MAP.containsValue(material);
     }
 
     public static boolean isValidChatColor(String colorString) {
-        return COLOT_WOOL_MAP.get(colorString.toUpperCase()) != null;
+        return COLOR_WOOL_MAP.get(colorString.toUpperCase()) != null;
     }
 }

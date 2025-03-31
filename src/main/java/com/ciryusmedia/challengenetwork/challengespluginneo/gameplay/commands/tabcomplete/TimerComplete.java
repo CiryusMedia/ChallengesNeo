@@ -46,7 +46,7 @@ public class TimerComplete implements TabCompleter {
         } else if (strings.length == 3) {
             List<String> args = new ArrayList<>();
             if (strings[0].equalsIgnoreCase("color")) {
-                args.addAll(ColorWoolUtils.COLOT_WOOL_MAP.keySet());
+                args.addAll(ColorWoolUtils.COLOR_WOOL_MAP.keySet());
             }
 
             return args;
