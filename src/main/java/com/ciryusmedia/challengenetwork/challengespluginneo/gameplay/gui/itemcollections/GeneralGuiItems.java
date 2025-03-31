@@ -25,7 +25,7 @@ public interface GeneralGuiItems {
         }
     }
 
-    public static void initGeneralGuiItems() {
+    static void initGeneralGuiItems() {
         //Default filler item
         ItemMeta fillerMeta = defaultFillerItem.getItemMeta();
         fillerMeta.setDisplayName("");

@@ -89,6 +89,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         //Reset world reset
         if (!getConfig().contains("isReset")) {
             getConfig().set("isReset", false);
+            saveConfig();
         }
         if (getConfig().getBoolean("isReset")) {
             resetWorld();
@@ -130,7 +131,8 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         //Initiate and enable
         DEBUGGER.log("Initiating objects", DebugLevel.LEVEL_1);
         initItems();
-        initinventories();
+        initInventories();
+
         DEBUGGER.log("Enabling plugin logic", DebugLevel.LEVEL_1);
         enableEvents();
         initScoreboard();
@@ -232,11 +234,13 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
         //Challenges
         DEBUGGER.log("Challenge listeners", DebugLevel.LEVEL_2);
+        //Random Challenges
         getServer().getPluginManager().registerEvents(new RandomBlocksLoottableListener(Challenge.RANDOM_BLOCKS_LOOTTABLE), this);
         getServer().getPluginManager().registerEvents(new RandomBlocksFullListener(Challenge.RANDOM_BLOCKS_FULL), this);
         getServer().getPluginManager().registerEvents(new RandomMobsLoottableListener(Challenge.RANDOM_MOBS_LOOTTABLE), this);
         getServer().getPluginManager().registerEvents(new RandomMobsFullListener(Challenge.RANDOM_MOBS_FULL), this);
 
+        //Sync Challenges
         getServer().getPluginManager().registerEvents(new InventorySyncListener(Challenge.INVENTORY_SYNC), this);
     }
 
@@ -246,7 +250,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         TimerGuiItems.initTimerGuiItems();
     }
 
-    private void initinventories() {
+    private void initInventories() {
         DEBUGGER.log("Inventories", DebugLevel.LEVEL_2);
         timerGUI = new TimerGUI();
         timerColorGui = new TimerColorInvGUI();
@@ -257,16 +261,12 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         randomChallengesGUI = new RandomChallengesGUI();
     }
 
-    public void updateColorInventories() {
+    public void updateInventories() {
         TimerGuiItems.updateColors();
 
         timerColorGui.updateInventory();
         timerRunningColorGUI.updateInventory();
         timerPausedColorGUI.updateInventory();
-    }
-
-    public void updateInventories() {
-        updateColorInventories();
 
         timerGUI.updateInventory();
         challengeGUI.updateInventory();
@@ -275,7 +275,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
     private void initScoreboard() {
         DEBUGGER.log("Scoreboard objectives", DebugLevel.LEVEL_2);
-        Bukkit.getScheduler().runTask(this, () -> { //Using a Scheduler to avoid nullpointerexceptions, as the scoreboard manager gets loaded after the world, but this plugin get loaded before the world
+        Bukkit.getScheduler().runTask(this, () -> { //Using a Scheduler to avoid nullpointerexceptions, as the scoreboard manager gets loaded after the world, but this plugin gets loaded before the world
             scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
             healthScoreboard = new HealthScoreboard(this, scoreboard);
@@ -301,7 +301,4 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         return fileLoader;
     }
 
-    public void setFileLoader(FileLoader fileLoader) {
-        this.fileLoader = fileLoader;
-    }
 }

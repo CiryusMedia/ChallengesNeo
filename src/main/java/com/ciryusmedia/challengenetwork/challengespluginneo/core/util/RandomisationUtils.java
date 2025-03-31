@@ -100,7 +100,6 @@ public abstract class RandomisationUtils {
                 DEBUGGER.log("Loottable list file not found", DebugLevel.LEVEL_4);
             }
 
-            //randomMobLoottableMap.put(allEntity, randomDrops);
             config.set(allEntity.name(), randomDrops);
             try {
                 config.save(PLUGIN.getFileLoader().getRandomMobsLoottableConfigFile());
@@ -112,20 +111,17 @@ public abstract class RandomisationUtils {
 
     public static @NotNull ItemStack getRandomItem() {
         ItemStack randomItem = new ItemStack(getRandomItemMaterial());
-        Material randomItemMaterial = randomItem.getType();
 
-        if (randomItemMaterial.equals(Material.ENCHANTED_BOOK)) {
-            DEBUGGER.log(randomItemMaterial.name() + " Book", DebugLevel.LEVEL_5);
+        if (randomItem.getType().equals(Material.ENCHANTED_BOOK)) {
+            DEBUGGER.log(randomItem.getType().name() + " Book", DebugLevel.LEVEL_5);
             Enchantment randomEnchantment = getRandomEnchantment();
-            int level;
-            level = getRandomEnchantmentLevel(randomEnchantment);
-            randomItem.addUnsafeEnchantment(randomEnchantment, level);
-        } else if (randomItemMaterial.equals(Material.POTION) || randomItemMaterial.equals(Material.LINGERING_POTION) || randomItemMaterial.equals(Material.SPLASH_POTION) || randomItemMaterial.equals(Material.TIPPED_ARROW)) {
-            DEBUGGER.log(randomItemMaterial.name() + " Potion", DebugLevel.LEVEL_5);
+            randomItem.addUnsafeEnchantment(randomEnchantment, getRandomEnchantmentLevel(randomEnchantment));
+        } else if (randomItem.getType().equals(Material.POTION) || randomItem.getType().equals(Material.LINGERING_POTION) || randomItem.getType().equals(Material.SPLASH_POTION) || randomItem.getType().equals(Material.TIPPED_ARROW)) {
+            DEBUGGER.log(randomItem.getType().name() + " Potion", DebugLevel.LEVEL_5);
             randomItem.setItemMeta(getRandomPotionMeta(randomItem));
         }
 
-        DEBUGGER.log("Random " + randomItemMaterial.name(), DebugLevel.LEVEL_4);
+        DEBUGGER.log("Random " + randomItem.getType().name(), DebugLevel.LEVEL_4);
         return randomItem;
     }
 
@@ -144,55 +140,29 @@ public abstract class RandomisationUtils {
     }
 
     public static int getRandomEnchantmentLevel(Enchantment randomEnchantment) {
-        boolean isUnsafe = PLUGIN.getConfig().getBoolean("UnsafeRandomEnchantments");
-        int level;
-        if (isUnsafe) {
-            level = getUnsafeEnchantmentLevel(PLUGIN.getConfig().getInt("UnsafeEnchantmentBounds"));
+        if (PLUGIN.getConfig().getBoolean("UnsafeRandomEnchantments")) {
+            return getUnsafeLevel(PLUGIN.getConfig().getInt("UnsafeEnchantmentBounds"));
         } else {
-            level = getSafeEnchantmentLevel(randomEnchantment);
+            return getSafeEnchantmentLevel(randomEnchantment);
         }
-        return level;
-    }
-
-    public static int getSafeEnchantmentLevel(Enchantment enchantment) {
-        return new Random().nextInt(enchantment.getMaxLevel()) + 1;
-    }
-
-    public static int getUnsafeEnchantmentLevel(int bounds) {
-        return new Random().nextInt(bounds);
     }
 
     public static @NotNull PotionMeta getRandomPotionMeta(ItemStack randomItem) {
-        boolean isUnsafe = PLUGIN.getConfig().getBoolean("UnsafeRandomPotions");
+        PotionEffectType backupEffectType = PotionEffectType.SPEED; //Backup for when randomPotionTypeEffects is empty (for whatever reason)
+
         PotionMeta randomPotionMeta = (PotionMeta) randomItem.getItemMeta();
         PotionType randomPotionType = getRandomPotionType();
         List<PotionEffect> randomPotionTypeEffects = randomPotionType.getPotionEffects();
         PotionEffect randomPotionEffect = !randomPotionTypeEffects.isEmpty() ? randomPotionTypeEffects.getFirst() : null;
-        int duration = getPotionDuration(PLUGIN.getConfig().getInt("RandomPotionDuration"));
-        int level;
-        if (isUnsafe) {
-            level = getUnsafePotionLevel(PLUGIN.getConfig().getInt("UnsafeRandomPotionBounds"));
-        } else {
-            level = getSafePotionLevel(randomPotionType);
-        }
+        int duration = (new Random().nextInt(PLUGIN.getConfig().getInt("RandomPotionDuration")) + 1) * 20 * 60;
+        int level =  PLUGIN.getConfig().getBoolean("UnsafeRandomPotions") ? getUnsafeLevel(PLUGIN.getConfig().getInt("UnsafeRandomPotionBounds")) : getSafePotionLevel(randomPotionType);
 
-        PotionEffectType backupEffectType = PotionEffectType.SPEED; //Backup for when randomPotionTypeEffects is empty (for whatever reason)
-
-        PotionEffect customRandomPotionEffect;
-
-        if (randomPotionEffect != null) {
-            customRandomPotionEffect = new PotionEffect(randomPotionEffect.getType(), duration, level);
-        } else {
-            customRandomPotionEffect = new PotionEffect(backupEffectType, duration, level);;
-        }
+        PotionEffect customRandomPotionEffect = new PotionEffect(randomPotionEffect != null ? randomPotionEffect.getType() : backupEffectType, duration, level);
 
         randomPotionMeta.clearCustomEffects();
         randomPotionMeta.addCustomEffect(customRandomPotionEffect, true);
 
-        String customPotionItemName = "Potion of a random effect";
-        if (randomItem.getType().equals(Material.TIPPED_ARROW)) {
-            customPotionItemName = "Arrow of a random effect";
-        }
+        String customPotionItemName = randomItem.getType().equals(Material.TIPPED_ARROW) ? "Arrow of a random effect" : "Potion of a random effect";
         randomPotionMeta.setDisplayName(ChatColor.RESET + customPotionItemName);
 
         randomPotionMeta.setColor(customRandomPotionEffect.getType().getColor());
@@ -203,16 +173,16 @@ public abstract class RandomisationUtils {
         return PotionType.values()[new Random().nextInt(PotionType.values().length)];
     }
 
-    public static int getUnsafePotionLevel(int bounds) {
-        return new Random().nextInt(bounds);
+    public static int getSafeEnchantmentLevel(Enchantment enchantment) {
+        return new Random().nextInt(enchantment.getMaxLevel()) + 1;
     }
 
     public static int getSafePotionLevel(PotionType potionType) {
         return new Random().nextInt(potionType.getMaxLevel());
     }
 
-    public static int getPotionDuration(int bounds) {
-        return (new Random().nextInt(bounds) + 1) * 20 * 60;
+    public static int getUnsafeLevel(int bounds) {
+        return new Random().nextInt(bounds);
     }
 
     public static void checkInitialized() throws DataNotInitializedException {

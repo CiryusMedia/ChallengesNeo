@@ -28,17 +28,10 @@ public abstract class ColorWoolUtils {
     }};
 
     //ChatColors: BLACK, DARK_BLUE, DARK_GREEN, DARK_AQUA, DARK_RED, DARK_PURPLE, GOLD, GRAY, DARK_GRAY, BLUE, GREEN, AQUA, RED, LIGHT_PURPLE, YELLOW, WHITE
-    private static final String[] woolColorNames = new String[]{"white", "black", "red", "green", "yellow", "orange", "magenta", "cyan", "light_blue", "lime", "pink", "gray", "light_gray"};
+    //Wool Colors: White, Black; Red, Green, Yellow, Orange, Magenta, Cyan, Light_blue, Lime, Pink, Gray, Light_gray
 
     public static Material colorStringToWool(String colorString) {
-
-        Material returnWool = Material.WHITE_WOOL;
-
-        if (isValidChatColor(colorString)) {
-            returnWool = COLOR_WOOL_MAP.get(colorString.toUpperCase());
-        }
-
-        return returnWool;
+        return isValidChatColor(colorString) ? COLOR_WOOL_MAP.get(colorString.toUpperCase()) : null;
     }
 
     public static boolean isWool(Material material) {

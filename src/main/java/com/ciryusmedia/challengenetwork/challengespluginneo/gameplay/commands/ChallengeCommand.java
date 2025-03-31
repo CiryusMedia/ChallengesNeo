@@ -57,13 +57,9 @@ public class ChallengeCommand implements CommandExecutor, Texts {
                         handleChallenge(challenge, strings[2], sender);
                         break;
                     }
-                    if (challenge.enabled) {
-                        sender.sendMessage(PREFIX + challenge.displayName + " is " + ChatColor.GREEN + "enabled");
-                        break;
-                    } else {
-                        sender.sendMessage(PREFIX + challenge.displayName + " is " + ChatColor.RED + "disabled");
-                        break;
-                    }
+                    sender.sendMessage(PREFIX + challenge.displayName + " is " +
+                            (challenge.enabled ? ChatColor.GREEN + "enabled" : ChatColor.RED + "disabled")
+                    );
                 }
         }
 

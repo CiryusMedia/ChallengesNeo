@@ -11,7 +11,7 @@ public enum ChallengeSubtype {
 
     //<editor-fold desc="Sync" defaultstate="collapsed">
     INVENTORY_SYNC("inventorySync", ChallengeType.SYNC);
-    //<editor-fold>
+    //</editor-fold>
 
     public final String name;
     public final ChallengeType parentType;
