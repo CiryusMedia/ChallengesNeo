@@ -68,7 +68,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     //Startup and shutdown
     @Override
     public void onLoad() {
-        DEBUGGER.log("Loading Ciryus Challenge Plugin version " + getDescription().getVersion(), DebugLevel.LEVEL_0);
+        DEBUGGER.log("Loading Ciryus Challenge Plugin version " + getDescription().getVersion());
 
         DEBUGGER.setMessagePrefix(ChatColor.AQUA + "Challenge" + ChatColor.DARK_GRAY + "> ");
         instance = this;
@@ -111,7 +111,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     public void onEnable() {
         // Plugin startup logic
         //Messages
-        DEBUGGER.log("Enabling Ciryus Challenge Plugin " + getDescription().getVersion(), DebugLevel.LEVEL_0);
+        DEBUGGER.log("Enabling Ciryus Challenge Plugin " + getDescription().getVersion());
 
         //Bungeecord messenger channels
         DEBUGGER.log("Registering plugin channels", DebugLevel.LEVEL_1);
@@ -147,8 +147,8 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         tick();
 
         //Finished loading
-        DEBUGGER.log(ChatColor.RESET + Texts.STARTUP_LOGO, DebugLevel.LEVEL_0);
-        DEBUGGER.log("Challenge Plugin Loaded and Enabled", DebugLevel.LEVEL_0);
+        DEBUGGER.log(ChatColor.RESET + Texts.STARTUP_LOGO);
+        DEBUGGER.log("Challenge Plugin Loaded and Enabled");
 
         //Test restarts
 //        getRandomBlocksLoottableConfigFile().delete();

@@ -22,6 +22,10 @@ public class ChallengeDebugger {
         }
     }
 
+    public void log(String message) {
+        log(message, DebugLevel.LEVEL_0);
+    }
+
     /**
      * Sets the message prefix of debug messages to your chosen prefix
      * @param prefix A message prefix

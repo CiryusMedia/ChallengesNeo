@@ -38,7 +38,7 @@ public interface WorldLoader {
             DEBUGGER.log("Making world_the_end files", DebugLevel.LEVEL_2);
             makeWorldFiles(world_the_end);
         } catch (IOException e) {
-            DEBUGGER.log(ChatColor.RED + "Could not reset world files! Cause: " + Arrays.toString(e.getStackTrace()), DebugLevel.LEVEL_0);
+            DEBUGGER.log(ChatColor.RED + "Could not reset world files! Cause: " + Arrays.toString(e.getStackTrace()));
         }
     }
 

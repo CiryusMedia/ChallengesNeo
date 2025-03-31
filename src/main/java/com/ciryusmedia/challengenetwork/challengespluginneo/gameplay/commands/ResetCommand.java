@@ -18,7 +18,7 @@ public class ResetCommand implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         //Kicking everyone
         Bukkit.getOnlinePlayers().forEach(player -> player.kickPlayer("Server Reset"));
-        DEBUGGER.log(ChatColor.RED + "Resetting Server", DebugLevel.LEVEL_0);
+        DEBUGGER.log(ChatColor.RED + "Resetting Server");
 
         //Setting timer
         plugin.getTimer().setRunning(false);
