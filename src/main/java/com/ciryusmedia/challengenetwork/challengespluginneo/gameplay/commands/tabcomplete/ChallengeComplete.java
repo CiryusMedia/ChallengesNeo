@@ -2,7 +2,7 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.t
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges.ChallengeType;
-import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeDebugger;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ChallengeComplete implements TabCompleter {
 
-    private static final ChallengeDebugger DEBUGGER = ChallengeDebugger.getDebugger();
+    private static final ChallengeLogger LOGGER = ChallengeLogger.getLogger();
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
@@ -27,7 +27,7 @@ public class ChallengeComplete implements TabCompleter {
                 list.add("sync");
                 break;
             case 2:
-                DEBUGGER.log(strings[0] + " " + ChallengeType.isValidType(strings[0]), DebugLevel.LEVEL_4);
+                LOGGER.debug(strings[0] + " " + ChallengeType.isValidType(strings[0]), DebugLevel.LEVEL_4);
                 if (ChallengeType.isValidType(strings[0])) {
                     Challenge.getChallengesFromType(strings[0]).forEach(challenge -> {
                         list.add(challenge.name);

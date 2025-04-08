@@ -4,18 +4,18 @@ import org.bukkit.ChatColor;
 
 import static org.bukkit.Bukkit.getServer;
 
-public class ChallengeDebugger {
+public class ChallengeLogger {
 
-    private static final ChallengeDebugger DEBUGGER = new ChallengeDebugger();
+    private static final ChallengeLogger LOGGER = new ChallengeLogger();
 
     private static String messagePrefix = "";
     private static int debugLevel = 0;
 
-    public void log(String message, int level) {
-        log(message, DebugLevel.getDebugLevel(level));
+    public void debug(String message, int level) {
+        debug(message, DebugLevel.getDebugLevel(level));
     }
 
-    public void log(String message, DebugLevel level) {
+    public void debug(String message, DebugLevel level) {
         ChatColor color = level.color;
         if (level.level <= debugLevel) {
             getServer().getConsoleSender().sendMessage(messagePrefix + color + message);
@@ -23,7 +23,11 @@ public class ChallengeDebugger {
     }
 
     public void log(String message) {
-        log(message, DebugLevel.LEVEL_0);
+        debug(message, DebugLevel.LEVEL_0);
+    }
+
+    public void error(String message) {
+        debug(ChatColor.RED + message, DebugLevel.LEVEL_0);
     }
 
     /**
@@ -54,11 +58,11 @@ public class ChallengeDebugger {
         return debugLevel;
     }
 
-    public ChallengeDebugger() {
+    public ChallengeLogger() {
 
     }
 
-    public static ChallengeDebugger getDebugger() {
-        return DEBUGGER;
+    public static ChallengeLogger getLogger() {
+        return LOGGER;
     }
 }

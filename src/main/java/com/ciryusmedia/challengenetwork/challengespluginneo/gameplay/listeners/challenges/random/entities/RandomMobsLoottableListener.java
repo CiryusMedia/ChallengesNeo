@@ -15,12 +15,12 @@ public class RandomMobsLoottableListener extends ARandomEntitiesDeath {
     public void handleRandomEntityDeathLogic(EntityDeathEvent event) {
         RandomisationUtils.checkInitialized();
         YamlConfiguration loottable = YamlConfiguration.loadConfiguration(plugin.getFileLoader().getRandomMobsLoottableConfigFile());
-        DEBUGGER.log("Drops: " + event.getDrops().size(), DebugLevel.LEVEL_4);
-        DEBUGGER.log("Clearing drops", DebugLevel.LEVEL_3);
+        LOGGER.debug("Drops: " + event.getDrops().size(), DebugLevel.LEVEL_4);
+        LOGGER.debug("Clearing drops", DebugLevel.LEVEL_3);
         event.getDrops().clear();
-        DEBUGGER.log("Replacing drops", DebugLevel.LEVEL_3);
+        LOGGER.debug("Replacing drops", DebugLevel.LEVEL_3);
         event.getDrops().addAll((Collection<? extends ItemStack>) loottable.getList(event.getEntityType().name()));
-        DEBUGGER.log(event.getDrops().toString(), DebugLevel.LEVEL_4);
+        LOGGER.debug(event.getDrops().toString(), DebugLevel.LEVEL_4);
     }
 
     public RandomMobsLoottableListener(Challenge challenge) {

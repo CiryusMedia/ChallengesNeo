@@ -26,17 +26,17 @@ public class RandomBlocksFullListener extends ARandomBlocks {
             Location location = block.getLocation();
             World world = block.getWorld();
 
-            DEBUGGER.log("Random dropping...", DebugLevel.LEVEL_3);
-            DEBUGGER.log(block.getType().name(), DebugLevel.LEVEL_4);
-            DEBUGGER.log(randomItem.getType().name(), DebugLevel.LEVEL_4);
-            DEBUGGER.log(location.toString(), DebugLevel.LEVEL_4);
-            DEBUGGER.log(world.toString(), DebugLevel.LEVEL_4);
+            LOGGER.debug("Random dropping...", DebugLevel.LEVEL_3);
+            LOGGER.debug(block.getType().name(), DebugLevel.LEVEL_4);
+            LOGGER.debug(randomItem.getType().name(), DebugLevel.LEVEL_4);
+            LOGGER.debug(location.toString(), DebugLevel.LEVEL_4);
+            LOGGER.debug(world.toString(), DebugLevel.LEVEL_4);
 
             Item droppedItem = world.dropItemNaturally(location, randomItem);
 
-            DEBUGGER.log(droppedItem.getItemStack().getType().name(), DebugLevel.LEVEL_4);
-            DEBUGGER.log(droppedItem.getLocation().toString(), DebugLevel.LEVEL_4);
-            DEBUGGER.log(block.getDrops().toString(), DebugLevel.LEVEL_4);
+            LOGGER.debug(droppedItem.getItemStack().getType().name(), DebugLevel.LEVEL_4);
+            LOGGER.debug(droppedItem.getLocation().toString(), DebugLevel.LEVEL_4);
+            LOGGER.debug(block.getDrops().toString(), DebugLevel.LEVEL_4);
         }
     }
 

@@ -17,7 +17,7 @@ public class InventorySyncListener extends AChallengeListener implements Listene
             return;
         }
 
-        DEBUGGER.log(e.getEventName(), DebugLevel.LEVEL_4);
+        LOGGER.debug(e.getEventName(), DebugLevel.LEVEL_4);
 
         Bukkit.getOnlinePlayers().forEach(player -> {
             player.getInventory().setContents(e.getPlayer().getInventory().getContents());

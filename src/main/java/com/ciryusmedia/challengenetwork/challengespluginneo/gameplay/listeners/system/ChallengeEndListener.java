@@ -3,7 +3,7 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.timer.ChallengeTimer;
-import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeDebugger;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -21,7 +21,7 @@ import java.util.List;
 public class ChallengeEndListener implements Listener {
 
     ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
-    private static final ChallengeDebugger DEBUGGER = ChallengeDebugger.getDebugger();
+    private static final ChallengeLogger LOGGER = ChallengeLogger.getLogger();
 
     @EventHandler
     public void onDragonDeath(EntityDeathEvent event) {
@@ -82,9 +82,9 @@ public class ChallengeEndListener implements Listener {
         Challenge.challenges.forEach(challenge -> {
             if (challenge.enabled){
                 usedChallengesList.add(challenge.displayName);
-                DEBUGGER.log("Active challenge " + challenge.displayName, DebugLevel.LEVEL_3);
+                LOGGER.debug("Active challenge " + challenge.displayName, DebugLevel.LEVEL_3);
             }
-            DEBUGGER.log("Active challenges: " + usedChallengesList, DebugLevel.LEVEL_3);
+            LOGGER.debug("Active challenges: " + usedChallengesList, DebugLevel.LEVEL_3);
         });
 
         for (int i = 0; i < usedChallengesList.toArray().length; i++) {

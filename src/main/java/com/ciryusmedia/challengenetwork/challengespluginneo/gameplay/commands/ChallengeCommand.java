@@ -3,7 +3,7 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands;
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.InventoryCollection;
-import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeDebugger;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.Texts;
 import org.bukkit.ChatColor;
@@ -16,13 +16,13 @@ import java.util.List;
 
 public class ChallengeCommand implements CommandExecutor, Texts {
 
-    private static final ChallengeDebugger DEBUGGER = ChallengeDebugger.getDebugger();
+    private static final ChallengeLogger DEBUGGER = ChallengeLogger.getLogger();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
 
         if (strings.length == 0) {
-            DEBUGGER.log("Handling challenge command for gui", DebugLevel.LEVEL_3);
+            DEBUGGER.debug("Handling challenge command for gui", DebugLevel.LEVEL_3);
             if (sender instanceof Player player) {
                 if (player.hasPermission("challenge.challenges.view")) {
                     ChallengesPluginNeo.challengeGUI.updateInventory();

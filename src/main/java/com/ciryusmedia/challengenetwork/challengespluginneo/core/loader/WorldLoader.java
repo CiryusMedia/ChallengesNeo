@@ -1,6 +1,6 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.core.loader;
 
-import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeDebugger;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -14,31 +14,31 @@ import java.util.Comparator;
 
 public interface WorldLoader {
 
-    ChallengeDebugger DEBUGGER = ChallengeDebugger.getDebugger();
+    ChallengeLogger LOGGER = ChallengeLogger.getLogger();
 
     //Reset Stuff
     default void resetWorld() {
-        DEBUGGER.log("Resetting world files", DebugLevel.LEVEL_1);
+        LOGGER.debug("Resetting world files", DebugLevel.LEVEL_1);
         try {
             File world = new File(Bukkit.getWorldContainer(), "world");
             File world_nether = new File(Bukkit.getWorldContainer(), "world_nether");
             File world_the_end = new File(Bukkit.getWorldContainer(), "world_the_end");
 
-            DEBUGGER.log("Deleting world files", DebugLevel.LEVEL_2);
+            LOGGER.debug("Deleting world files", DebugLevel.LEVEL_2);
             deleteWorldFiles(world);
-            DEBUGGER.log("Deleting world_nether files", DebugLevel.LEVEL_2);
+            LOGGER.debug("Deleting world_nether files", DebugLevel.LEVEL_2);
             deleteWorldFiles(world_nether);
-            DEBUGGER.log("Deleting world_the_end files", DebugLevel.LEVEL_2);
+            LOGGER.debug("Deleting world_the_end files", DebugLevel.LEVEL_2);
             deleteWorldFiles(world_the_end);
 
-            DEBUGGER.log("Making world files", DebugLevel.LEVEL_2);
+            LOGGER.debug("Making world files", DebugLevel.LEVEL_2);
             makeWorldFiles(world);
-            DEBUGGER.log("Making world_nether files", DebugLevel.LEVEL_2);
+            LOGGER.debug("Making world_nether files", DebugLevel.LEVEL_2);
             makeWorldFiles(world_nether);
-            DEBUGGER.log("Making world_the_end files", DebugLevel.LEVEL_2);
+            LOGGER.debug("Making world_the_end files", DebugLevel.LEVEL_2);
             makeWorldFiles(world_the_end);
         } catch (IOException e) {
-            DEBUGGER.log(ChatColor.RED + "Could not reset world files! Cause: " + Arrays.toString(e.getStackTrace()));
+            LOGGER.error("Could not reset world files! Cause: " + Arrays.toString(e.getStackTrace()));
         }
     }
 

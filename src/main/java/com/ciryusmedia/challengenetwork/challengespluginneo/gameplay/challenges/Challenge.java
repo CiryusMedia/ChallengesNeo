@@ -1,7 +1,7 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
-import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeDebugger;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -57,7 +57,7 @@ public enum Challenge {
 
     private final ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
     public static final List<Challenge> challenges = Arrays.stream(Challenge.values()).toList();
-    private static final ChallengeDebugger DEBUGGER = ChallengeDebugger.getDebugger();
+    private static final ChallengeLogger LOGGER = ChallengeLogger.getLogger();
 
     public final String name;
     public final String displayName;
@@ -84,11 +84,11 @@ public enum Challenge {
     }
 
     public void setEnabled(boolean enabled) {
-        DEBUGGER.log("Setting challenge " + name + " to " + enabled, DebugLevel.LEVEL_3);
+        LOGGER.debug("Setting challenge " + name + " to " + enabled, DebugLevel.LEVEL_3);
         plugin.getConfig().set(name, enabled);
         plugin.saveConfig();
         this.enabled = enabled;
-        DEBUGGER.log("Challenge " + name + " is now " + enabled, DebugLevel.LEVEL_3);
+        LOGGER.debug("Challenge " + name + " is now " + enabled, DebugLevel.LEVEL_3);
         updateMenuItem();
     }
 
