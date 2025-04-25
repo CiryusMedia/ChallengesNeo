@@ -1,10 +1,6 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.goal;
 
-import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
-import com.ciryusmedia.challengenetwork.challengespluginneo.core.timer.ChallengeTimer;
-import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges.Challenge;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarFlag;
@@ -18,10 +14,7 @@ import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import java.util.HashSet;
 import java.util.Set;
 
-@SuppressWarnings({"DataFlowIssue","deprecation"})
-public class AdvancementListener implements Listener {
-
-    ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
+public class AdvancementListener extends AGoal implements Listener {
 
     private final BossBar bossBar;
 
@@ -43,29 +36,14 @@ public class AdvancementListener implements Listener {
             }
         });
 
-        if (!player.getAdvancementProgress(advancement).isDone()) {
-            return;
+        if (player.getAdvancementProgress(advancement).isDone()) {
+            completedAdvancements.add(advancement.getKey().toString());
+            bossBar.setTitle("Advancements: " + completedAdvancements.size());
         }
 
-        completedAdvancements.add(advancement.getKey().toString());
-
-        if (completedAdvancements.containsAll(allAdvancements)) {
-            ChallengeTimer timer = plugin.getTimer();
-
-            if (timer.isRunning()) {
-                timer.setRunning(false);
-                Bukkit.getServer().broadcastMessage(ChatColor.GOLD + "The challenge was successfully beaten with a time of "
-                        + ChatColor.AQUA + timer.getStringFromTime(timer.getTime()) + ChatColor.GOLD + "!");
-                if (!Challenge.getActiveChallengesList().isEmpty()) {
-                    Bukkit.getServer().broadcastMessage(ChatColor.GOLD + "The following challenges were used: \n" + Challenge.getActiveChallengesString());
-                } else {
-                    Bukkit.getServer().broadcastMessage(ChatColor.GOLD + "No Challenges were used");
-                }
-                Bukkit.getServer().broadcastMessage(ChatColor.GOLD + "GGWP! The seed was: " + ChatColor.DARK_AQUA + Bukkit.getServer().getWorld("world").getSeed());
-            }
+        if (timer.isRunning() && completedAdvancements.containsAll(allAdvancements)) {
+            beatRun();
         }
-
-        bossBar.setTitle("Advancements: " + completedAdvancements.size());
     }
 
     public AdvancementListener() {
