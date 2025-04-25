@@ -128,6 +128,24 @@ public enum Challenge {
         return challenges;
     }
 
+    public static List<Challenge> getActiveChallengesList() {
+        List<Challenge> activeChallenges = new ArrayList<>();
+        for (Challenge challenge : challenges) {
+            if (challenge.enabled) activeChallenges.add(challenge);
+        }
+        return activeChallenges;
+    }
+
+    public static String getActiveChallengesString() {
+        StringBuilder builder = new StringBuilder();
+
+        for (Challenge challenge : getActiveChallengesList()) {
+            builder.append(challenge.name).append(", ");
+        }
+
+        return builder.toString();
+    }
+
     Challenge(String name, String displayName, ChallengeType type, ChallengeSubtype subType, Material menuMaterial, String[] description) {
         this(name, displayName, type, subType, new ItemStack(menuMaterial), description);
     }
