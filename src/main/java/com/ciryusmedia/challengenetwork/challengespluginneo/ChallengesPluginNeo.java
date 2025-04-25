@@ -11,7 +11,6 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLe
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.Texts;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections.GeneralGuiItems;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections.TimerGuiItems;
-import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.goal.PlayerDeathListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.random.blocks.RandomBlocksFullListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.random.blocks.RandomBlocksLoottableListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.random.entities.RandomMobsFullListener;
@@ -24,7 +23,7 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.timer.T
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.timer.color.TimerPausedColorGUI;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.timer.color.TimerRunningColorGUI;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.system.BlockBreakListener;
-import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.goal.EnderdragonDeathListener;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.system.ChallengeEndListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.system.PlayerJoinLeaveListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.RandomisationUtils;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.scoreboards.HealthScoreboard;
@@ -220,6 +219,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         //System
         LOGGER.debug("System listeners", DebugLevel.LEVEL_2);
         getServer().getPluginManager().registerEvents(new PlayerJoinLeaveListener(), this);
+        getServer().getPluginManager().registerEvents(new ChallengeEndListener(), this);
         getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
 
         //GUI
@@ -234,10 +234,6 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
         //Challenges
         LOGGER.debug("Challenge listeners", DebugLevel.LEVEL_2);
-        //Goals
-        getServer().getPluginManager().registerEvents(new PlayerDeathListener(), this);
-        getServer().getPluginManager().registerEvents(new EnderdragonDeathListener(), this);
-
         //Random Challenges
         getServer().getPluginManager().registerEvents(new RandomBlocksLoottableListener(Challenge.RANDOM_BLOCKS_LOOTTABLE), this);
         getServer().getPluginManager().registerEvents(new RandomBlocksFullListener(Challenge.RANDOM_BLOCKS_FULL), this);
