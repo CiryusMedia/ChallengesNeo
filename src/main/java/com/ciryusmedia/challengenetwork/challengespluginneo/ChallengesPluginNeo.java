@@ -11,6 +11,7 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLe
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.Texts;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections.GeneralGuiItems;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections.TimerGuiItems;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.goal.AdvancementListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.goal.PlayerDeathListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.random.blocks.RandomBlocksFullListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.random.blocks.RandomBlocksLoottableListener;
@@ -237,6 +238,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         //Goals
         getServer().getPluginManager().registerEvents(new PlayerDeathListener(), this);
         getServer().getPluginManager().registerEvents(new EnderdragonDeathListener(), this);
+        getServer().getPluginManager().registerEvents(new AdvancementListener(), this);
 
         //Random Challenges
         getServer().getPluginManager().registerEvents(new RandomBlocksLoottableListener(Challenge.RANDOM_BLOCKS_LOOTTABLE), this);
