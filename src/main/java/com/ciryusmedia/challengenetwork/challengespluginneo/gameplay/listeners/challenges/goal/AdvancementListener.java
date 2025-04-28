@@ -1,6 +1,8 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.goal;
 
+import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarFlag;
@@ -18,8 +20,8 @@ public class AdvancementListener extends AGoal implements Listener {
 
     private final BossBar bossBar;
 
-    private final Set<String> completedAdvancements = new HashSet<>();
-    private final Set<String> allAdvancements = new HashSet<>();
+    private static final Set<String> completedAdvancements = new HashSet<>();
+    private static final Set<String> allAdvancements = new HashSet<>();
 
     @EventHandler
     public void onPlayerAdvancement(PlayerAdvancementDoneEvent event) {
@@ -44,6 +46,17 @@ public class AdvancementListener extends AGoal implements Listener {
         if (timer.isRunning() && completedAdvancements.containsAll(allAdvancements)) {
             beatRun();
         }
+    }
+
+    public void refreshAdvancements() {
+        Bukkit.getOnlinePlayers().forEach(p -> {
+           allAdvancements.forEach(a -> {
+               NamespacedKey key = new NamespacedKey(plugin, a);
+               if (p.getAdvancementProgress(Bukkit.getAdvancement(key)).isDone()) {
+                   completedAdvancements.add(a);
+               }
+           });
+        });
     }
 
     public AdvancementListener() {

@@ -55,6 +55,8 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
     private Scoreboard scoreboard;
 
+    private AdvancementListener advancementListener;
+
     //Inventories
     public static TimerGUI timerGUI;
     public static TimerColorInvGUI timerColorGui;
@@ -134,6 +136,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         LOGGER.debug("Initiating objects", DebugLevel.LEVEL_1);
         initItems();
         initInventories();
+        advancementListener = new AdvancementListener();
 
         LOGGER.debug("Enabling plugin logic", DebugLevel.LEVEL_1);
         enableEvents();
@@ -238,7 +241,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         //Goals
         getServer().getPluginManager().registerEvents(new PlayerDeathListener(), this);
         getServer().getPluginManager().registerEvents(new EnderdragonDeathListener(), this);
-        getServer().getPluginManager().registerEvents(new AdvancementListener(), this);
+        getServer().getPluginManager().registerEvents(advancementListener, this);
 
         //Random Challenges
         getServer().getPluginManager().registerEvents(new RandomBlocksLoottableListener(Challenge.RANDOM_BLOCKS_LOOTTABLE), this);
@@ -305,6 +308,10 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
     public FileLoader getFileLoader() {
         return fileLoader;
+    }
+
+    public AdvancementListener getAdvancementListener() {
+        return advancementListener;
     }
 
 }
