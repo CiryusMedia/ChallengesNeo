@@ -6,6 +6,10 @@ RandomMobsFull: false
 
 InventorySync: false
 
+#Challenge Goals (Currently only one)
+EnderDragon: true
+Advancements: false
+
 #Random challenge stuff
 UnsafeRandomEnchantments: true
 UnsafeEnchantmentBounds: 100

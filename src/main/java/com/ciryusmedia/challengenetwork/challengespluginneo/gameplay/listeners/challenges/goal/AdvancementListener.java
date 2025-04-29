@@ -43,7 +43,7 @@ public class AdvancementListener extends AGoal implements Listener {
             bossBar.setTitle("Advancements: " + completedAdvancements.size());
         }
 
-        if (timer.isRunning() && completedAdvancements.containsAll(allAdvancements)) {
+        if (active && timer.isRunning() && completedAdvancements.containsAll(allAdvancements)) {
             beatRun();
         }
     }
@@ -59,6 +59,7 @@ public class AdvancementListener extends AGoal implements Listener {
     }
 
     public AdvancementListener() {
+        super("Advancements");
         bossBar = Bukkit.createBossBar("Advancements: 0", BarColor.GREEN, BarStyle.SOLID, BarFlag.CREATE_FOG);
         Bukkit.advancementIterator().forEachRemaining(advancement -> allAdvancements.add(advancement.getKey()));
     }

@@ -20,4 +20,8 @@ public class EnderdragonDeathListener extends AGoal implements Listener {
             return;
         }
     }
+
+    public EnderdragonDeathListener() {
+        super("EnderDragon");
+    }
 }

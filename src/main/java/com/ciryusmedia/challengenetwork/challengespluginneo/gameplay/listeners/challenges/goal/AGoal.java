@@ -5,7 +5,6 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.core.timer.Challenge
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges.Challenge;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings({"DataFlowIssue", "deprecation"})
 public abstract class AGoal {
@@ -13,6 +12,9 @@ public abstract class AGoal {
     ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
 
     ChallengeTimer timer = plugin.getTimer();
+
+    protected String goalId;
+    protected boolean active;
 
     public void beatRun() {
         endRun(true, null);
@@ -38,5 +40,21 @@ public abstract class AGoal {
         }
         Bukkit.getServer().broadcastMessage(ChatColor.GOLD + "GGWP! The seed was: " + ChatColor.DARK_AQUA + Bukkit.getServer().getWorld("world").getSeed());
         timer.setRunning(false);
+    }
+
+    public AGoal(String goalId) {
+        this.goalId = goalId;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void updateActive() {
+        active = plugin.getConfig().getBoolean(goalId);
     }
 }

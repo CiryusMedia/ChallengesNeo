@@ -56,6 +56,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     private Scoreboard scoreboard;
 
     private AdvancementListener advancementListener;
+    private EnderdragonDeathListener enderdragonDeathListener;
 
     //Inventories
     public static TimerGUI timerGUI;
@@ -137,6 +138,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         initItems();
         initInventories();
         advancementListener = new AdvancementListener();
+        enderdragonDeathListener = new EnderdragonDeathListener();
 
         LOGGER.debug("Enabling plugin logic", DebugLevel.LEVEL_1);
         enableEvents();
@@ -197,6 +199,8 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
                 reloadConfig();
                 LOGGER.setDebugLevel(getConfig().getInt("DebugLevel"));
                 updateInventories();
+                advancementListener.updateActive();
+                enderdragonDeathListener.updateActive();
             }
         }.runTaskTimer(ChallengesPluginNeo.getChallengePlugin(), 20, 20);
     }
@@ -240,7 +244,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         LOGGER.debug("Challenge listeners", DebugLevel.LEVEL_2);
         //Goals
         getServer().getPluginManager().registerEvents(new PlayerDeathListener(), this);
-        getServer().getPluginManager().registerEvents(new EnderdragonDeathListener(), this);
+        getServer().getPluginManager().registerEvents(enderdragonDeathListener, this);
         getServer().getPluginManager().registerEvents(advancementListener, this);
 
         //Random Challenges
@@ -312,6 +316,10 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
     public AdvancementListener getAdvancementListener() {
         return advancementListener;
+    }
+
+    public EnderdragonDeathListener getEnderdragonDeathListener() {
+        return enderdragonDeathListener;
     }
 
 }
