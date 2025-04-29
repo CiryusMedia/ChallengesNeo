@@ -10,7 +10,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 public class PlayerDeathListener extends AGoal implements Listener {
 
     public PlayerDeathListener() {
-        super(null);
+        super("PlayerDeath");
     }
 
     @EventHandler
