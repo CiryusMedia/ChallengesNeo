@@ -20,15 +20,15 @@ public class AdvancementListener extends AGoal implements Listener {
 
     private final BossBar bossBar;
 
-    private static final Set<String> completedAdvancements = new HashSet<>();
-    private static final Set<String> allAdvancements = new HashSet<>();
+    private static final Set<NamespacedKey> completedAdvancements = new HashSet<>();
+    private static final Set<NamespacedKey> allAdvancements = new HashSet<>();
 
     @EventHandler
     public void onPlayerAdvancement(PlayerAdvancementDoneEvent event) {
         Player player = event.getPlayer();
         Advancement advancement = event.getAdvancement();
 
-        if (completedAdvancements.contains(advancement.getKey().toString())) {
+        if (completedAdvancements.contains(advancement.getKey())) {
             return;
         }
 
@@ -39,7 +39,7 @@ public class AdvancementListener extends AGoal implements Listener {
         });
 
         if (player.getAdvancementProgress(advancement).isDone()) {
-            completedAdvancements.add(advancement.getKey().toString());
+            completedAdvancements.add(advancement.getKey());
             bossBar.setTitle("Advancements: " + completedAdvancements.size());
         }
 
@@ -51,8 +51,7 @@ public class AdvancementListener extends AGoal implements Listener {
     public void refreshAdvancements() {
         Bukkit.getOnlinePlayers().forEach(p -> {
            allAdvancements.forEach(a -> {
-               NamespacedKey key = new NamespacedKey(plugin, a);
-               if (p.getAdvancementProgress(Bukkit.getAdvancement(key)).isDone()) {
+               if (p.getAdvancementProgress(Bukkit.getAdvancement(a)).isDone()) {
                    completedAdvancements.add(a);
                }
            });
@@ -61,7 +60,7 @@ public class AdvancementListener extends AGoal implements Listener {
 
     public AdvancementListener() {
         bossBar = Bukkit.createBossBar("Advancements: 0", BarColor.GREEN, BarStyle.SOLID, BarFlag.CREATE_FOG);
-        Bukkit.advancementIterator().forEachRemaining(advancement -> allAdvancements.add(advancement.getKey().toString()));
+        Bukkit.advancementIterator().forEachRemaining(advancement -> allAdvancements.add(advancement.getKey()));
     }
 
 }
