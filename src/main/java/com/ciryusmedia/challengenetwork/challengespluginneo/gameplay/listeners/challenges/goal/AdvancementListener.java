@@ -1,6 +1,6 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.goal;
 
-import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.Goal;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 import org.bukkit.advancement.Advancement;
@@ -43,7 +43,7 @@ public class AdvancementListener extends AGoal implements Listener {
             bossBar.setTitle("Advancements: " + completedAdvancements.size());
         }
 
-        if (active && timer.isRunning() && completedAdvancements.containsAll(allAdvancements)) {
+        if (goal.isEnabled() && timer.isRunning() && completedAdvancements.containsAll(allAdvancements)) {
             beatRun();
         }
     }
@@ -59,7 +59,7 @@ public class AdvancementListener extends AGoal implements Listener {
     }
 
     public AdvancementListener() {
-        super("Advancements");
+        goal = Goal.GET_ALL_ADVANCEMENTS;
         bossBar = Bukkit.createBossBar("Advancements: 0", BarColor.GREEN, BarStyle.SOLID, BarFlag.CREATE_FOG);
         Bukkit.advancementIterator().forEachRemaining(advancement -> allAdvancements.add(advancement.getKey()));
     }

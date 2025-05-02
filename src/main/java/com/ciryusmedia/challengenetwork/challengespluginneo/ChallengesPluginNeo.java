@@ -202,8 +202,8 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
                 reloadConfig();
                 LOGGER.setDebugLevel(getConfig().getInt("DebugLevel"));
                 updateInventories();
-                advancementListener.updateActive();
-                enderdragonDeathListener.updateActive();
+                advancementListener.updateActive();         //TODO
+                enderdragonDeathListener.updateActive();    //Code an equivalent in Goal enum
             }
         }.runTaskTimer(ChallengesPluginNeo.getChallengePlugin(), 20, 20);
     }
@@ -217,6 +217,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         getCommand("timer").setExecutor(new TimerCommand());
         getCommand("test").setExecutor(new TestCommand());
         getCommand("heal").setExecutor(new HealCommand());
+        getCommand("goal").setExecutor(new GoalCommand());
     }
 
     private void enableTabcomplete() {
@@ -247,8 +248,8 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         LOGGER.debug("Challenge listeners", DebugLevel.LEVEL_2);
         //Goals
         getServer().getPluginManager().registerEvents(new PlayerDeathListener(), this);
-        getServer().getPluginManager().registerEvents(enderdragonDeathListener, this);
-        getServer().getPluginManager().registerEvents(advancementListener, this);
+        getServer().getPluginManager().registerEvents(new EnderdragonDeathListener(), this);
+        getServer().getPluginManager().registerEvents(new AdvancementListener(), this);
 
         //Random Challenges
         getServer().getPluginManager().registerEvents(new RandomBlocksLoottableListener(Challenge.RANDOM_BLOCKS_LOOTTABLE), this);
@@ -322,9 +323,4 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     public AdvancementListener getAdvancementListener() {
         return advancementListener;
     }
-
-    public EnderdragonDeathListener getEnderdragonDeathListener() {
-        return enderdragonDeathListener;
-    }
-
 }

@@ -1,6 +1,7 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.goal;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.Goal;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,8 +13,8 @@ public class EnderdragonDeathListener extends AGoal implements Listener {
 
     @EventHandler
     public void onDragonDeath(EntityDeathEvent event) {
-        if (!(event.getEntity() instanceof EnderDragon))
-            return;
+        if (! goal.isEnabled()) return;
+        if (!(event.getEntity() instanceof EnderDragon)) return;
 
         if (timer.isRunning()) {
             beatRun();
@@ -22,6 +23,6 @@ public class EnderdragonDeathListener extends AGoal implements Listener {
     }
 
     public EnderdragonDeathListener() {
-        super("EnderDragon");
+        goal = Goal.KILL_ENDER_DRAGON;
     }
 }

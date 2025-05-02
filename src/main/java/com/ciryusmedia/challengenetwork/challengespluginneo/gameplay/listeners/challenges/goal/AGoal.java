@@ -3,6 +3,7 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.timer.ChallengeTimer;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges.Challenge;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.Goal;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
@@ -13,8 +14,7 @@ public abstract class AGoal {
 
     ChallengeTimer timer = plugin.getTimer();
 
-    protected String goalId;
-    protected boolean active;
+    protected Goal goal;
 
     public void beatRun() {
         endRun(true, null);
@@ -42,19 +42,4 @@ public abstract class AGoal {
         timer.setRunning(false);
     }
 
-    public AGoal(String goalId) {
-        this.goalId = goalId;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void updateActive() {
-        active = plugin.getConfig().getBoolean(goalId);
-    }
 }
