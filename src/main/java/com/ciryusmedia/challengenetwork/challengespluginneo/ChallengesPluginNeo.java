@@ -9,6 +9,7 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.ta
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.Texts;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.goals.GoalsGui;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections.GeneralGuiItems;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections.TimerGuiItems;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.goal.AdvancementListener;
@@ -66,6 +67,8 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
     public static ChallengeGUI challengeGUI;
     public static RandomChallengesGUI randomChallengesGUI;
+
+    public static GoalsGui goalsGUI;
 
     //Scoreboard Objectives
     HealthScoreboard healthScoreboard;
@@ -272,6 +275,8 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
         challengeGUI = new ChallengeGUI();
         randomChallengesGUI = new RandomChallengesGUI();
+
+        goalsGUI = new GoalsGui();
     }
 
     public void updateInventories() {
