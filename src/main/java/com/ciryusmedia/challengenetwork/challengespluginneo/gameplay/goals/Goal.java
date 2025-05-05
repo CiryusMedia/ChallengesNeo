@@ -12,7 +12,7 @@ public enum Goal {
 
     private boolean enabled;
     public final GoalType type;
-    public final String name;
+    public final String key;
     public final String displayName;
 
     public static void enableGoal(Goal goal) {
@@ -34,10 +34,10 @@ public enum Goal {
         return List.of(values());
     }
 
-    Goal(boolean enabled, GoalType type, String name, String displayName) {
+    Goal(boolean enabled, GoalType type, String key, String displayName) {
         this.enabled = enabled;
         this.type = type;
-        this.name = name;
+        this.key = key;
         this.displayName = displayName;
     }
 
