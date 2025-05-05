@@ -36,6 +36,8 @@ commands:
   goals:
     description: Choose what goals to pursue
     permission: challenge.goals
+    aliases:
+      - goal
 
 permissions:
 

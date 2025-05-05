@@ -220,7 +220,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         getCommand("timer").setExecutor(new TimerCommand());
         getCommand("test").setExecutor(new TestCommand());
         getCommand("heal").setExecutor(new HealCommand());
-        getCommand("goal").setExecutor(new GoalCommand());
+        getCommand("goals").setExecutor(new GoalCommand());
     }
 
     private void enableTabcomplete() {
