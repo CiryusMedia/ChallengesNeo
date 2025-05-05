@@ -58,9 +58,6 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
     private Scoreboard scoreboard;
 
-    private AdvancementListener advancementListener;
-    private EnderdragonDeathListener enderdragonDeathListener;
-
     private AdvancementHandler advancementHandler;
 
     //Inventories
@@ -144,8 +141,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         LOGGER.debug("Initiating objects", DebugLevel.LEVEL_1);
         initItems();
         initInventories();
-        advancementListener = new AdvancementListener();
-        enderdragonDeathListener = new EnderdragonDeathListener();
+        advancementHandler = new AdvancementHandler();
 
         LOGGER.debug("Enabling plugin logic", DebugLevel.LEVEL_1);
         enableEvents();
@@ -325,9 +321,5 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
     public AdvancementHandler getAdvancementHandler() {
         return advancementHandler;
-    }
-
-    public AdvancementListener getAdvancementListener() {
-        return advancementListener;
     }
 }
