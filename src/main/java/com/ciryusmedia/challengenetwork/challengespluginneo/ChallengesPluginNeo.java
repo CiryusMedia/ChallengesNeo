@@ -9,6 +9,7 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.ta
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.Texts;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.advancements.AdvancementHandler;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.goals.GoalsGui;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections.GeneralGuiItems;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections.TimerGuiItems;
@@ -58,6 +59,8 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
     private AdvancementListener advancementListener;
     private EnderdragonDeathListener enderdragonDeathListener;
+
+    private AdvancementHandler advancementHandler;
 
     //Inventories
     public static TimerGUI timerGUI;
@@ -318,6 +321,10 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
     public FileLoader getFileLoader() {
         return fileLoader;
+    }
+
+    public AdvancementHandler getAdvancementHandler() {
+        return advancementHandler;
     }
 
     public AdvancementListener getAdvancementListener() {
