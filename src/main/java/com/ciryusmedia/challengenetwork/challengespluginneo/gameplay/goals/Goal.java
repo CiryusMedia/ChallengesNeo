@@ -59,8 +59,16 @@ public enum Goal {
         updateItem();
     }
 
+    public void enable() {
+        enableGoal(this);
+    }
+
     public static void updateAllEnabled() {
         Arrays.stream(values()).toList().forEach(Goal::updateEnabled);
+    }
+
+    public static boolean anyEnabled(GoalType type) {
+        return Arrays.stream(values()).anyMatch(goal -> goal.type == type);
     }
 
     public static void enableGoal(Goal goal) {

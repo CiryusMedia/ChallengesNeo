@@ -15,7 +15,13 @@ public class GoalsGui extends AGUIListener implements GoalsGuiItems {
 
     @Override
     public void inventoryClickHandler(ItemStack item, Player player) {
+        if (item.equals(Goal.KILL_ENDER_DRAGON.item)) handleGoal(Goal.KILL_ENDER_DRAGON);
+        else if (item.equals(Goal.GET_ALL_ADVANCEMENTS.item)) handleGoal(Goal.GET_ALL_ADVANCEMENTS);
+        else if (item.equals(Goal.PLAYER_DEATH.item)) handleGoal(Goal.PLAYER_DEATH);
+    }
 
+    public void handleGoal(Goal goal) {
+        goal.enable();
     }
 
     @Override
