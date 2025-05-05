@@ -25,6 +25,9 @@ public class GoalCommand implements CommandExecutor {
             case "get_all_advancements": {
                 handleGoal(commandSender, Goal.GET_ALL_ADVANCEMENTS, args);
             }
+            case "player_death": {
+                handleGoal(commandSender, Goal.PLAYER_DEATH, args);
+            }
         }
 
         return false;

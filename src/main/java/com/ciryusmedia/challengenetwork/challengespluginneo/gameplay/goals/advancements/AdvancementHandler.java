@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class AdvancementHandler {
-    //TODO handle advancement tracking -> cut from AdvancementListener
     private final Set<NamespacedKey> completedAdvancements = new HashSet<>();
     private final Set<NamespacedKey> allAdvancements = new HashSet<>();
 

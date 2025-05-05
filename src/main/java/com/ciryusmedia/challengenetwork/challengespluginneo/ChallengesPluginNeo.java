@@ -9,6 +9,7 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.ta
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.Texts;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.Goal;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.advancements.AdvancementHandler;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.goals.GoalsGui;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections.GeneralGuiItems;
@@ -205,8 +206,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
                 reloadConfig();
                 LOGGER.setDebugLevel(getConfig().getInt("DebugLevel"));
                 updateInventories();
-                advancementListener.updateActive();         //TODO
-                enderdragonDeathListener.updateActive();    //Code an equivalent in Goal enum
+                Goal.updateAllEnabled();
             }
         }.runTaskTimer(ChallengesPluginNeo.getChallengePlugin(), 20, 20);
     }
