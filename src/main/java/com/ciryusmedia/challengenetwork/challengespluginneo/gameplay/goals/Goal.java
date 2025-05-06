@@ -1,17 +1,15 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
-import org.bukkit.ChatColor;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ItemUtil;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public enum Goal {
+public enum Goal implements ItemUtil {
     KILL_ENDER_DRAGON(true, GoalType.SUCCESS,
             "kill_ender_dragon",
             "Kill Ender Dragon",
@@ -40,18 +38,19 @@ public enum Goal {
     public final List<String> description;
 
     public void updateItem() { //TODO duplicated with same method in Challenge.java -> Extract?
-        ItemMeta itemMeta = item.getItemMeta();
-        List<String> lore = new ArrayList<>(description);
-
-        itemMeta.setEnchantmentGlintOverride(enabled);
-
-        itemMeta.setDisplayName(enabled ? ChatColor.GREEN + displayName : ChatColor.RED + displayName);
-        lore.add(""); //Empty spacer line
-        lore.add(displayName + " is currently " + (enabled ? ChatColor.GREEN + "enabled" : ChatColor.RED + "disabled"));
-
-        itemMeta.setLore(lore);
-
-        item.setItemMeta(itemMeta);
+        updateItem(this.item, this.description, this.enabled, this.displayName);
+//        ItemMeta itemMeta = item.getItemMeta();
+//        List<String> lore = new ArrayList<>(description);
+//
+//        itemMeta.setEnchantmentGlintOverride(enabled);
+//
+//        itemMeta.setDisplayName(enabled ? ChatColor.GREEN + displayName : ChatColor.RED + displayName);
+//        lore.add(""); //Empty spacer line
+//        lore.add(displayName + " is currently " + (enabled ? ChatColor.GREEN + "enabled" : ChatColor.RED + "disabled"));
+//
+//        itemMeta.setLore(lore);
+//
+//        item.setItemMeta(itemMeta);
     }
 
     public void updateEnabled() {
