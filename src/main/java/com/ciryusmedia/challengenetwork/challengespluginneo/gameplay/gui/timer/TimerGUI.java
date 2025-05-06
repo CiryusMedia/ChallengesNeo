@@ -56,12 +56,4 @@ public class TimerGUI extends AGUIListener implements Listener, TimerGuiItems {
         super(timerFillerItem, timerLineFillerItem);
         initInv();
     }
-
-    public Inventory getInventory() {
-        return inv;
-    }
-
-    public void setInventory(Inventory timerInv) {
-        inv = timerInv;
-    }
 }

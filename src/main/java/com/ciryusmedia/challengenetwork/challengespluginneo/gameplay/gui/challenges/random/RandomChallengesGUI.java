@@ -55,12 +55,4 @@ public class RandomChallengesGUI extends AGUIListener implements Listener, Rando
         super(challengeFillerItem, challengeLineFillerItem);
         initInv();
     }
-
-    public Inventory getInventory() {
-        return inv;
-    }
-
-    public void setInventory(Inventory randomChallengesInv) {
-        inv = randomChallengesInv;
-    }
 }

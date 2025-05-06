@@ -65,4 +65,12 @@ public abstract class AGUIListener implements Listener, GeneralGuiItems {
 
         initInv();
     }
+
+    public Inventory getInventory() {
+        return inv;
+    }
+
+    public void setInventory(Inventory challengeInv) {
+        inv = challengeInv;
+    }
 }
