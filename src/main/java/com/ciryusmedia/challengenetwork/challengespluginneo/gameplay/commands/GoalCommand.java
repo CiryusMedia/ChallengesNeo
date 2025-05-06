@@ -1,13 +1,16 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.Texts;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.InventoryCollection;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.Goal;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-public class GoalCommand implements CommandExecutor {
+public class GoalCommand implements CommandExecutor, Texts {
 
     ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
 
@@ -15,7 +18,13 @@ public class GoalCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String alias, @NotNull String @NotNull [] args) {
         // command structure: goal ender_dragon enable
         if (args.length == 0) {
-            return false;
+            if (commandSender instanceof Player player){
+                player.openInventory(InventoryCollection.goalsGUI);
+                return true;
+            } else {
+                commandSender.sendMessage(PREFIX + NOT_ENOUGH_ARGUMENTS);
+                return false;
+            }
         }
 
         switch (args[0].toLowerCase()) {

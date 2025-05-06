@@ -11,4 +11,6 @@ public abstract class InventoryCollection {
 
     public static final Inventory challengeGUI = ChallengesPluginNeo.challengeGUI.getInventory();
     public static final Inventory randomChallengesGUI = ChallengesPluginNeo.randomChallengesGUI.getInventory();
+
+    public static final Inventory goalsGUI = ChallengesPluginNeo.goalsGUI.getInventory();
 }

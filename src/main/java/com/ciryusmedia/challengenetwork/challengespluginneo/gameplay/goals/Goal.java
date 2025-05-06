@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public enum Goal implements ItemUtil {
+    //<editor-fold desc="Success" defaultstate="collapsed">
     KILL_ENDER_DRAGON(true, GoalType.SUCCESS,
             "kill_ender_dragon",
             "Kill Ender Dragon",
@@ -20,13 +21,16 @@ public enum Goal implements ItemUtil {
             "Get all advancements",
             new ItemStack(Material.ENCHANTED_BOOK),
             new String[]{"Beat the challenge by", "getting all advancements"}),
+    //</editor-fold>
 
+    //<editor-fold desc="Success" defaultstate="collapsed">
     PLAYER_DEATH(true, GoalType.FAILURE,
             "player_death",
             "Player death",
             new ItemStack(Material.PLAYER_HEAD),
             new String[]{"Fail the challenge because", "a player dies"}),
     ;
+    //</editor-fold>
 
     private static final ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
 
