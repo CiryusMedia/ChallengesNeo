@@ -1,6 +1,7 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.goals;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.Goal;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.GoalType;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.AGUIListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections.GoalsGuiItems;
 import org.bukkit.Bukkit;
@@ -33,11 +34,17 @@ public class GoalsGui extends AGUIListener implements GoalsGuiItems {
 
     @Override
     public void updateInventory() {
+        if (Goal.anyEnabled(GoalType.SUCCESS)) {
+            goalExit.setItemMeta(goalExitDefaultMeta);
+        } else {
+            goalExit.setItemMeta(goalExitWarningMeta);
+        }
+
         emptyInventoryItemFiller(inv, goalFillerItem, goalLineFillerItem);
 
         inv.setItem(9 + 1, Goal.KILL_ENDER_DRAGON.item);
         inv.setItem(9 + 3, Goal.GET_ALL_ADVANCEMENTS.item);
         inv.setItem(9 + 6, Goal.PLAYER_DEATH.item);
-        inv.setItem(inv.getSize() - 1, exitItem);
+        inv.setItem(inv.getSize() - 1, goalExit);
     }
 }
