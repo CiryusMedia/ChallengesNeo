@@ -11,10 +11,6 @@ import org.bukkit.inventory.ItemStack;
 
 public class GoalsGui extends AGUIListener implements GoalsGuiItems {
 
-    public GoalsGui() {
-        super(goalLineFillerItem, goalFillerItem);
-    }
-
     @Override
     public void inventoryClickHandler(ItemStack item, Player player) {
         if (item.equals(Goal.KILL_ENDER_DRAGON.item)) handleGoal(Goal.KILL_ENDER_DRAGON, player);
@@ -51,4 +47,9 @@ public class GoalsGui extends AGUIListener implements GoalsGuiItems {
         inv.setItem(9 + 6, Goal.PLAYER_DEATH.item);
         inv.setItem(inv.getSize() - 1, goalExit);
     }
+
+    public GoalsGui() {
+        super(goalLineFillerItem, goalFillerItem);
+    }
+
 }

@@ -16,13 +16,13 @@ import java.util.List;
 
 public class ChallengeCommand implements CommandExecutor, Texts {
 
-    private static final ChallengeLogger DEBUGGER = ChallengeLogger.getLogger();
+    private static final ChallengeLogger LOGGER = ChallengeLogger.getLogger();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
 
         if (strings.length == 0) {
-            DEBUGGER.debug("Handling challenge command for gui", DebugLevel.LEVEL_3);
+            LOGGER.debug("Handling challenge command for gui", DebugLevel.LEVEL_3);
             if (sender instanceof Player player) {
                 if (player.hasPermission("challenge.challenges.view")) {
                     ChallengesPluginNeo.challengeGUI.updateInventory();
