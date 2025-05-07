@@ -69,18 +69,6 @@ public enum Challenge implements ItemUtil {
 
     public void updateItem() {
         updateItem(this.menuItem, this.description, this.enabled, this.displayName);
-//        ItemMeta itemMeta = menuItem.getItemMeta();
-//        List<String> lore = new ArrayList<>(description);
-//
-//        itemMeta.setEnchantmentGlintOverride(enabled);
-//
-//        itemMeta.setDisplayName(enabled ? ChatColor.GREEN + displayName : ChatColor.RED + displayName);
-//        lore.add(""); //Empty spacer line
-//        lore.add(displayName + " is currently " + (enabled ? ChatColor.GREEN + "enabled" : ChatColor.RED + "disabled"));
-//
-//        itemMeta.setLore(lore);
-//
-//        menuItem.setItemMeta(itemMeta);
     }
 
     public void setEnabled(boolean enabled) {

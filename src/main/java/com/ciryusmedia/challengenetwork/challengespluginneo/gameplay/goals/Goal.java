@@ -1,6 +1,8 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ItemUtil;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -33,6 +35,7 @@ public enum Goal implements ItemUtil {
     //</editor-fold>
 
     private static final ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
+    private static final ChallengeLogger LOGGER = ChallengeLogger.getLogger();
 
     private boolean enabled;
     public final GoalType type;
@@ -41,39 +44,13 @@ public enum Goal implements ItemUtil {
     public final ItemStack item;
     public final List<String> description;
 
-    public void updateItem() { //TODO duplicated with same method in Challenge.java -> Extract?
+    public void updateItem() {
         updateItem(this.item, this.description, this.enabled, this.displayName);
-//        ItemMeta itemMeta = item.getItemMeta();
-//        List<String> lore = new ArrayList<>(description);
-//
-//        itemMeta.setEnchantmentGlintOverride(enabled);
-//
-//        itemMeta.setDisplayName(enabled ? ChatColor.GREEN + displayName : ChatColor.RED + displayName);
-//        lore.add(""); //Empty spacer line
-//        lore.add(displayName + " is currently " + (enabled ? ChatColor.GREEN + "enabled" : ChatColor.RED + "disabled"));
-//
-//        itemMeta.setLore(lore);
-//
-//        item.setItemMeta(itemMeta);
     }
 
     public void updateEnabled() {
         enabled = plugin.getConfig().getBoolean(key);
         updateItem();
-    }
-
-    public void enable() {
-        Goal.goals(type)
-                .forEach(Goal::disableGoal);
-        setEnabled(true);
-        plugin.getConfig().set(key, true);
-        plugin.saveConfig();
-    }
-
-    public void disable() {
-        setEnabled(false);
-        plugin.getConfig().set(key, false);
-        plugin.saveConfig();
     }
 
     public static void updateAllEnabled() {
@@ -84,23 +61,16 @@ public enum Goal implements ItemUtil {
         return Arrays.stream(values()).anyMatch(goal -> goal.type == type);
     }
 
-    public static void enableGoal(Goal goal) {
-        Goal.goals(goal.type).stream().filter(g -> g != goal).forEach(Goal::disableGoal);
-        goal.setEnabled(true);
-        plugin.getConfig().set(goal.key, true);
-    }
-
-    public static void disableGoal(Goal goal) {
-        goal.setEnabled(false);
-        plugin.getConfig().set(goal.key, false);
-    }
-
     public static List<Goal> goals(GoalType type) {
         return goals().stream().filter(g -> g.type.equals(type)).collect(Collectors.toList());
     }
 
     public static List<Goal> goals() {
         return List.of(values());
+    }
+
+    public static Goal getGoal(String key) {
+        return goals().stream().filter(g -> g.key.equals(key)).findFirst().orElse(null);
     }
 
     Goal(boolean enabled, GoalType type, String key, String displayName, ItemStack item, String[] description) {
@@ -115,7 +85,12 @@ public enum Goal implements ItemUtil {
     }
 
     public void setEnabled(boolean enabled) {
+        LOGGER.debug("Setting challenge " + key + " to " + enabled, DebugLevel.LEVEL_3);
+        plugin.getConfig().set(key, enabled);
+        plugin.saveConfig();
         this.enabled = enabled;
+        LOGGER.debug("Challenge " + key + " is now " + enabled, DebugLevel.LEVEL_3);
+        updateItem();
     }
 
     public boolean isEnabled() {

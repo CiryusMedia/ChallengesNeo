@@ -1,5 +1,6 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.goals;
 
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.Goal;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.GoalType;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.AGUIListener;
@@ -16,14 +17,13 @@ public class GoalsGui extends AGUIListener implements GoalsGuiItems {
 
     @Override
     public void inventoryClickHandler(ItemStack item, Player player) {
-        if (item.equals(Goal.KILL_ENDER_DRAGON.item)) handleGoal(Goal.KILL_ENDER_DRAGON);
-        else if (item.equals(Goal.GET_ALL_ADVANCEMENTS.item)) handleGoal(Goal.GET_ALL_ADVANCEMENTS);
-        else if (item.equals(Goal.PLAYER_DEATH.item)) handleGoal(Goal.PLAYER_DEATH);
+        if (item.equals(Goal.KILL_ENDER_DRAGON.item)) handleGoal(Goal.KILL_ENDER_DRAGON, player);
+        else if (item.equals(Goal.GET_ALL_ADVANCEMENTS.item)) handleGoal(Goal.GET_ALL_ADVANCEMENTS, player);
+        else if (item.equals(Goal.PLAYER_DEATH.item)) handleGoal(Goal.PLAYER_DEATH, player);
     }
 
-    public void handleGoal(Goal goal) {
-        if (!goal.isEnabled()) goal.enable();
-        else goal.disable();
+    public void handleGoal(Goal goal, Player player) {
+        player.chat("/goal " + goal.key + (goal.isEnabled() ? " off" : " on"));
     }
 
     @Override
@@ -35,7 +35,8 @@ public class GoalsGui extends AGUIListener implements GoalsGuiItems {
 
     @Override
     public void updateInventory() {
-        if (Goal.anyEnabled(GoalType.SUCCESS)) {
+        ChallengeLogger.getLogger().log("Goals updated");
+        if (Goal.anyEnabled(GoalType.SUCCESS)) { //TODO: Doens't work yet
             goalExit.setItemMeta(goalExitDefaultMeta);
         } else {
             goalExit.setItemMeta(goalExitWarningMeta);

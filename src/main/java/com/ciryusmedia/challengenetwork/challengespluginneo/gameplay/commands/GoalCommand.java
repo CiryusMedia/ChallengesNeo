@@ -4,11 +4,14 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.Texts;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.InventoryCollection;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.Goal;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public class GoalCommand implements CommandExecutor, Texts {
 
@@ -27,30 +30,43 @@ public class GoalCommand implements CommandExecutor, Texts {
             }
         }
 
-        switch (args[0].toLowerCase()) {
-            case "kill_ender_dragon": {
-                handleGoal(commandSender, Goal.KILL_ENDER_DRAGON, args);
-            }
-            case "get_all_advancements": {
-                handleGoal(commandSender, Goal.GET_ALL_ADVANCEMENTS, args);
-            }
-            case "player_death": {
-                handleGoal(commandSender, Goal.PLAYER_DEATH, args);
-            }
+        Goal goal = Goal.getGoal(args[0]);
+        if (goal == null) {
+            commandSender.sendMessage(PREFIX + INVALID_CHALLENGE);
+            return false;
         }
+        if (args.length >= 2) {
+            handleGoal(commandSender, goal, args[1]);
+            return true;
+        }
+        commandSender.sendMessage(PREFIX + goal.displayName + " is " +
+                (goal.isEnabled() ? ChatColor.GREEN + "enabled" : ChatColor.RED + "disabled")
+        );
 
         return false;
     }
 
-    public void handleGoal(CommandSender commandSender, Goal goal, String[] args) {
-        if (args.length == 1) {
-            commandSender.sendMessage(goal.displayName + " is currently " + (goal.isEnabled() ? "on" : "off"));
+    public void handleGoal(CommandSender commandSender, Goal goal, String argument) {
+        boolean arg;
+        if (argument.equalsIgnoreCase("true") || argument.equalsIgnoreCase("on")) {
+            arg = true;
+        } else if (argument.equalsIgnoreCase("false") || argument.equalsIgnoreCase("off")) {
+            arg = false;
+        } else {
+            commandSender.sendMessage(PREFIX + INVALID_ARGUMENTS);
             return;
         }
-        if (args[1].equalsIgnoreCase("on")) {
-            Goal.enableGoal(goal);
-        } else if (args[0].equalsIgnoreCase("off")) {
-            Goal.disableGoal(goal);
+        if (arg) {
+            List<Goal> goalsWithSameType = Goal.goals(goal.type);
+            if (!goalsWithSameType.isEmpty()) {
+                goalsWithSameType.forEach(g -> g.setEnabled(false));
+            }
         }
+
+        goal.setEnabled(arg);
+
+        commandSender.sendMessage(PREFIX + goal.displayName + " is now " +
+                (goal.isEnabled() ? ChatColor.GREEN + "enabled" : ChatColor.RED + "disabled")
+        );
     }
 }
