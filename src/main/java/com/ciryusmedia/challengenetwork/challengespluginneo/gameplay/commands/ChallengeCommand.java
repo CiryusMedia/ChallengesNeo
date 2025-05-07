@@ -77,9 +77,9 @@ public class ChallengeCommand implements CommandExecutor, Texts {
             return;
         }
         if (arg) {
-            List<Challenge> challengesWithSameSuptybe = Challenge.getChallengesFromSubtype(challenge.subType);
-            if (!challengesWithSameSuptybe.isEmpty()) {
-                challengesWithSameSuptybe.forEach(c -> c.setEnabled(false));
+            List<Challenge> challengesWithSameSuptype = Challenge.getChallengesFromSubtype(challenge.subType);
+            if (!challengesWithSameSuptype.isEmpty()) {
+                challengesWithSameSuptype.forEach(c -> c.setEnabled(false));
             }
         }
 
