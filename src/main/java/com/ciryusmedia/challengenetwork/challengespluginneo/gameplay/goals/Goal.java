@@ -27,7 +27,7 @@ public enum Goal implements ItemUtil {
     PLAYER_DEATH(true, GoalType.FAILURE,
             "player_death",
             "Player death",
-            new ItemStack(Material.PLAYER_HEAD),
+            new ItemStack(Material.TOTEM_OF_UNDYING),
             new String[]{"Fail the challenge because", "a player dies"}),
     ;
     //</editor-fold>
