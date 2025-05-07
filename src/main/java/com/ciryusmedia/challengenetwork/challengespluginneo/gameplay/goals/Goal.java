@@ -63,7 +63,17 @@ public enum Goal implements ItemUtil {
     }
 
     public void enable() {
-        enableGoal(this);
+        Goal.goals(type)
+                .forEach(Goal::disableGoal);
+        setEnabled(true);
+        plugin.getConfig().set(key, true);
+        plugin.saveConfig();
+    }
+
+    public void disable() {
+        setEnabled(false);
+        plugin.getConfig().set(key, false);
+        plugin.saveConfig();
     }
 
     public static void updateAllEnabled() {
@@ -75,7 +85,7 @@ public enum Goal implements ItemUtil {
     }
 
     public static void enableGoal(Goal goal) {
-        Goal.goals(goal.type).forEach(Goal::disableGoal);
+        Goal.goals(goal.type).stream().filter(g -> g != goal).forEach(Goal::disableGoal);
         goal.setEnabled(true);
         plugin.getConfig().set(goal.key, true);
     }

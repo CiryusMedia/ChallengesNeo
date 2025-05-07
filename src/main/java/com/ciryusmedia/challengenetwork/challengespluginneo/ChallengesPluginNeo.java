@@ -243,6 +243,8 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         getServer().getPluginManager().registerEvents(challengeGUI, this);
         getServer().getPluginManager().registerEvents(randomChallengesGUI, this);
 
+        getServer().getPluginManager().registerEvents(goalsGUI, this);
+
         //Challenges
         LOGGER.debug("Challenge listeners", DebugLevel.LEVEL_2);
         //Goals

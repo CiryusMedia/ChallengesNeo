@@ -22,7 +22,8 @@ public class GoalsGui extends AGUIListener implements GoalsGuiItems {
     }
 
     public void handleGoal(Goal goal) {
-        goal.enable();
+        if (!goal.isEnabled()) goal.enable();
+        else goal.disable();
     }
 
     @Override
