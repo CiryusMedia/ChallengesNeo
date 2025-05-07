@@ -20,6 +20,8 @@ public class GoalsGui extends AGUIListener implements GoalsGuiItems {
         if (item.equals(Goal.KILL_ENDER_DRAGON.item)) handleGoal(Goal.KILL_ENDER_DRAGON, player);
         else if (item.equals(Goal.GET_ALL_ADVANCEMENTS.item)) handleGoal(Goal.GET_ALL_ADVANCEMENTS, player);
         else if (item.equals(Goal.PLAYER_DEATH.item)) handleGoal(Goal.PLAYER_DEATH, player);
+
+        else if (item.equals(goalExit)) player.closeInventory();
     }
 
     public void handleGoal(Goal goal, Player player) {
@@ -36,7 +38,7 @@ public class GoalsGui extends AGUIListener implements GoalsGuiItems {
     @Override
     public void updateInventory() {
         ChallengeLogger.getLogger().log("Goals updated");
-        if (Goal.anyEnabled(GoalType.SUCCESS)) { //TODO: Doens't work yet
+        if (Goal.anyEnabled(GoalType.SUCCESS)) {
             goalExit.setItemMeta(goalExitDefaultMeta);
         } else {
             goalExit.setItemMeta(goalExitWarningMeta);

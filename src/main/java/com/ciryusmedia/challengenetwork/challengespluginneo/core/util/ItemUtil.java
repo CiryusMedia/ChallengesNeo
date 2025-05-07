@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ItemUtil {
 
-    default ItemStack updateItem(ItemStack item, List<String> description, boolean enabled, String displayName) {
+    default void updateItem(ItemStack item, List<String> description, boolean enabled, String displayName) {
         ItemMeta itemMeta = item.getItemMeta();
         List<String> lore = new ArrayList<>(description);
 
@@ -23,7 +23,6 @@ public interface ItemUtil {
 
         item.setItemMeta(itemMeta);
 
-        return item;
     }
 
 }

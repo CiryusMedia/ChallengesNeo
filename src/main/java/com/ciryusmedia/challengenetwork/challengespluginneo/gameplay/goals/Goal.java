@@ -3,6 +3,7 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals;
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.Texts;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ItemUtil;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -58,7 +59,9 @@ public enum Goal implements ItemUtil {
     }
 
     public static boolean anyEnabled(GoalType type) {
-        return Arrays.stream(values()).anyMatch(goal -> goal.type == type);
+        boolean b = Arrays.stream(values()).anyMatch(goal -> goal.type == type && goal.enabled);
+        LOGGER.log(String.valueOf(b));
+        return b;
     }
 
     public static List<Goal> goals(GoalType type) {
