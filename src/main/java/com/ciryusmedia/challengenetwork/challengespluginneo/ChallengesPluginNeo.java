@@ -5,6 +5,7 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.core.loader.FileLoad
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.*;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.tabcomplete.ChallengeComplete;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.tabcomplete.DebugComplete;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.tabcomplete.GoalComplete;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.tabcomplete.TimerComplete;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
@@ -224,6 +225,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         getCommand("timer").setTabCompleter(new TimerComplete());
         getCommand("challenge").setTabCompleter(new ChallengeComplete());
         getCommand("debug").setTabCompleter(new DebugComplete());
+        getCommand("goal").setTabCompleter(new GoalComplete());
     }
 
     private void enableEvents() {
