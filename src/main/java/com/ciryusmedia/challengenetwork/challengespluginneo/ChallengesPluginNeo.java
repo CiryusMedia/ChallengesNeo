@@ -266,7 +266,6 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
     private void initItems() {
         LOGGER.debug("Items", DebugLevel.LEVEL_2);
-        GeneralGuiItems.initGeneralGuiItems();
         TimerGuiItems.initTimerGuiItems();
     }
 
