@@ -6,6 +6,9 @@ import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.components.CustomModelDataComponent;
+
+import java.util.List;
 
 public interface GeneralGuiItems {
 
@@ -46,6 +49,19 @@ public interface GeneralGuiItems {
         exitMeta.setCustomModelData(1);
 
         exitItem.setItemMeta(exitMeta);
+    }
+
+    static ItemMeta initItemMeta(ItemStack item, String displayName, List<String> customModelData, List<String> lore) {
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(displayName);
+        if (customModelData != null) {
+            CustomModelDataComponent modelData = meta.getCustomModelDataComponent();
+            modelData.setStrings(customModelData);
+            meta.setCustomModelDataComponent(modelData);
+        }
+        if (lore != null) meta.setLore(lore);
+
+        return meta;
     }
 
 }

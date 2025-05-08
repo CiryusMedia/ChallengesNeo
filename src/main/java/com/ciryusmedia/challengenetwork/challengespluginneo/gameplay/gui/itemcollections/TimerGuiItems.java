@@ -157,7 +157,7 @@ public interface TimerGuiItems extends GeneralGuiItems {
         updatePausedColorWoolBlocks();
     }
 
-    //Not a nice way, but it's the way I chose (up to change, hopefully)
+    //TODO Not a nice way, but it's the way I chose (up to change, hopefully)
     static void updateRunningColorWoolBlocks() {
         ItemMeta runningColorBlackMeta = runningColorBlack.getItemMeta();
         runningColorBlackMeta.setDisplayName(ChatColor.BLACK + "Black");
@@ -271,7 +271,7 @@ public interface TimerGuiItems extends GeneralGuiItems {
         runningColorWhite.setItemMeta(runningColorWhiteMeta);
     }
 
-    //Not a nice way, but it's the way I chose (up to change, hopefully)
+    //TODO Not a nice way, but it's the way I chose (up to change, hopefully)
     static void updatePausedColorWoolBlocks() {
         ItemMeta pausedColorBlackMeta = pausedColorBlack.getItemMeta();
         pausedColorBlackMeta.setDisplayName(ChatColor.BLACK + "Black");
