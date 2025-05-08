@@ -41,7 +41,7 @@ public enum Goal implements ItemUtil {
     public final GoalType type;
     public final String key;
     public final String displayName;
-    public final ItemStack item;
+    public final ItemStack item; //TODO: Change to GuiItemStack
     public final List<String> description;
 
     public void updateItem() {

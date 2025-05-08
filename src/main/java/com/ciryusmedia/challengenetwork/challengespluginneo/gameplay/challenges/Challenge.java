@@ -63,7 +63,7 @@ public enum Challenge implements ItemUtil {
     public final List<String> description;
     public final ChallengeType type;
     public final ChallengeSubtype subType;
-    public final ItemStack menuItem;
+    public final ItemStack menuItem; //TODO Change to GuiitemStack
     public List<String> itemDescription;
     public boolean enabled;
 
