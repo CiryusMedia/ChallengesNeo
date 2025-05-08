@@ -16,10 +16,8 @@ public class ChallengeGUI extends AGUIListener implements Listener, ChallengeGui
 
     @Override
     public void inventoryClickHandler(ItemStack item, Player player) {
-        if (item.equals(randomChallenges))
-            player.chat("/challenge random");
-        else if (item.equals(inventorySync))
-            player.chat("/challenge sync inventorysync " + !plugin.getConfig().getBoolean("InventorySync"));
+        if (item.equals(randomChallenges)) player.chat("/challenge random");
+        else if (item.equals(inventorySync)) player.chat("/challenge sync inventorysync " + !plugin.getConfig().getBoolean("InventorySync"));
     }
 
     @Override
@@ -54,13 +52,5 @@ public class ChallengeGUI extends AGUIListener implements Listener, ChallengeGui
 
             }
         }.runTaskTimer(ChallengesPluginNeo.getChallengePlugin(), 20, 20);
-    }
-
-    public Inventory getInventory() {
-        return inv;
-    }
-
-    public void setInventory(Inventory challengeInv) {
-        inv = challengeInv;
     }
 }

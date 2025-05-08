@@ -5,12 +5,18 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.core.loader.FileLoad
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.*;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.tabcomplete.ChallengeComplete;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.tabcomplete.DebugComplete;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.tabcomplete.GoalComplete;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.tabcomplete.TimerComplete;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.Texts;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.Goal;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.advancements.AdvancementHandler;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.goals.GoalsGui;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections.GeneralGuiItems;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections.TimerGuiItems;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.goal.AdvancementListener;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.goal.PlayerDeathListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.random.blocks.RandomBlocksFullListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.random.blocks.RandomBlocksLoottableListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.random.entities.RandomMobsFullListener;
@@ -23,7 +29,7 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.timer.T
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.timer.color.TimerPausedColorGUI;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.timer.color.TimerRunningColorGUI;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.system.BlockBreakListener;
-import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.system.ChallengeEndListener;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.goal.EnderdragonDeathListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.system.PlayerJoinLeaveListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.RandomisationUtils;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.scoreboards.HealthScoreboard;
@@ -53,6 +59,8 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
     private Scoreboard scoreboard;
 
+    private AdvancementHandler advancementHandler;
+
     //Inventories
     public static TimerGUI timerGUI;
     public static TimerColorInvGUI timerColorGui;
@@ -61,6 +69,8 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
     public static ChallengeGUI challengeGUI;
     public static RandomChallengesGUI randomChallengesGUI;
+
+    public static GoalsGui goalsGUI;
 
     //Scoreboard Objectives
     HealthScoreboard healthScoreboard;
@@ -132,6 +142,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         LOGGER.debug("Initiating objects", DebugLevel.LEVEL_1);
         initItems();
         initInventories();
+        advancementHandler = new AdvancementHandler();
 
         LOGGER.debug("Enabling plugin logic", DebugLevel.LEVEL_1);
         enableEvents();
@@ -192,6 +203,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
                 reloadConfig();
                 LOGGER.setDebugLevel(getConfig().getInt("DebugLevel"));
                 updateInventories();
+                Goal.updateAllEnabled();
             }
         }.runTaskTimer(ChallengesPluginNeo.getChallengePlugin(), 20, 20);
     }
@@ -205,6 +217,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         getCommand("timer").setExecutor(new TimerCommand());
         getCommand("test").setExecutor(new TestCommand());
         getCommand("heal").setExecutor(new HealCommand());
+        getCommand("goals").setExecutor(new GoalCommand());
     }
 
     private void enableTabcomplete() {
@@ -212,6 +225,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         getCommand("timer").setTabCompleter(new TimerComplete());
         getCommand("challenge").setTabCompleter(new ChallengeComplete());
         getCommand("debug").setTabCompleter(new DebugComplete());
+        getCommand("goal").setTabCompleter(new GoalComplete());
     }
 
     private void enableEvents() {
@@ -219,7 +233,6 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         //System
         LOGGER.debug("System listeners", DebugLevel.LEVEL_2);
         getServer().getPluginManager().registerEvents(new PlayerJoinLeaveListener(), this);
-        getServer().getPluginManager().registerEvents(new ChallengeEndListener(), this);
         getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
 
         //GUI
@@ -232,8 +245,15 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         getServer().getPluginManager().registerEvents(challengeGUI, this);
         getServer().getPluginManager().registerEvents(randomChallengesGUI, this);
 
+        getServer().getPluginManager().registerEvents(goalsGUI, this);
+
         //Challenges
         LOGGER.debug("Challenge listeners", DebugLevel.LEVEL_2);
+        //Goals
+        getServer().getPluginManager().registerEvents(new PlayerDeathListener(), this);
+        getServer().getPluginManager().registerEvents(new EnderdragonDeathListener(), this);
+        getServer().getPluginManager().registerEvents(new AdvancementListener(), this);
+
         //Random Challenges
         getServer().getPluginManager().registerEvents(new RandomBlocksLoottableListener(Challenge.RANDOM_BLOCKS_LOOTTABLE), this);
         getServer().getPluginManager().registerEvents(new RandomBlocksFullListener(Challenge.RANDOM_BLOCKS_FULL), this);
@@ -259,6 +279,8 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
         challengeGUI = new ChallengeGUI();
         randomChallengesGUI = new RandomChallengesGUI();
+
+        goalsGUI = new GoalsGui();
     }
 
     public void updateInventories() {
@@ -301,4 +323,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         return fileLoader;
     }
 
+    public AdvancementHandler getAdvancementHandler() {
+        return advancementHandler;
+    }
 }

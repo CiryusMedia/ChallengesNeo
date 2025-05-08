@@ -35,12 +35,4 @@ public class TimerPausedColorGUI extends ATimerColorGui implements Listener, Tim
         super(timerFillerItem, timerLineFillerItem);
         initInv();
     }
-
-    public Inventory getInventory() {
-        return inv;
-    }
-
-    public void setInventory(Inventory timerPausedColorGUI) {
-        inv = timerPausedColorGUI;
-    }
 }

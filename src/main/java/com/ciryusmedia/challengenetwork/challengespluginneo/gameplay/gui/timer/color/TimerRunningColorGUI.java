@@ -36,12 +36,4 @@ public class TimerRunningColorGUI extends ATimerColorGui implements Listener, Ti
         super(timerFillerItem, timerLineFillerItem);
         initInv();
     }
-
-    public Inventory getInventory() {
-        return inv;
-    }
-
-    public void setInventory(Inventory timerRunningColorGUI) {
-        inv = timerRunningColorGUI;
-    }
 }

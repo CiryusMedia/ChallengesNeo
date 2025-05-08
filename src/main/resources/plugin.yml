@@ -33,6 +33,12 @@ commands:
     description: A healing command
     permission: challenge.heal
 
+  goals:
+    description: Choose what goals to pursue
+    permission: challenge.goals
+    aliases:
+      - goal
+
 permissions:
 
   challenge.timer:
@@ -57,4 +63,7 @@ permissions:
     default: op
 
   challenge.heal:
+    default: op
+
+  challenge.goals:
     default: op

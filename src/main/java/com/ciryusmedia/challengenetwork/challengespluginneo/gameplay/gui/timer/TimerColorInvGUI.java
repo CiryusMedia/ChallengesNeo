@@ -44,12 +44,4 @@ public class TimerColorInvGUI extends AGUIListener implements Listener, TimerGui
         super(timerFillerItem, timerLineFillerItem);
         initInv();
     }
-
-    public Inventory getInventory() {
-        return inv;
-    }
-
-    public void setInventory(Inventory timerColorInv) {
-        inv = timerColorInv;
-    }
 }

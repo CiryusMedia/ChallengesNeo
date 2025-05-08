@@ -98,6 +98,8 @@ public class ChallengeTimer {
             public void run() {
                 sendTimer();
 
+                plugin.getAdvancementHandler().refreshAdvancements();
+
                 World world = Bukkit.getWorld("world");
 
                 if (world != null) {

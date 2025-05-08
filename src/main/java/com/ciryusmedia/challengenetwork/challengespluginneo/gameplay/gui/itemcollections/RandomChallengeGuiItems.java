@@ -23,7 +23,7 @@ public interface RandomChallengeGuiItems extends ChallengeGuiItems {
     }
 
     default void updateRandomChallengeGuiItems() {
-        Challenge.challenges.stream().forEach(Challenge::updateMenuItem);
+        Challenge.challenges.stream().forEach(Challenge::updateItem);
     }
 
 }

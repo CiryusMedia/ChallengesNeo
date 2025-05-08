@@ -3,16 +3,15 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
-import org.bukkit.ChatColor;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ItemUtil;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public enum Challenge {
+public enum Challenge implements ItemUtil {
 
     //<editor-fold desc="Random Challenges" defaultstate="collapsed">
     RANDOM_BLOCKS_FULL(
@@ -68,19 +67,8 @@ public enum Challenge {
     public List<String> itemDescription;
     public boolean enabled;
 
-    public void updateMenuItem() {
-        ItemMeta itemMeta = menuItem.getItemMeta();
-        List<String> lore = new ArrayList<>(description);
-
-        itemMeta.setEnchantmentGlintOverride(enabled);
-
-        itemMeta.setDisplayName(enabled ? ChatColor.GREEN + displayName : ChatColor.RED + displayName);
-        lore.add(""); //Empty spacer line
-        lore.add(displayName + " is currently " + (enabled ? ChatColor.GREEN + "enabled" : ChatColor.RED + "disabled"));
-
-        itemMeta.setLore(lore);
-
-        menuItem.setItemMeta(itemMeta);
+    public void updateItem() {
+        updateItem(this.menuItem, this.description, this.enabled, this.displayName);
     }
 
     public void setEnabled(boolean enabled) {
@@ -89,7 +77,7 @@ public enum Challenge {
         plugin.saveConfig();
         this.enabled = enabled;
         LOGGER.debug("Challenge " + name + " is now " + enabled, DebugLevel.LEVEL_3);
-        updateMenuItem();
+        updateItem();
     }
 
     public static Challenge getChallengeFromName(String name) {
@@ -128,6 +116,24 @@ public enum Challenge {
         return challenges;
     }
 
+    public static List<Challenge> getActiveChallengesList() {
+        List<Challenge> activeChallenges = new ArrayList<>();
+        for (Challenge challenge : challenges) {
+            if (challenge.enabled) activeChallenges.add(challenge);
+        }
+        return activeChallenges;
+    }
+
+    public static String getActiveChallengesString() {
+        StringBuilder builder = new StringBuilder();
+
+        for (Challenge challenge : getActiveChallengesList()) {
+            builder.append(challenge.name).append(", ");
+        }
+
+        return builder.toString();
+    }
+
     Challenge(String name, String displayName, ChallengeType type, ChallengeSubtype subType, Material menuMaterial, String[] description) {
         this(name, displayName, type, subType, new ItemStack(menuMaterial), description);
     }
@@ -140,6 +146,6 @@ public enum Challenge {
         this.subType = subType;
         this.menuItem = menuItem;
         this.enabled = plugin.getConfig().getBoolean(name);
-        updateMenuItem();
+        updateItem();
     }
 }
