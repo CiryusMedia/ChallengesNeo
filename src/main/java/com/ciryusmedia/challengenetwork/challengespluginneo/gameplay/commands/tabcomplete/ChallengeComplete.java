@@ -30,7 +30,7 @@ public class ChallengeComplete implements TabCompleter {
                 LOGGER.debug(strings[0] + " " + ChallengeType.isValidType(strings[0]), DebugLevel.LEVEL_4);
                 if (ChallengeType.isValidType(strings[0])) {
                     Challenge.getChallengesFromType(strings[0]).forEach(challenge -> {
-                        list.add(challenge.name);
+                        list.add(challenge.key);
                     });
                 }
                 break;

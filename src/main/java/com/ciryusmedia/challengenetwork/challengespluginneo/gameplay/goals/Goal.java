@@ -4,6 +4,7 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ItemUtil;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.GuiItemStack;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -16,12 +17,12 @@ public enum Goal implements ItemUtil {
     KILL_ENDER_DRAGON(true, GoalType.SUCCESS,
             "kill_ender_dragon",
             "Kill Ender Dragon",
-            new ItemStack(Material.DRAGON_EGG),
+            Material.DRAGON_EGG,
             new String[]{"Beat the challenge by", "killing the Ender Dragon"}),
     GET_ALL_ADVANCEMENTS(false, GoalType.SUCCESS,
             "get_all_advancements",
             "Get all advancements",
-            new ItemStack(Material.ENCHANTED_BOOK),
+            Material.ENCHANTED_BOOK,
             new String[]{"Beat the challenge by", "getting all advancements"}),
     //</editor-fold>
 
@@ -29,7 +30,7 @@ public enum Goal implements ItemUtil {
     PLAYER_DEATH(true, GoalType.FAILURE,
             "player_death",
             "Player death",
-            new ItemStack(Material.TOTEM_OF_UNDYING),
+            Material.TOTEM_OF_UNDYING,
             new String[]{"Fail the challenge because", "a player dies"}),
     ;
     //</editor-fold>
@@ -41,7 +42,7 @@ public enum Goal implements ItemUtil {
     public final GoalType type;
     public final String key;
     public final String displayName;
-    public final ItemStack item; //TODO: Change to GuiItemStack
+    public final GuiItemStack item;
     public final List<String> description;
 
     public void updateItem() {
@@ -73,7 +74,11 @@ public enum Goal implements ItemUtil {
         return goals().stream().filter(g -> g.key.equals(key)).findFirst().orElse(null);
     }
 
-    Goal(boolean enabled, GoalType type, String key, String displayName, ItemStack item, String[] description) {
+    Goal(boolean enabled, GoalType type, String key, String displayName, Material itemMaterial, String[] description) {
+        this(enabled, type, key, displayName, new GuiItemStack(itemMaterial, displayName, key), description);
+    }
+
+    Goal(boolean enabled, GoalType type, String key, String displayName, GuiItemStack item, String[] description) {
         this.enabled = enabled;
         this.type = type;
         this.key = key;

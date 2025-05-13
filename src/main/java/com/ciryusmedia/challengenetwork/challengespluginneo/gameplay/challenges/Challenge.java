@@ -4,8 +4,8 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ItemUtil;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.GuiItemStack;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,12 +58,12 @@ public enum Challenge implements ItemUtil {
     public static final List<Challenge> challenges = Arrays.stream(Challenge.values()).toList();
     private static final ChallengeLogger LOGGER = ChallengeLogger.getLogger();
 
-    public final String name;
+    public final String key;
     public final String displayName;
     public final List<String> description;
     public final ChallengeType type;
     public final ChallengeSubtype subType;
-    public final ItemStack menuItem; //TODO Change to GuiitemStack
+    public final GuiItemStack menuItem;
     public List<String> itemDescription;
     public boolean enabled;
 
@@ -72,17 +72,17 @@ public enum Challenge implements ItemUtil {
     }
 
     public void setEnabled(boolean enabled) {
-        LOGGER.debug("Setting challenge " + name + " to " + enabled, DebugLevel.LEVEL_3);
-        plugin.getConfig().set(name, enabled);
+        LOGGER.debug("Setting challenge " + key + " to " + enabled, DebugLevel.LEVEL_3);
+        plugin.getConfig().set(key, enabled);
         plugin.saveConfig();
         this.enabled = enabled;
-        LOGGER.debug("Challenge " + name + " is now " + enabled, DebugLevel.LEVEL_3);
+        LOGGER.debug("Challenge " + key + " is now " + enabled, DebugLevel.LEVEL_3);
         updateItem();
     }
 
     public static Challenge getChallengeFromName(String name) {
-        if (challenges.stream().anyMatch(challenge -> challenge.name.equalsIgnoreCase(name))) {
-            return challenges.stream().filter(challenge -> challenge.name.equalsIgnoreCase(name)).findFirst().get();
+        if (challenges.stream().anyMatch(challenge -> challenge.key.equalsIgnoreCase(name))) {
+            return challenges.stream().filter(challenge -> challenge.key.equalsIgnoreCase(name)).findFirst().get();
         } else {
             return null;
         }
@@ -128,24 +128,24 @@ public enum Challenge implements ItemUtil {
         StringBuilder builder = new StringBuilder();
 
         for (Challenge challenge : getActiveChallengesList()) {
-            builder.append(challenge.name).append(", ");
+            builder.append(challenge.key).append(", ");
         }
 
         return builder.toString();
     }
 
-    Challenge(String name, String displayName, ChallengeType type, ChallengeSubtype subType, Material menuMaterial, String[] description) {
-        this(name, displayName, type, subType, new ItemStack(menuMaterial), description);
+    Challenge(String key, String displayName, ChallengeType type, ChallengeSubtype subType, Material menuMaterial, String[] description) {
+        this(key, displayName, type, subType, new GuiItemStack(menuMaterial, displayName, key), description);
     }
 
-    Challenge(String name, String displayName, ChallengeType type, ChallengeSubtype subType, ItemStack menuItem, String[] description) {
-        this.name = name;
+    Challenge(String key, String displayName, ChallengeType type, ChallengeSubtype subType, GuiItemStack menuItem, String[] description) {
+        this.key = key;
         this.displayName = displayName;
         this.description = Arrays.stream(description).toList();
         this.type = type;
         this.subType = subType;
         this.menuItem = menuItem;
-        this.enabled = plugin.getConfig().getBoolean(name);
+        this.enabled = plugin.getConfig().getBoolean(key);
         updateItem();
     }
 }
