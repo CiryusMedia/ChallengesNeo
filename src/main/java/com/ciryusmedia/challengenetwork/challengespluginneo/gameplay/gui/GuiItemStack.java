@@ -15,7 +15,7 @@ public class GuiItemStack extends ItemStack {
     }
 
     public GuiItemStack(Material material, String displayName) {
-        this(material, displayName, (String) null, null);
+        this(material, displayName, (List<String>) null, null);
     }
 
     public GuiItemStack(Material material, String displayName, String customModelData) {
@@ -40,5 +40,6 @@ public class GuiItemStack extends ItemStack {
             meta.setCustomModelDataComponent(modelData);
         }
         if (lore != null) meta.setLore(lore);
+        setItemMeta(meta);
     }
 }

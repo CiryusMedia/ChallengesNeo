@@ -34,7 +34,6 @@ public class RandomChallengesGUI extends AGUIListener implements Listener, Rando
     public void initInv() {
         inv = Bukkit.createInventory(null, 3*9, "Random Challenges");
 
-        initRandomChallengeGuiItems();
         updateInventory();
     }
 

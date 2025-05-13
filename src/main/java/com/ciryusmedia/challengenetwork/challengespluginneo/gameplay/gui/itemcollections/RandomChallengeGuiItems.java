@@ -11,17 +11,6 @@ public interface RandomChallengeGuiItems extends ChallengeGuiItems {
     ItemStack randomMobsLoottable = Challenge.RANDOM_MOBS_LOOTTABLE.menuItem;
     ItemStack randomMobsFull = Challenge.RANDOM_MOBS_FULL.menuItem;
 
-    default void initRandomChallengeGuiItems() {
-
-        //Filler item
-        ItemMeta fillerMeta = challengeFillerItem.getItemMeta();
-        fillerMeta.setDisplayName(" ");
-        fillerMeta.setCustomModelData(1); //Make the Item invisible in default resourcepack config
-
-        challengeFillerItem.setItemMeta(fillerMeta);
-
-    }
-
     default void updateRandomChallengeGuiItems() {
         Challenge.challenges.stream().forEach(Challenge::updateItem);
     }
