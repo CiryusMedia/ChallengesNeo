@@ -1,137 +1,77 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ColorWoolUtils;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.GuiItemStack;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.GuiTimerColorItemStack;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("DataFlowIssue")
+@SuppressWarnings({"DataFlowIssue","deprecation"})
 public interface TimerGuiItems extends GeneralGuiItems {
 
-    ItemStack timerFillerItem = new ItemStack(Material.YELLOW_STAINED_GLASS_PANE);
-    ItemStack timerLineFillerItem = new ItemStack(Material.YELLOW_STAINED_GLASS_PANE);
+    GuiItemStack timerFillerItem = new GuiItemStack(Material.YELLOW_STAINED_GLASS_PANE, " ", CMD_FILLER);
+    GuiItemStack timerLineFillerItem = new GuiItemStack(Material.YELLOW_STAINED_GLASS_PANE, " ", CMD_LINE_FILLER);
 
     //Timer Inv
-    ItemStack checkTime = new ItemStack(Material.CLOCK);
-    ItemStack colorInventory = new ItemStack(Material.LIME_WOOL);
-    ItemStack startTimer = new ItemStack(Material.EMERALD);
-    ItemStack stopTimer = new ItemStack(Material.REDSTONE);
-    ItemStack resetTimer = new ItemStack(Material.TNT);
-    ItemStack visibleTimer = new ItemStack(Material.LIME_DYE);
-    ItemStack invisibleTimer = new ItemStack(Material.GRAY_DYE);
+    GuiItemStack checkTime = new GuiItemStack(Material.CLOCK, ChatColor.YELLOW + "Current time", "timer_check");
+    GuiItemStack colorInventory = new GuiItemStack(Material.LIME_WOOL,ChatColor.YELLOW + "Color", "timer_color");
+    GuiItemStack startTimer = new GuiItemStack(Material.EMERALD, ChatColor.GREEN + "Start timer", "timer_start");
+    GuiItemStack stopTimer = new GuiItemStack(Material.REDSTONE, ChatColor.RED + "Stop timer", "timer_stop");
+    GuiItemStack resetTimer = new GuiItemStack(Material.TNT, ChatColor.RED + "Reset timer", "timer_reset");
+    GuiItemStack visibleTimer = new GuiItemStack(Material.LIME_DYE, ChatColor.GREEN + "Timer Visible", "timer_visible");
+    GuiItemStack invisibleTimer = new GuiItemStack(Material.GRAY_DYE, ChatColor.GRAY + "Timer Invisible", "timer_invisible");
 
     //Timer Color Inv
-    ItemStack timerRunningColor = new ItemStack(ColorWoolUtils.colorStringToWool(plugin.getConfig().getString("RunningColor")));
-    ItemStack timerPausedColor = new ItemStack(ColorWoolUtils.colorStringToWool(plugin.getConfig().getString("PausedColor")));
+    GuiItemStack timerRunningColor = new GuiItemStack(ColorWoolUtils.colorStringToWool(plugin.getConfig().getString("RunningColor")),
+            ChatColor.valueOf(plugin.getConfig().getString("RunningColor").toUpperCase()) + "Running Color");
+    GuiItemStack timerPausedColor = new GuiItemStack(ColorWoolUtils.colorStringToWool(plugin.getConfig().getString("PausedColor")),
+            ChatColor.valueOf(plugin.getConfig().getString("PausedColor").toUpperCase()) + "Paused Color");
 
-    //Timer Running Color Inv
-    List<ItemStack> runningColorItems = new ArrayList<>();
-    ItemStack runningColorBlack = new ItemStack(Material.BLACK_WOOL);
-    ItemStack runningColorDarkBlue = new ItemStack(Material.BLUE_WOOL);
-    ItemStack runningColorDarkGreen = new ItemStack(Material.GREEN_WOOL);
-    ItemStack runningColorDarkAqua = new ItemStack(Material.CYAN_WOOL);
-    ItemStack runningColorDarkRed = new ItemStack(Material.RED_WOOL);
-    ItemStack runningColorDarkPurple = new ItemStack(Material.PURPLE_WOOL);
-    ItemStack runningColorGold = new ItemStack(Material.YELLOW_WOOL);
-    ItemStack runningColorGray = new ItemStack(Material.LIGHT_GRAY_WOOL);
-    ItemStack runningColorDarkGray = new ItemStack(Material.GRAY_WOOL);
-    ItemStack runningColorBlue = new ItemStack(Material.BLUE_WOOL);
-    ItemStack runningColorGreen = new ItemStack(Material.LIME_WOOL);
-    ItemStack runningColorAqua = new ItemStack(Material.CYAN_WOOL);
-    ItemStack runningColorRed = new ItemStack(Material.RED_WOOL);
-    ItemStack runningColorLightPurple = new ItemStack(Material.MAGENTA_WOOL);
-    ItemStack runningColorYellow = new ItemStack(Material.YELLOW_WOOL);
-    ItemStack runningColorWhite = new ItemStack(Material.WHITE_WOOL);
+    //Timer Running Color Inv TODO: Change Custom Model data, so that the colors are based on the hexcodes instead of the nearest wool color. Extract into enum?
+    List<GuiTimerColorItemStack> runningColorItems = new ArrayList<>();
+    GuiTimerColorItemStack runningColorBlack = new GuiTimerColorItemStack(Material.BLACK_WOOL, ChatColor.BLACK + "Black", CMD_COLOR_WOOL, "black", true);
+    GuiTimerColorItemStack runningColorDarkBlue = new GuiTimerColorItemStack(Material.BLUE_WOOL, ChatColor.DARK_BLUE + "Dark Blue", CMD_COLOR_WOOL, "dark_blue", true);
+    GuiTimerColorItemStack runningColorDarkGreen = new GuiTimerColorItemStack(Material.GREEN_WOOL, ChatColor.DARK_GREEN + "Dark Green", CMD_COLOR_WOOL, "dark_green", true);
+    GuiTimerColorItemStack runningColorDarkAqua = new GuiTimerColorItemStack(Material.CYAN_WOOL, ChatColor.DARK_AQUA + "Dark Aqua", CMD_COLOR_WOOL, "dark_aqua", true);
+    GuiTimerColorItemStack runningColorDarkRed = new GuiTimerColorItemStack(Material.RED_WOOL, ChatColor.DARK_RED + "Dark Red", CMD_COLOR_WOOL, "dark_red" , true);
+    GuiTimerColorItemStack runningColorDarkPurple = new GuiTimerColorItemStack(Material.PURPLE_WOOL, ChatColor.DARK_PURPLE + "Dark Purple", CMD_COLOR_WOOL, "dark_purple", true);
+    GuiTimerColorItemStack runningColorDarkGray = new GuiTimerColorItemStack(Material.GRAY_WOOL, ChatColor.DARK_GRAY + "Dark Gray", CMD_COLOR_WOOL, "dark_grey", true);
+    GuiTimerColorItemStack runningColorGold = new GuiTimerColorItemStack(Material.YELLOW_WOOL, ChatColor.GOLD + "Gold", CMD_COLOR_WOOL, "gold", true);
+    GuiTimerColorItemStack runningColorGray = new GuiTimerColorItemStack(Material.LIGHT_GRAY_WOOL, ChatColor.GRAY + "Gray", CMD_COLOR_WOOL, "gray", true);
+    GuiTimerColorItemStack runningColorBlue = new GuiTimerColorItemStack(Material.BLUE_WOOL, ChatColor.BLUE + "Blue", CMD_COLOR_WOOL, "blue", true);
+    GuiTimerColorItemStack runningColorGreen = new GuiTimerColorItemStack(Material.LIME_WOOL, ChatColor.GREEN + "Green", CMD_COLOR_WOOL, "green", true);
+    GuiTimerColorItemStack runningColorAqua = new GuiTimerColorItemStack(Material.CYAN_WOOL, ChatColor.AQUA + "Aqua", CMD_COLOR_WOOL, "aqua", true);
+    GuiTimerColorItemStack runningColorRed = new GuiTimerColorItemStack(Material.RED_WOOL, ChatColor.DARK_RED + "Red", CMD_COLOR_WOOL, "red", true);
+    GuiTimerColorItemStack runningColorLightPurple = new GuiTimerColorItemStack(Material.MAGENTA_WOOL, ChatColor.LIGHT_PURPLE + "Purple", CMD_COLOR_WOOL, "purple", true);
+    GuiTimerColorItemStack runningColorYellow = new GuiTimerColorItemStack(Material.YELLOW_WOOL, ChatColor.YELLOW + "Yellow", CMD_COLOR_WOOL, "yellow", true);
+    GuiTimerColorItemStack runningColorWhite = new GuiTimerColorItemStack(Material.WHITE_WOOL, ChatColor.WHITE + "White", CMD_COLOR_WOOL, "white", true);
 
-    //Timer Paused Color Inv
-    List<ItemStack> pausedColorItems = new ArrayList<>();
-    ItemStack pausedColorBlack = new ItemStack(Material.BLACK_WOOL);
-    ItemStack pausedColorDarkBlue = new ItemStack(Material.BLUE_WOOL);
-    ItemStack pausedColorDarkGreen = new ItemStack(Material.GREEN_WOOL);
-    ItemStack pausedColorDarkAqua = new ItemStack(Material.CYAN_WOOL);
-    ItemStack pausedColorDarkRed = new ItemStack(Material.RED_WOOL);
-    ItemStack pausedColorDarkPurple = new ItemStack(Material.PURPLE_WOOL);
-    ItemStack pausedColorGold = new ItemStack(Material.YELLOW_WOOL);
-    ItemStack pausedColorGray = new ItemStack(Material.LIGHT_GRAY_WOOL);
-    ItemStack pausedColorDarkGray = new ItemStack(Material.GRAY_WOOL);
-    ItemStack pausedColorBlue = new ItemStack(Material.BLUE_WOOL);
-    ItemStack pausedColorGreen = new ItemStack(Material.LIME_WOOL);
-    ItemStack pausedColorAqua = new ItemStack(Material.CYAN_WOOL);
-    ItemStack pausedColorRed = new ItemStack(Material.RED_WOOL);
-    ItemStack pausedColorLightPurple = new ItemStack(Material.MAGENTA_WOOL);
-    ItemStack pausedColorYellow = new ItemStack(Material.YELLOW_WOOL);
-    ItemStack pausedColorWhite = new ItemStack(Material.WHITE_WOOL);
+    //Timer Paused Color Inv TODO: Change Custom Model data, so that the colors are based on the hexcodes instead of the nearest wool color. Extract into enum?
+    List<GuiTimerColorItemStack> pausedColorItems = new ArrayList<>();
+    GuiTimerColorItemStack pausedColorBlack = new GuiTimerColorItemStack(Material.BLACK_WOOL, ChatColor.BLACK + "Black", CMD_COLOR_WOOL, "black", false);
+    GuiTimerColorItemStack pausedColorDarkBlue = new GuiTimerColorItemStack(Material.BLUE_WOOL, ChatColor.DARK_BLUE + "Dark Blue", CMD_COLOR_WOOL, "dark_blue", false);
+    GuiTimerColorItemStack pausedColorDarkGreen = new GuiTimerColorItemStack(Material.GREEN_WOOL, ChatColor.DARK_GREEN + "Dark Green", CMD_COLOR_WOOL, "dark_green", false);
+    GuiTimerColorItemStack pausedColorDarkAqua = new GuiTimerColorItemStack(Material.CYAN_WOOL, ChatColor.DARK_AQUA + "Dark Aqua", CMD_COLOR_WOOL, "dark_aqua", false);
+    GuiTimerColorItemStack pausedColorDarkRed = new GuiTimerColorItemStack(Material.RED_WOOL, ChatColor.DARK_RED + "Dark Red", CMD_COLOR_WOOL, "dark_red" , false);
+    GuiTimerColorItemStack pausedColorDarkPurple = new GuiTimerColorItemStack(Material.PURPLE_WOOL, ChatColor.DARK_PURPLE + "Dark Purple", CMD_COLOR_WOOL, "dark_purple", false);
+    GuiTimerColorItemStack pausedColorDarkGray = new GuiTimerColorItemStack(Material.GRAY_WOOL, ChatColor.DARK_GRAY + "Dark Gray", CMD_COLOR_WOOL, "dark_grey", false);
+    GuiTimerColorItemStack pausedColorGold = new GuiTimerColorItemStack(Material.YELLOW_WOOL, ChatColor.GOLD + "Gold", CMD_COLOR_WOOL, "gold", false);
+    GuiTimerColorItemStack pausedColorGray = new GuiTimerColorItemStack(Material.LIGHT_GRAY_WOOL, ChatColor.GRAY + "Gray", CMD_COLOR_WOOL, "gray", false);
+    GuiTimerColorItemStack pausedColorBlue = new GuiTimerColorItemStack(Material.BLUE_WOOL, ChatColor.BLUE + "Blue", CMD_COLOR_WOOL, "blue", false);
+    GuiTimerColorItemStack pausedColorGreen = new GuiTimerColorItemStack(Material.LIME_WOOL, ChatColor.GREEN + "Green", CMD_COLOR_WOOL, "green", false);
+    GuiTimerColorItemStack pausedColorAqua = new GuiTimerColorItemStack(Material.CYAN_WOOL, ChatColor.AQUA + "Aqua", CMD_COLOR_WOOL, "aqua", false);
+    GuiTimerColorItemStack pausedColorRed = new GuiTimerColorItemStack(Material.RED_WOOL, ChatColor.DARK_RED + "Red", CMD_COLOR_WOOL, "red", false);
+    GuiTimerColorItemStack pausedColorLightPurple = new GuiTimerColorItemStack(Material.MAGENTA_WOOL, ChatColor.LIGHT_PURPLE + "Purple", CMD_COLOR_WOOL, "purple", false);
+    GuiTimerColorItemStack pausedColorYellow = new GuiTimerColorItemStack(Material.YELLOW_WOOL, ChatColor.YELLOW + "Yellow", CMD_COLOR_WOOL, "yellow", false);
+    GuiTimerColorItemStack pausedColorWhite = new GuiTimerColorItemStack(Material.WHITE_WOOL, ChatColor.WHITE + "White", CMD_COLOR_WOOL, "white", false);
 
     static void initTimerGuiItems() {
-
         updateColors();
         initUpdateColorWoolBlocks();
-
-        //Filler item
-        ItemMeta fillerMeta = timerFillerItem.getItemMeta();
-        fillerMeta.setDisplayName(" ");
-        fillerMeta.setCustomModelData(1); //Make the Item invisible in default resourcepack config
-
-        timerFillerItem.setItemMeta(fillerMeta);
-
-        //Line filler Item
-        ItemMeta lineFillerMeta = timerLineFillerItem.getItemMeta();
-        lineFillerMeta.setDisplayName(" ");
-        lineFillerMeta.setCustomModelData(3); //Make the Item fill a row of 9 slots
-
-        timerLineFillerItem.setItemMeta(lineFillerMeta);
-
-        //Check Time Item
-        ItemMeta checkTimeItemMeta = checkTime.getItemMeta();
-        checkTimeItemMeta.setDisplayName(ChatColor.YELLOW + "Current time");
-
-        checkTime.setItemMeta(checkTimeItemMeta);
-
-        //Color Inventory
-        ItemMeta colorInventoryMeta = colorInventory.getItemMeta();
-        colorInventoryMeta.setDisplayName(ChatColor.YELLOW + "Colors");
-        colorInventoryMeta.setCustomModelData(1);
-
-        colorInventory.setItemMeta(colorInventoryMeta);
-
-        //Start Timer
-        ItemMeta startTimeMeta = startTimer.getItemMeta();
-        startTimeMeta.setDisplayName(ChatColor.GREEN + "Start Timer");
-        startTimeMeta.setCustomModelData(1); //Start Model
-
-        startTimer.setItemMeta(startTimeMeta);
-
-        //Stop Timer
-        ItemMeta stopTimeMeta = stopTimer.getItemMeta();
-        stopTimeMeta.setDisplayName(ChatColor.RED + "Stop Timer");
-        stopTimeMeta.setCustomModelData(1); //Stop Model
-
-        stopTimer.setItemMeta(stopTimeMeta);
-
-        //Reset Timer
-        ItemMeta resetTimerMeta = resetTimer.getItemMeta();
-        resetTimerMeta.setDisplayName(ChatColor.RED + "Reset Timer");
-        resetTimerMeta.setCustomModelData(1); //Reset Model
-
-        resetTimer.setItemMeta(resetTimerMeta);
-
-        //TImer Visible
-        ItemMeta visibleTimerMeta = visibleTimer.getItemMeta();
-        visibleTimerMeta.setDisplayName(ChatColor.GREEN + "Timer Visible");
-        visibleTimerMeta.setCustomModelData(1); //Visible Model
-
-        visibleTimer.setItemMeta(visibleTimerMeta);
-
-        //Timer Invisible
-        ItemMeta invisibleTimerMeta = invisibleTimer.getItemMeta();
-        invisibleTimerMeta.setDisplayName(ChatColor.GRAY + "Timer Invisible");
-        invisibleTimerMeta.setCustomModelData(1); //Invisible Model
-
-        invisibleTimer.setItemMeta(invisibleTimerMeta);
     }
 
     static void updateColors() {
@@ -157,7 +97,7 @@ public interface TimerGuiItems extends GeneralGuiItems {
         updatePausedColorWoolBlocks();
     }
 
-    //Not a nice way, but it's the way I chose (up to change, hopefully)
+    //TODO Not a nice way, but it's the way I chose (up to change, hopefully)
     static void updateRunningColorWoolBlocks() {
         ItemMeta runningColorBlackMeta = runningColorBlack.getItemMeta();
         runningColorBlackMeta.setDisplayName(ChatColor.BLACK + "Black");
@@ -271,7 +211,7 @@ public interface TimerGuiItems extends GeneralGuiItems {
         runningColorWhite.setItemMeta(runningColorWhiteMeta);
     }
 
-    //Not a nice way, but it's the way I chose (up to change, hopefully)
+    //TODO Not a nice way, but it's the way I chose (up to change, hopefully)
     static void updatePausedColorWoolBlocks() {
         ItemMeta pausedColorBlackMeta = pausedColorBlack.getItemMeta();
         pausedColorBlackMeta.setDisplayName(ChatColor.BLACK + "Black");

@@ -17,7 +17,7 @@ public class GoalsGui extends AGUIListener implements GoalsGuiItems {
         else if (item.equals(Goal.GET_ALL_ADVANCEMENTS.item)) handleGoal(Goal.GET_ALL_ADVANCEMENTS, player);
         else if (item.equals(Goal.PLAYER_DEATH.item)) handleGoal(Goal.PLAYER_DEATH, player);
 
-        else if (item.equals(goalExit)) player.closeInventory();
+        else if (item.equals(goalExitWarning)) player.closeInventory();
     }
 
     public void handleGoal(Goal goal, Player player) {
@@ -27,25 +27,22 @@ public class GoalsGui extends AGUIListener implements GoalsGuiItems {
     @Override
     public void initInv() {
         inv = Bukkit.createInventory(null, 9*3, "Goals");
-        initGoalGuiItems();
         updateInventory();
     }
 
     @Override
     public void updateInventory() {
         ChallengeLogger.getLogger().log("Goals updated");
-        if (Goal.anyEnabled(GoalType.SUCCESS)) {
-            goalExit.setItemMeta(goalExitDefaultMeta);
-        } else {
-            goalExit.setItemMeta(goalExitWarningMeta);
-        }
-
         emptyInventoryItemFiller(inv, goalFillerItem, goalLineFillerItem);
 
         inv.setItem(9 + 1, Goal.KILL_ENDER_DRAGON.item);
         inv.setItem(9 + 3, Goal.GET_ALL_ADVANCEMENTS.item);
         inv.setItem(9 + 6, Goal.PLAYER_DEATH.item);
-        inv.setItem(inv.getSize() - 1, goalExit);
+        if (Goal.anyEnabled(GoalType.SUCCESS)) {
+            inv.setItem(inv.getSize() - 1, exitItem);
+        } else {
+            inv.setItem(inv.getSize() - 1, goalExitWarning);
+        }
     }
 
     public GoalsGui() {
