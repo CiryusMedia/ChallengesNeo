@@ -2,13 +2,14 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ConfigPaths;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class ResetCommand implements CommandExecutor {
+public class ResetCommand implements CommandExecutor, ConfigPaths {
 
     ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
     private static final ChallengeLogger LOGGER = ChallengeLogger.getLogger();
@@ -24,7 +25,7 @@ public class ResetCommand implements CommandExecutor {
         plugin.getTimer().setTime(0);
 
         //Setting config
-        plugin.getConfig().set("isReset", true);
+        plugin.getConfig().set(SYSTEM_IS_RESET, true);
         plugin.saveConfig();
 
         //Deleting/clearing loottable config files

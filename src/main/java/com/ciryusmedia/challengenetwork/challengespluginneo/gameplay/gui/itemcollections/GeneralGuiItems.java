@@ -1,6 +1,7 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ConfigPaths;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.GuiItemStack;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -10,7 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
-public interface GeneralGuiItems {
+public interface GeneralGuiItems extends ConfigPaths {
 
     ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
 

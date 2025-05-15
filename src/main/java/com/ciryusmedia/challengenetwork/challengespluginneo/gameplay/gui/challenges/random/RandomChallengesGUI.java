@@ -15,13 +15,13 @@ public class RandomChallengesGUI extends AGUIListener implements Listener, Rando
     @Override
     public void inventoryClickHandler(ItemStack item, Player player) {
         if (item.equals(randomBlocksLoottable)) {
-            player.chat("/challenge random randomblocksloottable " + !plugin.getConfig().getBoolean("RandomBlocksLoottable"));
+            player.chat("/challenge random randomblocksloottable " + !plugin.getConfig().getBoolean(Challenge.RANDOM_BLOCKS_LOOTTABLE.path));
         } else if (item.equals(randomBlocksFull)) {
-            player.chat("/challenge random randomblocksfull " + !plugin.getConfig().getBoolean("RandomBlocksFull"));
+            player.chat("/challenge random randomblocksfull " + !plugin.getConfig().getBoolean(Challenge.RANDOM_BLOCKS_FULL.path));
         } else if (item.equals(randomMobsLoottable)) {
-            player.chat("/challenge random randommobsloottable " + !plugin.getConfig().getBoolean("RandomMobsLoottable"));
+            player.chat("/challenge random randommobsloottable " + !plugin.getConfig().getBoolean(Challenge.RANDOM_MOBS_LOOTTABLE.path));
         } else if (item.equals(randomMobsFull)) {
-            player.chat("/challenge random randommobsfull " + !plugin.getConfig().getBoolean("RandomMobsFull"));
+            player.chat("/challenge random randommobsfull " + !plugin.getConfig().getBoolean(Challenge.RANDOM_MOBS_FULL.path));
         }
     }
 

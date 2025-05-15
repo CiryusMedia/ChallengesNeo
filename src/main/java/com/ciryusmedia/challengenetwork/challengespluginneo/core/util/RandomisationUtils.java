@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.util.*;
 
-public abstract class RandomisationUtils {
+public abstract class RandomisationUtils implements ConfigPaths {
 
     private static final ChallengesPluginNeo PLUGIN = ChallengesPluginNeo.getChallengePlugin();
     private static final ChallengeLogger LOGGER = ChallengeLogger.getLogger();
@@ -33,11 +33,11 @@ public abstract class RandomisationUtils {
     public static void initRandomLoottable() {
 
         LOGGER.debug("Setting default config for challenge randomisation stuff", DebugLevel.LEVEL_3);
-        if (!PLUGIN.getConfig().contains("UnsafeRandomEnchantments"))
-            PLUGIN.getConfig().set("UnsafeRandomEnchantments", true);
+        if (!PLUGIN.getConfig().contains(RANDOM_UNSAFE_ENCHANTMENTS))
+            PLUGIN.getConfig().set(RANDOM_UNSAFE_ENCHANTMENTS, true);
 
-        if (!PLUGIN.getConfig().contains("UnsafeEnchantmentBounds"))
-            PLUGIN.getConfig().set("UnsafeEnchantmentBounds", 100);
+        if (!PLUGIN.getConfig().contains(RANDOM_UNSAFE_ENCHANTMENT_BOUNDS))
+            PLUGIN.getConfig().set(RANDOM_UNSAFE_ENCHANTMENT_BOUNDS, 100);
 
         LOGGER.debug("Saving config", DebugLevel.LEVEL_3);
         PLUGIN.saveConfig();
@@ -140,8 +140,8 @@ public abstract class RandomisationUtils {
     }
 
     public static int getRandomEnchantmentLevel(Enchantment randomEnchantment) {
-        if (PLUGIN.getConfig().getBoolean("UnsafeRandomEnchantments")) {
-            return getUnsafeLevel(PLUGIN.getConfig().getInt("UnsafeEnchantmentBounds"));
+        if (PLUGIN.getConfig().getBoolean(RANDOM_UNSAFE_ENCHANTMENTS)) {
+            return getUnsafeLevel(PLUGIN.getConfig().getInt(RANDOM_UNSAFE_ENCHANTMENT_BOUNDS));
         } else {
             return getSafeEnchantmentLevel(randomEnchantment);
         }
@@ -154,8 +154,8 @@ public abstract class RandomisationUtils {
         PotionType randomPotionType = getRandomPotionType();
         List<PotionEffect> randomPotionTypeEffects = randomPotionType.getPotionEffects();
         PotionEffect randomPotionEffect = !randomPotionTypeEffects.isEmpty() ? randomPotionTypeEffects.getFirst() : null;
-        int duration = (new Random().nextInt(PLUGIN.getConfig().getInt("RandomPotionDuration")) + 1) * 20 * 60;
-        int level =  PLUGIN.getConfig().getBoolean("UnsafeRandomPotions") ? getUnsafeLevel(PLUGIN.getConfig().getInt("UnsafeRandomPotionBounds")) : getSafePotionLevel(randomPotionType);
+        int duration = (new Random().nextInt(PLUGIN.getConfig().getInt(RANDOM_POTION_DURATION)) + 1) * 20 * 60;
+        int level =  PLUGIN.getConfig().getBoolean(RANDOM_UNSAFE_POTIONS) ? getUnsafeLevel(PLUGIN.getConfig().getInt(RANDOM_UNSAFE_POTION_BOUNDS)) : getSafePotionLevel(randomPotionType);
 
         PotionEffect customRandomPotionEffect = new PotionEffect(randomPotionEffect != null ? randomPotionEffect.getType() : backupEffectType, duration, level);
 

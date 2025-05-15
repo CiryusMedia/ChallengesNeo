@@ -26,10 +26,10 @@ public interface TimerGuiItems extends GeneralGuiItems {
     GuiItemStack invisibleTimer = new GuiItemStack(Material.GRAY_DYE, ChatColor.GRAY + "Timer Invisible", "timer_invisible");
 
     //Timer Color Inv
-    GuiItemStack timerRunningColor = new GuiItemStack(ColorWoolUtils.colorStringToWool(plugin.getConfig().getString("RunningColor")),
-            ChatColor.valueOf(plugin.getConfig().getString("RunningColor").toUpperCase()) + "Running Color");
-    GuiItemStack timerPausedColor = new GuiItemStack(ColorWoolUtils.colorStringToWool(plugin.getConfig().getString("PausedColor")),
-            ChatColor.valueOf(plugin.getConfig().getString("PausedColor").toUpperCase()) + "Paused Color");
+    GuiItemStack timerRunningColor = new GuiItemStack(ColorWoolUtils.colorStringToWool(plugin.getConfig().getString(TIMER_COLOR_RUNNING)),
+            ChatColor.valueOf(plugin.getConfig().getString(TIMER_COLOR_RUNNING).toUpperCase()) + "Running Color");
+    GuiItemStack timerPausedColor = new GuiItemStack(ColorWoolUtils.colorStringToWool(plugin.getConfig().getString(TIMER_COLOR_PAUSED)),
+            ChatColor.valueOf(plugin.getConfig().getString(TIMER_COLOR_PAUSED).toUpperCase()) + "Paused Color");
 
     //Timer Running Color Inv TODO: Change Custom Model data, so that the colors are based on the hexcodes instead of the nearest wool color. Extract into enum?
     List<GuiTimerColorItemStack> runningColorItems = new ArrayList<>();
@@ -76,16 +76,16 @@ public interface TimerGuiItems extends GeneralGuiItems {
 
     static void updateColors() {
         //Timer Running Color
-        timerRunningColor.setType(ColorWoolUtils.colorStringToWool(plugin.getConfig().getString("RunningColor")));
+        timerRunningColor.setType(ColorWoolUtils.colorStringToWool(plugin.getConfig().getString(TIMER_COLOR_RUNNING)));
         ItemMeta timerRunningColorMeta = timerRunningColor.getItemMeta();
-        timerRunningColorMeta.setDisplayName(ChatColor.valueOf(plugin.getConfig().getString("RunningColor").toUpperCase()) + "Running Color");
+        timerRunningColorMeta.setDisplayName(ChatColor.valueOf(plugin.getConfig().getString(TIMER_COLOR_RUNNING).toUpperCase()) + "Running Color");
 
         timerRunningColor.setItemMeta(timerRunningColorMeta);
 
         //Timer Paused Color
-        timerPausedColor.setType(ColorWoolUtils.colorStringToWool(plugin.getConfig().getString("PausedColor")));
+        timerPausedColor.setType(ColorWoolUtils.colorStringToWool(plugin.getConfig().getString(TIMER_COLOR_PAUSED)));
         ItemMeta timerPausedColorMeta = timerPausedColor.getItemMeta();
-        timerPausedColorMeta.setDisplayName(ChatColor.valueOf(plugin.getConfig().getString("PausedColor").toUpperCase()) + "Paused Color");
+        timerPausedColorMeta.setDisplayName(ChatColor.valueOf(plugin.getConfig().getString(TIMER_COLOR_PAUSED).toUpperCase()) + "Paused Color");
 
         timerPausedColor.setItemMeta(timerPausedColorMeta);
     }
@@ -101,112 +101,112 @@ public interface TimerGuiItems extends GeneralGuiItems {
     static void updateRunningColorWoolBlocks() {
         ItemMeta runningColorBlackMeta = runningColorBlack.getItemMeta();
         runningColorBlackMeta.setDisplayName(ChatColor.BLACK + "Black");
-        runningColorBlackMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("RunningColor").equalsIgnoreCase("BLACK"));
+        runningColorBlackMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_RUNNING).equalsIgnoreCase("BLACK"));
 
         runningColorBlack.setItemMeta(runningColorBlackMeta);
 
 
         ItemMeta runningColorDarkBlueMeta = runningColorDarkBlue.getItemMeta();
         runningColorDarkBlueMeta.setDisplayName(ChatColor.DARK_BLUE + "Dark Blue");
-        runningColorDarkBlueMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("RunningColor").equalsIgnoreCase("DARK_BLUE"));
+        runningColorDarkBlueMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_RUNNING).equalsIgnoreCase("DARK_BLUE"));
 
         runningColorDarkBlue.setItemMeta(runningColorDarkBlueMeta);
 
 
         ItemMeta runningColorDarkGreenMeta = runningColorDarkGreen.getItemMeta();
         runningColorDarkGreenMeta.setDisplayName(ChatColor.DARK_GREEN + "Dark Green");
-        runningColorDarkGreenMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("RunningColor").equalsIgnoreCase("DARK_GREEN"));
+        runningColorDarkGreenMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_RUNNING).equalsIgnoreCase("DARK_GREEN"));
 
         runningColorDarkGreen.setItemMeta(runningColorDarkGreenMeta);
 
 
         ItemMeta runningColorDarkAquaMeta = runningColorDarkAqua.getItemMeta();
         runningColorDarkAquaMeta.setDisplayName(ChatColor.DARK_AQUA + "Dark Aqua");
-        runningColorDarkAquaMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("RunningColor").equalsIgnoreCase("DARK_AQUA"));
+        runningColorDarkAquaMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_RUNNING).equalsIgnoreCase("DARK_AQUA"));
 
         runningColorDarkAqua.setItemMeta(runningColorDarkAquaMeta);
 
 
         ItemMeta runningColorDarkRedMeta = runningColorDarkRed.getItemMeta();
         runningColorDarkRedMeta.setDisplayName(ChatColor.DARK_RED + "Dark Red");
-        runningColorDarkRedMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("RunningColor").equalsIgnoreCase("DARK_RED"));
+        runningColorDarkRedMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_RUNNING).equalsIgnoreCase("DARK_RED"));
 
         runningColorDarkRed.setItemMeta(runningColorDarkRedMeta);
 
 
         ItemMeta runningColorDarkPurpleMeta = runningColorDarkPurple.getItemMeta();
         runningColorDarkPurpleMeta.setDisplayName(ChatColor.DARK_PURPLE + "Dark Purple");
-        runningColorDarkPurpleMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("RunningColor").equalsIgnoreCase("DARK_PURPLE"));
+        runningColorDarkPurpleMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_RUNNING).equalsIgnoreCase("DARK_PURPLE"));
 
         runningColorDarkPurple.setItemMeta(runningColorDarkPurpleMeta);
 
 
         ItemMeta runningColorGoldMeta = runningColorGold.getItemMeta();
         runningColorGoldMeta.setDisplayName(ChatColor.GOLD + "Gold");
-        runningColorGoldMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("RunningColor").equalsIgnoreCase("GOLD"));
+        runningColorGoldMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_RUNNING).equalsIgnoreCase("GOLD"));
 
         runningColorGold.setItemMeta(runningColorGoldMeta);
 
 
         ItemMeta runningColorGrayMeta = runningColorGray.getItemMeta();
         runningColorGrayMeta.setDisplayName(ChatColor.GRAY + "Gray");
-        runningColorGrayMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("RunningColor").equalsIgnoreCase("GRAY"));
+        runningColorGrayMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_RUNNING).equalsIgnoreCase("GRAY"));
 
         runningColorGray.setItemMeta(runningColorGrayMeta);
 
 
         ItemMeta runningColorDarkGrayMeta = runningColorDarkGray.getItemMeta();
         runningColorDarkGrayMeta.setDisplayName(ChatColor.DARK_GRAY + "Dark Gray");
-        runningColorDarkGrayMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("RunningColor").equalsIgnoreCase("DARK_GRAY"));
+        runningColorDarkGrayMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_RUNNING).equalsIgnoreCase("DARK_GRAY"));
 
         runningColorDarkGray.setItemMeta(runningColorDarkGrayMeta);
 
 
         ItemMeta runningColorBlueMeta = runningColorBlue.getItemMeta();
         runningColorBlueMeta.setDisplayName(ChatColor.BLUE + "Blue");
-        runningColorBlueMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("RunningColor").equalsIgnoreCase("BLUE"));
+        runningColorBlueMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_RUNNING).equalsIgnoreCase("BLUE"));
 
         runningColorBlue.setItemMeta(runningColorBlueMeta);
 
 
         ItemMeta runningColorGreenMeta = runningColorGreen.getItemMeta();
         runningColorGreenMeta.setDisplayName(ChatColor.GREEN + "Green");
-        runningColorGreenMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("RunningColor").equalsIgnoreCase("GREEN"));
+        runningColorGreenMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_RUNNING).equalsIgnoreCase("GREEN"));
 
         runningColorGreen.setItemMeta(runningColorGreenMeta);
 
 
         ItemMeta runningColorAquaMeta = runningColorAqua.getItemMeta();
         runningColorAquaMeta.setDisplayName(ChatColor.AQUA + "Aqua");
-        runningColorAquaMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("RunningColor").equalsIgnoreCase("AQUA"));
+        runningColorAquaMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_RUNNING).equalsIgnoreCase("AQUA"));
 
         runningColorAqua.setItemMeta(runningColorAquaMeta);
 
 
         ItemMeta runningColorRedMeta = runningColorRed.getItemMeta();
         runningColorRedMeta.setDisplayName(ChatColor.RED + "Red");
-        runningColorRedMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("RunningColor").equalsIgnoreCase("RED"));
+        runningColorRedMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_RUNNING).equalsIgnoreCase("RED"));
 
         runningColorRed.setItemMeta(runningColorRedMeta);
 
 
         ItemMeta runningColorLightPurpleMeta = runningColorLightPurple.getItemMeta();
         runningColorLightPurpleMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Light Purple");
-        runningColorLightPurpleMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("RunningColor").equalsIgnoreCase("LIGHT_PURPLE"));
+        runningColorLightPurpleMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_RUNNING).equalsIgnoreCase("LIGHT_PURPLE"));
 
         runningColorLightPurple.setItemMeta(runningColorLightPurpleMeta);
 
 
         ItemMeta runningColorYellowMeta = runningColorYellow.getItemMeta();
         runningColorYellowMeta.setDisplayName(ChatColor.YELLOW + "Yellow");
-        runningColorYellowMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("RunningColor").equalsIgnoreCase("YELLOW"));
+        runningColorYellowMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_RUNNING).equalsIgnoreCase("YELLOW"));
 
         runningColorYellow.setItemMeta(runningColorYellowMeta);
 
 
         ItemMeta runningColorWhiteMeta = runningColorWhite.getItemMeta();
         runningColorWhiteMeta.setDisplayName(ChatColor.WHITE + "White");
-        runningColorWhiteMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("RunningColor").equalsIgnoreCase("WHITE"));
+        runningColorWhiteMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_RUNNING).equalsIgnoreCase("WHITE"));
 
         runningColorWhite.setItemMeta(runningColorWhiteMeta);
     }
@@ -215,112 +215,112 @@ public interface TimerGuiItems extends GeneralGuiItems {
     static void updatePausedColorWoolBlocks() {
         ItemMeta pausedColorBlackMeta = pausedColorBlack.getItemMeta();
         pausedColorBlackMeta.setDisplayName(ChatColor.BLACK + "Black");
-        pausedColorBlackMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("PausedColor").equalsIgnoreCase("BLACK"));
+        pausedColorBlackMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_PAUSED).equalsIgnoreCase("BLACK"));
 
         pausedColorBlack.setItemMeta(pausedColorBlackMeta);
 
 
         ItemMeta pausedColorDarkBlueMeta = pausedColorDarkBlue.getItemMeta();
         pausedColorDarkBlueMeta.setDisplayName(ChatColor.DARK_BLUE + "Dark Blue");
-        pausedColorDarkBlueMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("PausedColor").equalsIgnoreCase("DARK_BLUE"));
+        pausedColorDarkBlueMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_PAUSED).equalsIgnoreCase("DARK_BLUE"));
 
         pausedColorDarkBlue.setItemMeta(pausedColorDarkBlueMeta);
 
 
         ItemMeta pausedColorDarkGreenMeta = pausedColorDarkGreen.getItemMeta();
         pausedColorDarkGreenMeta.setDisplayName(ChatColor.DARK_GREEN + "Dark Green");
-        pausedColorDarkGreenMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("PausedColor").equalsIgnoreCase("DARK_GREEN"));
+        pausedColorDarkGreenMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_PAUSED).equalsIgnoreCase("DARK_GREEN"));
 
         pausedColorDarkGreen.setItemMeta(pausedColorDarkGreenMeta);
 
 
         ItemMeta pausedColorDarkAquaMeta = pausedColorDarkAqua.getItemMeta();
         pausedColorDarkAquaMeta.setDisplayName(ChatColor.DARK_AQUA + "Dark Aqua");
-        pausedColorDarkAquaMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("PausedColor").equalsIgnoreCase("DARK_AQUA"));
+        pausedColorDarkAquaMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_PAUSED).equalsIgnoreCase("DARK_AQUA"));
 
         pausedColorDarkAqua.setItemMeta(pausedColorDarkAquaMeta);
 
 
         ItemMeta pausedColorDarkRedMeta = pausedColorDarkRed.getItemMeta();
         pausedColorDarkRedMeta.setDisplayName(ChatColor.DARK_RED + "Dark Red");
-        pausedColorDarkRedMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("PausedColor").equalsIgnoreCase("DARK_RED"));
+        pausedColorDarkRedMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_PAUSED).equalsIgnoreCase("DARK_RED"));
 
         pausedColorDarkRed.setItemMeta(pausedColorDarkRedMeta);
 
 
         ItemMeta pausedColorDarkPurpleMeta = pausedColorDarkPurple.getItemMeta();
         pausedColorDarkPurpleMeta.setDisplayName(ChatColor.DARK_PURPLE + "Dark Purple");
-        pausedColorDarkPurpleMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("PausedColor").equalsIgnoreCase("DARK_PURPLE"));
+        pausedColorDarkPurpleMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_PAUSED).equalsIgnoreCase("DARK_PURPLE"));
 
         pausedColorDarkPurple.setItemMeta(pausedColorDarkPurpleMeta);
 
 
         ItemMeta pausedColorGoldMeta = pausedColorGold.getItemMeta();
         pausedColorGoldMeta.setDisplayName(ChatColor.GOLD + "Gold");
-        pausedColorGoldMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("PausedColor").equalsIgnoreCase("GOLD"));
+        pausedColorGoldMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_PAUSED).equalsIgnoreCase("GOLD"));
 
         pausedColorGold.setItemMeta(pausedColorGoldMeta);
 
 
         ItemMeta pausedColorGrayMeta = pausedColorGray.getItemMeta();
         pausedColorGrayMeta.setDisplayName(ChatColor.GRAY + "Gray");
-        pausedColorGrayMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("PausedColor").equalsIgnoreCase("GRAY"));
+        pausedColorGrayMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_PAUSED).equalsIgnoreCase("GRAY"));
 
         pausedColorGray.setItemMeta(pausedColorGrayMeta);
 
 
         ItemMeta pausedColorDarkGrayMeta = pausedColorDarkGray.getItemMeta();
         pausedColorDarkGrayMeta.setDisplayName(ChatColor.DARK_GRAY + "Dark Gray");
-        pausedColorDarkGrayMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("PausedColor").equalsIgnoreCase("DARK_GRAY"));
+        pausedColorDarkGrayMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_PAUSED).equalsIgnoreCase("DARK_GRAY"));
 
         pausedColorDarkGray.setItemMeta(pausedColorDarkGrayMeta);
 
 
         ItemMeta pausedColorBlueMeta = pausedColorBlue.getItemMeta();
         pausedColorBlueMeta.setDisplayName(ChatColor.BLUE + "Blue");
-        pausedColorBlueMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("PausedColor").equalsIgnoreCase("BLUE"));
+        pausedColorBlueMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_PAUSED).equalsIgnoreCase("BLUE"));
 
         pausedColorBlue.setItemMeta(pausedColorBlueMeta);
 
 
         ItemMeta pausedColorGreenMeta = pausedColorGreen.getItemMeta();
         pausedColorGreenMeta.setDisplayName(ChatColor.GREEN + "Green");
-        pausedColorGreenMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("PausedColor").equalsIgnoreCase("GREEN"));
+        pausedColorGreenMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_PAUSED).equalsIgnoreCase("GREEN"));
 
         pausedColorGreen.setItemMeta(pausedColorGreenMeta);
 
 
         ItemMeta pausedColorAquaMeta = pausedColorAqua.getItemMeta();
         pausedColorAquaMeta.setDisplayName(ChatColor.AQUA + "Aqua");
-        pausedColorAquaMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("PausedColor").equalsIgnoreCase("AQUA"));
+        pausedColorAquaMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_PAUSED).equalsIgnoreCase("AQUA"));
 
         pausedColorAqua.setItemMeta(pausedColorAquaMeta);
 
 
         ItemMeta pausedColorRedMeta = pausedColorRed.getItemMeta();
         pausedColorRedMeta.setDisplayName(ChatColor.RED + "Red");
-        pausedColorRedMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("PausedColor").equalsIgnoreCase("RED"));
+        pausedColorRedMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_PAUSED).equalsIgnoreCase("RED"));
 
         pausedColorRed.setItemMeta(pausedColorRedMeta);
 
 
         ItemMeta pausedColorLightPurpleMeta = pausedColorLightPurple.getItemMeta();
         pausedColorLightPurpleMeta.setDisplayName(ChatColor.LIGHT_PURPLE + "Light Purple");
-        pausedColorLightPurpleMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("PausedColor").equalsIgnoreCase("LIGHT_PURPLE"));
+        pausedColorLightPurpleMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_PAUSED).equalsIgnoreCase("LIGHT_PURPLE"));
 
         pausedColorLightPurple.setItemMeta(pausedColorLightPurpleMeta);
 
 
         ItemMeta pausedColorYellowMeta = pausedColorYellow.getItemMeta();
         pausedColorYellowMeta.setDisplayName(ChatColor.YELLOW + "Yellow");
-        pausedColorYellowMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("PausedColor").equalsIgnoreCase("YELLOW"));
+        pausedColorYellowMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_PAUSED).equalsIgnoreCase("YELLOW"));
 
         pausedColorYellow.setItemMeta(pausedColorYellowMeta);
 
 
         ItemMeta pausedColorWhiteMeta = pausedColorWhite.getItemMeta();
         pausedColorWhiteMeta.setDisplayName(ChatColor.WHITE + "White");
-        pausedColorWhiteMeta.setEnchantmentGlintOverride(plugin.getConfig().getString("PausedColor").equalsIgnoreCase("WHITE"));
+        pausedColorWhiteMeta.setEnchantmentGlintOverride(plugin.getConfig().getString(TIMER_COLOR_PAUSED).equalsIgnoreCase("WHITE"));
 
         pausedColorWhite.setItemMeta(pausedColorWhiteMeta);
     }
