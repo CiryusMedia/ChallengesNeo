@@ -6,7 +6,6 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLe
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ItemUtil;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.GuiItemStack;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.Arrays;
 import java.util.List;

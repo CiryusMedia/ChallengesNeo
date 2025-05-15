@@ -4,7 +4,6 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges.
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.GuiItemStack;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,7 +17,7 @@ public interface ChallengeGuiItems extends GeneralGuiItems {
     //Challenges
     GuiItemStack randomChallenges = new GuiItemStack(Material.LIGHT_WEIGHTED_PRESSURE_PLATE, ChatColor.LIGHT_PURPLE + "Random Challenges");
 
-    ItemStack inventorySync = Challenge.INVENTORY_SYNC.menuItem;
+    GuiItemStack inventorySync = Challenge.INVENTORY_SYNC.menuItem;
 
 
     Material[] randomChallengeMaterials = new Material[Arrays.stream(Material.values()).filter(Material::isItem).toArray().length];
