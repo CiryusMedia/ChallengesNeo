@@ -1,6 +1,9 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.core.util;
 
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.GuiItemStack;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +32,10 @@ public abstract class ColorWoolUtils {
 
     //ChatColors: BLACK, DARK_BLUE, DARK_GREEN, DARK_AQUA, DARK_RED, DARK_PURPLE, GOLD, GRAY, DARK_GRAY, BLUE, GREEN, AQUA, RED, LIGHT_PURPLE, YELLOW, WHITE
     //Wool Colors: White, Black; Red, Green, Yellow, Orange, Magenta, Cyan, Light_blue, Lime, Pink, Gray, Light_gray
+
+    public static GuiItemStack woolFromChatColor(String color) {
+        return new GuiItemStack(colorStringToWool(color), ChatColor.valueOf(color.toUpperCase()) + color.substring(0, 1).toUpperCase() + color.substring(1));
+    }
 
     public static Material colorStringToWool(String colorString) {
         return isValidChatColor(colorString) ? COLOR_WOOL_MAP.get(colorString.toUpperCase()) : null;

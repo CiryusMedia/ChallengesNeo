@@ -1,5 +1,6 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui;
 
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ConfigPaths;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -8,10 +9,38 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class GuiItemStack extends ItemStack {
+public class GuiItemStack extends ItemStack implements ConfigPaths {
+
+    public void setEnchantmentGlint(boolean glint) {
+        ItemMeta meta = this.getItemMeta();
+        meta.setEnchantmentGlintOverride(glint);
+        this.setItemMeta(meta);
+    }
+
+    public void setDisplayName(String displayName) {
+        ItemMeta meta = this.getItemMeta();
+        meta.setDisplayName(displayName);
+        this.setItemMeta(meta);
+    }
+
+    public void setCustomModelData(String customModelData) {
+        setCustomModelData(List.of(customModelData));
+    }
+
+    public void setCustomModelData(List<String> customModelData) {
+        ItemMeta meta = this.getItemMeta();
+        CustomModelDataComponent modelData = meta.getCustomModelDataComponent();
+        modelData.setStrings(customModelData);
+        meta.setCustomModelDataComponent(modelData);
+        this.setItemMeta(meta);
+    }
 
     public String getDisplayName() {
         return getItemMeta().getDisplayName();
+    }
+
+    public List<String> getCustomModelData() {
+        return getItemMeta().getCustomModelDataComponent().getStrings(); //The Challenge plugin should only work with string cmd
     }
 
     public GuiItemStack(Material material, String displayName) {

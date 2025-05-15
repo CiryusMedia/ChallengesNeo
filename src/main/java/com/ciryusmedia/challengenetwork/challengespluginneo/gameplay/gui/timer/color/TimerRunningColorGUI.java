@@ -33,7 +33,7 @@ public class TimerRunningColorGUI extends ATimerColorGui implements Listener, Ti
 
 
     public TimerRunningColorGUI() {
-        super(timerFillerItem, timerLineFillerItem);
+        super(timerFillerItem, timerLineFillerItem, true);
         initInv();
     }
 }
