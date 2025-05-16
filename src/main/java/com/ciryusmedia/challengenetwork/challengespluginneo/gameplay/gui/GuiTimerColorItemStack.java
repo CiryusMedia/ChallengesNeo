@@ -2,13 +2,12 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import org.bukkit.Material;
-import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.List;
 
 public class GuiTimerColorItemStack extends GuiItemStack {
 
-    private static final FileConfiguration config = ChallengesPluginNeo.getChallengePlugin().getConfig();
+    private static final ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
 
     public final String key;
 
@@ -20,9 +19,9 @@ public class GuiTimerColorItemStack extends GuiItemStack {
 
     private boolean isActiveColor(boolean running) {
         if (running) {
-            return config.getString(TIMER_COLOR_RUNNING).equalsIgnoreCase(this.key);
+            return plugin.getConfig().getString(TIMER_COLOR_RUNNING).equalsIgnoreCase(this.key);
         } else {
-            return config.getString(TIMER_COLOR_PAUSED).equalsIgnoreCase(this.key);
+            return plugin.getConfig().getString(TIMER_COLOR_PAUSED).equalsIgnoreCase(this.key);
         }
     }
 

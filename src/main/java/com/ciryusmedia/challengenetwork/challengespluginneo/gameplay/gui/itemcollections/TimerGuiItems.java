@@ -45,7 +45,7 @@ public interface TimerGuiItems extends GeneralGuiItems {
         add(new GuiTimerColorItemStack(Material.LIME_WOOL, ChatColor.GREEN + "Green", CMD_COLOR_WOOL, "green"));
         add(new GuiTimerColorItemStack(Material.CYAN_WOOL, ChatColor.AQUA + "Aqua", CMD_COLOR_WOOL, "aqua"));
         add(new GuiTimerColorItemStack(Material.RED_WOOL, ChatColor.DARK_RED + "Red", CMD_COLOR_WOOL, "red"));
-        add(new GuiTimerColorItemStack(Material.MAGENTA_WOOL, ChatColor.LIGHT_PURPLE + "Purple", CMD_COLOR_WOOL, "purple"));
+        add(new GuiTimerColorItemStack(Material.MAGENTA_WOOL, ChatColor.LIGHT_PURPLE + "Light Purple", CMD_COLOR_WOOL, "light_purple"));
         add(new GuiTimerColorItemStack(Material.YELLOW_WOOL, ChatColor.YELLOW + "Yellow", CMD_COLOR_WOOL, "yellow"));
         add(new GuiTimerColorItemStack(Material.WHITE_WOOL, ChatColor.WHITE + "White", CMD_COLOR_WOOL, "white"));
     }};
