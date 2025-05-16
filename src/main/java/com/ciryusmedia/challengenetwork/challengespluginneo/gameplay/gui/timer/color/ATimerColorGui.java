@@ -12,7 +12,6 @@ public abstract class ATimerColorGui extends AGUIListener implements Listener, T
     @Override
     public void updateInventory() {
         emptyInventoryItemFiller(inv, timerFillerItem, timerLineFillerItem);
-        TimerGuiItems.initUpdateColorWoolBlocks();
 
         int getColorPos = 0;
         for (int i = 0; i < inv.getSize() && getColorPos < timerColorItems.size(); i++) {

@@ -140,7 +140,6 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
         //Initiate and enable
         LOGGER.debug("Initiating objects", DebugLevel.LEVEL_1);
-        initItems();
         initInventories();
         advancementHandler = new AdvancementHandler();
 
@@ -262,11 +261,6 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
         //Sync Challenges
         getServer().getPluginManager().registerEvents(new InventorySyncListener(Challenge.INVENTORY_SYNC), this);
-    }
-
-    private void initItems() {
-        LOGGER.debug("Items", DebugLevel.LEVEL_2);
-        TimerGuiItems.initTimerGuiItems();
     }
 
     private void initInventories() {
