@@ -27,6 +27,7 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.timer.c
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.goal.AdvancementListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.goal.EnderdragonDeathListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.goal.PlayerDeathListener;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.misc.CraftingRecipeListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.random.blocks.RandomBlocksFullListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.random.blocks.RandomBlocksLoottableListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.random.entities.RandomMobsFullListener;
@@ -40,6 +41,7 @@ import com.google.common.io.ByteStreams;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -228,39 +230,43 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     }
 
     private void enableEvents() {
+        PluginManager pm = getServer().getPluginManager();
         LOGGER.debug("Events", DebugLevel.LEVEL_2);
         //System
         LOGGER.debug("System listeners", DebugLevel.LEVEL_2);
-        getServer().getPluginManager().registerEvents(new PlayerJoinLeaveListener(), this);
-        getServer().getPluginManager().registerEvents(new BlockBreakListener(), this);
+        pm.registerEvents(new PlayerJoinLeaveListener(), this);
+        pm.registerEvents(new BlockBreakListener(), this);
 
         //GUI
         LOGGER.debug("GUI listeners", DebugLevel.LEVEL_2);
-        getServer().getPluginManager().registerEvents(timerGUI, this);
-        getServer().getPluginManager().registerEvents(timerColorGui, this);
-        getServer().getPluginManager().registerEvents(timerRunningColorGUI, this);
-        getServer().getPluginManager().registerEvents(timerPausedColorGUI, this);
+        pm.registerEvents(timerGUI, this);
+        pm.registerEvents(timerColorGui, this);
+        pm.registerEvents(timerRunningColorGUI, this);
+        pm.registerEvents(timerPausedColorGUI, this);
 
-        getServer().getPluginManager().registerEvents(challengeGUI, this);
-        getServer().getPluginManager().registerEvents(randomChallengesGUI, this);
+        pm.registerEvents(challengeGUI, this);
+        pm.registerEvents(randomChallengesGUI, this);
 
-        getServer().getPluginManager().registerEvents(goalsGUI, this);
+        pm.registerEvents(goalsGUI, this);
 
         //Challenges
         LOGGER.debug("Challenge listeners", DebugLevel.LEVEL_2);
         //Goals
-        getServer().getPluginManager().registerEvents(new PlayerDeathListener(), this);
-        getServer().getPluginManager().registerEvents(new EnderdragonDeathListener(), this);
-        getServer().getPluginManager().registerEvents(new AdvancementListener(), this);
+        pm.registerEvents(new PlayerDeathListener(), this);
+        pm.registerEvents(new EnderdragonDeathListener(), this);
+        pm.registerEvents(new AdvancementListener(), this);
 
         //Random Challenges
-        getServer().getPluginManager().registerEvents(new RandomBlocksLoottableListener(Challenge.RANDOM_BLOCKS_LOOTTABLE), this);
-        getServer().getPluginManager().registerEvents(new RandomBlocksFullListener(Challenge.RANDOM_BLOCKS_FULL), this);
-        getServer().getPluginManager().registerEvents(new RandomMobsLoottableListener(Challenge.RANDOM_MOBS_LOOTTABLE), this);
-        getServer().getPluginManager().registerEvents(new RandomMobsFullListener(Challenge.RANDOM_MOBS_FULL), this);
+        pm.registerEvents(new RandomBlocksLoottableListener(Challenge.RANDOM_BLOCKS_LOOTTABLE), this);
+        pm.registerEvents(new RandomBlocksFullListener(Challenge.RANDOM_BLOCKS_FULL), this);
+        pm.registerEvents(new RandomMobsLoottableListener(Challenge.RANDOM_MOBS_LOOTTABLE), this);
+        pm.registerEvents(new RandomMobsFullListener(Challenge.RANDOM_MOBS_FULL), this);
 
         //Sync Challenges
-        getServer().getPluginManager().registerEvents(new InventorySyncListener(Challenge.INVENTORY_SYNC), this);
+        pm.registerEvents(new InventorySyncListener(Challenge.INVENTORY_SYNC), this);
+
+        //Misc Challenges
+        pm.registerEvents(new CraftingRecipeListener(Challenge.CRAFTING_RECIPE), this);
     }
 
     private void initInventories() {
