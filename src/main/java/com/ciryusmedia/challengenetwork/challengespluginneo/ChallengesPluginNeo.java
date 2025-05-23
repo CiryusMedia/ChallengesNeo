@@ -6,6 +6,7 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.Texts;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.loader.FileLoader;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.loader.WorldLoader;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.timer.ChallengeTimer;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ConfigPaths;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.RandomisationUtils;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.*;
@@ -47,7 +48,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import java.io.IOException;
 
 @SuppressWarnings({"DataFlowIssue", "deprecation"})
-public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessageListener, WorldLoader {
+public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessageListener, WorldLoader, ConfigPaths {
 
     private static final ChallengeLogger LOGGER = ChallengeLogger.getLogger();
 
@@ -86,24 +87,24 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         saveDefaultConfig();
         getConfig().options().copyDefaults(true);
         saveConfig();
-        if (!getConfig().contains("DebugLevel") || getConfig().getInt("DebugLevel") < 0) {
-            getConfig().set("DebugLevel", DebugLevel.LEVEL_1.level);
+        if (!getConfig().contains(LOGGER_DEBUG_LEVEL) || getConfig().getInt(LOGGER_DEBUG_LEVEL) < 0) {
+            getConfig().set(LOGGER_DEBUG_LEVEL, DebugLevel.LEVEL_1.level);
             LOGGER.debug("Debuglevel not found, setting to \"LEVEL_1\"", DebugLevel.LEVEL_1);
         }
-        LOGGER.setDebugLevel(getConfig().getInt("DebugLevel"));
+        LOGGER.setDebugLevel(getConfig().getInt(LOGGER_DEBUG_LEVEL));
         LOGGER.debug("Debuglevel: " + LOGGER.getDebugLevel(), DebugLevel.LEVEL_1);
         saveConfig();
         reloadConfig();
 
         //Reset world reset
-        if (!getConfig().contains("isReset")) {
-            getConfig().set("isReset", false);
+        if (!getConfig().contains(SYSTEM_IS_RESET)) {
+            getConfig().set(SYSTEM_IS_RESET, false);
             saveConfig();
         }
-        if (getConfig().getBoolean("isReset")) {
+        if (getConfig().getBoolean(SYSTEM_IS_RESET)) {
             resetWorld();
-            getConfig().set("Time", 0);
-            getConfig().set("isReset", false);
+            getConfig().set(TIMER_TIME, 0);
+            getConfig().set(SYSTEM_IS_RESET, false);
             saveConfig();
         }
 
@@ -133,13 +134,12 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         LOGGER.debug("Challenge system", DebugLevel.LEVEL_1);
         LOGGER.debug("Timer", DebugLevel.LEVEL_2);
         timer = new ChallengeTimer(false, 0);
-        timer.setTime(getConfig().getInt("Time"));
+        timer.setTime(getConfig().getInt(TIMER_TIME));
 
         RandomisationUtils.initRandomisation();
 
         //Initiate and enable
         LOGGER.debug("Initiating objects", DebugLevel.LEVEL_1);
-        initItems();
         initInventories();
         advancementHandler = new AdvancementHandler();
 
@@ -174,7 +174,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     public void onDisable() {
         // Plugin shutdown logic
         //Config file
-        getConfig().set("Time", timer.getTime());
+        getConfig().set(TIMER_TIME, timer.getTime());
         saveConfig();
 
         //Bungeecord messenger channels
@@ -200,7 +200,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
             @Override
             public void run() {
                 reloadConfig();
-                LOGGER.setDebugLevel(getConfig().getInt("DebugLevel"));
+                LOGGER.setDebugLevel(getConfig().getInt(LOGGER_DEBUG_LEVEL));
                 updateInventories();
                 Goal.updateAllEnabled();
             }
@@ -261,11 +261,6 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
         //Sync Challenges
         getServer().getPluginManager().registerEvents(new InventorySyncListener(Challenge.INVENTORY_SYNC), this);
-    }
-
-    private void initItems() {
-        LOGGER.debug("Items", DebugLevel.LEVEL_2);
-        TimerGuiItems.initTimerGuiItems();
     }
 
     private void initInventories() {

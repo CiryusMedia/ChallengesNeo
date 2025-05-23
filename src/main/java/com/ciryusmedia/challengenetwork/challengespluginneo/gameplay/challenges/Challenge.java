@@ -3,6 +3,7 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ConfigPaths;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ItemUtil;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.GuiItemStack;
 import org.bukkit.Material;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public enum Challenge implements ItemUtil {
+public enum Challenge implements ItemUtil, ConfigPaths {
 
     //<editor-fold desc="Random Challenges" defaultstate="collapsed">
     RANDOM_BLOCKS_FULL(
@@ -59,6 +60,7 @@ public enum Challenge implements ItemUtil {
     private static final ChallengeLogger LOGGER = ChallengeLogger.getLogger();
 
     public final String key;
+    public final String path;
     public final String displayName;
     public final List<String> description;
     public final ChallengeType type;
@@ -73,7 +75,7 @@ public enum Challenge implements ItemUtil {
 
     public void setEnabled(boolean enabled) {
         LOGGER.debug("Setting challenge " + key + " to " + enabled, DebugLevel.LEVEL_3);
-        plugin.getConfig().set(key, enabled);
+        plugin.getConfig().set(path, enabled);
         plugin.saveConfig();
         this.enabled = enabled;
         LOGGER.debug("Challenge " + key + " is now " + enabled, DebugLevel.LEVEL_3);
@@ -140,12 +142,13 @@ public enum Challenge implements ItemUtil {
 
     Challenge(String key, String displayName, ChallengeType type, ChallengeSubtype subType, GuiItemStack menuItem, String[] description) {
         this.key = key;
+        this.path = CHALLENGE_PREFIX + key;
         this.displayName = displayName;
         this.description = Arrays.stream(description).toList();
         this.type = type;
         this.subType = subType;
         this.menuItem = menuItem;
-        this.enabled = plugin.getConfig().getBoolean(key);
+        this.enabled = plugin.getConfig().getBoolean(path);
         updateItem();
     }
 }

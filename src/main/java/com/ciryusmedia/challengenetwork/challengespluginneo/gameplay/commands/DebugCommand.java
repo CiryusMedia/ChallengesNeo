@@ -4,12 +4,13 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.Texts;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ConfigPaths;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class DebugCommand implements CommandExecutor {
+public class DebugCommand implements CommandExecutor, ConfigPaths {
 
     ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
     private static final ChallengeLogger LOGGER = ChallengeLogger.getLogger();
@@ -18,14 +19,14 @@ public class DebugCommand implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
 
         if (strings.length == 0) {
-            commandSender.sendMessage(Texts.PREFIX + " The current debug level is " + ChatColor.YELLOW + plugin.getConfig().getInt("DebugLevel"));
+            commandSender.sendMessage(Texts.PREFIX + " The current debug level is " + ChatColor.YELLOW + plugin.getConfig().getInt(LOGGER_DEBUG_LEVEL));
             return true;
         } else {
             try {
-                plugin.getConfig().set("DebugLevel", Integer.parseInt(strings[0]));
+                plugin.getConfig().set(LOGGER_DEBUG_LEVEL, Integer.parseInt(strings[0]));
 
                 LOGGER.debug("Debug level successfully set", DebugLevel.LEVEL_3);
-                commandSender.sendMessage(Texts.PREFIX + ChatColor.YELLOW + "Debug level has been set to " + ChatColor.AQUA + plugin.getConfig().getInt("DebugLevel"));
+                commandSender.sendMessage(Texts.PREFIX + ChatColor.YELLOW + "Debug level has been set to " + ChatColor.AQUA + plugin.getConfig().getInt(LOGGER_DEBUG_LEVEL));
             } catch (NumberFormatException e) {
                 LOGGER.debug("Debug level is not a number", DebugLevel.LEVEL_3);
                 commandSender.sendMessage(Texts.PREFIX + ChatColor.RED + "Time must be a number!");

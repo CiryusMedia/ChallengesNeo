@@ -1,6 +1,7 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.core.timer;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ConfigPaths;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -12,7 +13,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Locale;
 
-public class ChallengeTimer {
+public class ChallengeTimer implements ConfigPaths {
 
     ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
 
@@ -76,16 +77,16 @@ public class ChallengeTimer {
     }
 
     public void sendTimer() {
-        ChatColor pausedColor = ChatColor.valueOf(plugin.getConfig().getString("PausedColor").toUpperCase(Locale.ROOT));
-        ChatColor runningColor = ChatColor.valueOf(plugin.getConfig().getString("RunningColor").toUpperCase(Locale.ROOT));
+        ChatColor pausedColor = ChatColor.valueOf(plugin.getConfig().getString(TIMER_COLOR_PAUSED).toUpperCase(Locale.ROOT));
+        ChatColor runningColor = ChatColor.valueOf(plugin.getConfig().getString(TIMER_COLOR_RUNNING).toUpperCase(Locale.ROOT));
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (running) {
-                if (plugin.getConfig().getBoolean("Visible")) {
+                if (plugin.getConfig().getBoolean(TIMER_VISIBLE_RUNNING)) {
                     player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(runningColor.toString() + ChatColor.BOLD + getStringFromTime(time)));
                 }
             } else {
-                if (plugin.getConfig().getBoolean("ShowPaused")) {
+                if (plugin.getConfig().getBoolean(TIMER_VISIBLE_RUNNING)) {
                     player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(pausedColor + "Timer paused"));
                 }
             }

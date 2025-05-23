@@ -1,6 +1,7 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.challenges;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections.ChallengeGuiItems;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.AGUIListener;
 import org.bukkit.Bukkit;
@@ -17,7 +18,7 @@ public class ChallengeGUI extends AGUIListener implements Listener, ChallengeGui
     @Override
     public void inventoryClickHandler(ItemStack item, Player player) {
         if (item.equals(randomChallenges)) player.chat("/challenge random");
-        else if (item.equals(inventorySync)) player.chat("/challenge sync inventorysync " + !plugin.getConfig().getBoolean("InventorySync"));
+        else if (item.equals(inventorySync)) player.chat("/challenge sync inventorysync " + !plugin.getConfig().getBoolean(Challenge.INVENTORY_SYNC.path));
     }
 
     @Override

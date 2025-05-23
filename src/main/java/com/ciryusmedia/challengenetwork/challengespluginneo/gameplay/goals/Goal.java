@@ -3,6 +3,7 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals;
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ConfigPaths;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ItemUtil;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.GuiItemStack;
 import org.bukkit.Material;
@@ -11,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public enum Goal implements ItemUtil {
+public enum Goal implements ItemUtil, ConfigPaths {
     //<editor-fold desc="Success" defaultstate="collapsed">
     KILL_ENDER_DRAGON(true, GoalType.SUCCESS,
             "kill_ender_dragon",
@@ -40,6 +41,7 @@ public enum Goal implements ItemUtil {
     private boolean enabled;
     public final GoalType type;
     public final String key;
+    public final String path;
     public final String displayName;
     public final GuiItemStack item;
     public final List<String> description;
@@ -49,7 +51,7 @@ public enum Goal implements ItemUtil {
     }
 
     public void updateEnabled() {
-        enabled = plugin.getConfig().getBoolean(key);
+        enabled = plugin.getConfig().getBoolean(path);
         updateItem();
     }
 
@@ -81,6 +83,7 @@ public enum Goal implements ItemUtil {
         this.enabled = enabled;
         this.type = type;
         this.key = key;
+        this.path = GOAL_PREFIX + key;
         this.displayName = displayName;
         this.item = item;
         this.description = Arrays.stream(description).toList();
@@ -90,7 +93,7 @@ public enum Goal implements ItemUtil {
 
     public void setEnabled(boolean enabled) {
         LOGGER.debug("Setting challenge " + key + " to " + enabled, DebugLevel.LEVEL_3);
-        plugin.getConfig().set(key, enabled);
+        plugin.getConfig().set(path, enabled);
         plugin.saveConfig();
         this.enabled = enabled;
         LOGGER.debug("Challenge " + key + " is now " + enabled, DebugLevel.LEVEL_3);

@@ -1,8 +1,8 @@
 #Challenges
 RandomBlocksFull: false
 RandomBlocksLoottable: false
-RandomMobsLoottable: false
 RandomMobsFull: false
+RandomMobsLoottable: false
 
 InventorySync: false
 

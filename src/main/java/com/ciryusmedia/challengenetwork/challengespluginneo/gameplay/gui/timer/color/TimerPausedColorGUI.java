@@ -32,7 +32,7 @@ public class TimerPausedColorGUI extends ATimerColorGui implements Listener, Tim
     }
 
     public TimerPausedColorGUI() {
-        super(timerFillerItem, timerLineFillerItem);
+        super(timerFillerItem, timerLineFillerItem, false);
         initInv();
     }
 }

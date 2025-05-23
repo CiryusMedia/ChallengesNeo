@@ -3,6 +3,7 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands;
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ColorWoolUtils;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.timer.ChallengeTimer;
+import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ConfigPaths;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.InventoryCollection;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
@@ -17,7 +18,7 @@ import org.bukkit.entity.Player;
 import java.util.Locale;
 
 @SuppressWarnings({"ConstantValue"})
-public class TimerCommand implements CommandExecutor {
+public class TimerCommand implements CommandExecutor, ConfigPaths {
 
     ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
     private static final ChallengeLogger LOGGER = ChallengeLogger.getLogger();
@@ -94,7 +95,7 @@ public class TimerCommand implements CommandExecutor {
 
             case "load": {
                 LOGGER.debug("Loading timer time", DebugLevel.LEVEL_3);
-                timer.setTime(plugin.getConfig().getInt("Time"));
+                timer.setTime(plugin.getConfig().getInt(TIMER_TIME));
                 sender.sendMessage(Texts.PREFIX + ChatColor.YELLOW + "Timer has been loaded!");
                 break;
             }
@@ -144,29 +145,29 @@ public class TimerCommand implements CommandExecutor {
         switch (args[1].toLowerCase(Locale.ROOT)) {
             case "running":
                 LOGGER.debug("Handling running timer visibility", DebugLevel.LEVEL_3);
-                if (!plugin.getConfig().getBoolean("Visible")) {
-                    plugin.getConfig().set("Visible", true);
+                if (!plugin.getConfig().getBoolean(TIMER_VISIBLE_RUNNING)) { //TODO Simplify to 2 lines with conditional expressions
+                    plugin.getConfig().set(TIMER_VISIBLE_RUNNING, true);
                     sender.sendMessage(Texts.PREFIX + ChatColor.YELLOW + "Timer is now " + ChatColor.GREEN + "visible " + ChatColor.YELLOW + "when running");
-                } else if (plugin.getConfig().getBoolean("Visible")) {
-                    plugin.getConfig().set("Visible", false);
+                } else if (plugin.getConfig().getBoolean(TIMER_VISIBLE_RUNNING)) {
+                    plugin.getConfig().set(TIMER_VISIBLE_RUNNING, false);
                     sender.sendMessage(Texts.PREFIX + ChatColor.YELLOW + "Timer is now " + ChatColor.RED + "invisible " + ChatColor.YELLOW + "when running");
                 }
                 break;
             case "paused":
                 LOGGER.debug("Handling paused timer visibility", DebugLevel.LEVEL_3);
-                if (!plugin.getConfig().getBoolean("ShowPaused")) {
-                    plugin.getConfig().set("ShowPaused", true);
+                if (!plugin.getConfig().getBoolean(TIMER_VISIBLE_PAUSED)) { //TODO See l148
+                    plugin.getConfig().set(TIMER_VISIBLE_PAUSED, true);
                     sender.sendMessage(Texts.PREFIX + ChatColor.YELLOW + "Timer is now " + ChatColor.GREEN + "visible " + ChatColor.YELLOW + "when paused");
                     break;
-                } else if (plugin.getConfig().getBoolean("ShowPaused")) {
-                    plugin.getConfig().set("ShowPaused", false);
+                } else if (plugin.getConfig().getBoolean(TIMER_VISIBLE_PAUSED)) {
+                    plugin.getConfig().set(TIMER_VISIBLE_PAUSED, false);
                     sender.sendMessage(Texts.PREFIX + ChatColor.YELLOW + "Timer is now " + ChatColor.RED + "invisible " + ChatColor.YELLOW + "when paused");
                 }
                 break;
         }
     }
 
-    private void colorHandler(CommandSender sender, String[] args) {
+    private void colorHandler(CommandSender sender, String[] args) { //TODO rethink this method with the config paths
         String colorType;
 
         if (args.length >= 2) {

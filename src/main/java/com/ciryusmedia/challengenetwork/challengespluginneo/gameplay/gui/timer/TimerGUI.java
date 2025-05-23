@@ -45,7 +45,7 @@ public class TimerGUI extends AGUIListener implements Listener, TimerGuiItems {
             inv.setItem(13, startTimer);
         }
         inv.setItem(22, resetTimer);
-        if (plugin.getConfig().getBoolean("Visible"))
+        if (plugin.getConfig().getBoolean(TIMER_VISIBLE_RUNNING))
             inv.setItem(15, visibleTimer);
         else inv.setItem(15, invisibleTimer);
         inv.setItem(inv.getSize() -1, exitItem);
