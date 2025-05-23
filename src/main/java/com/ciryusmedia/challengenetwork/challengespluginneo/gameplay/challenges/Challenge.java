@@ -52,8 +52,19 @@ public enum Challenge implements ItemUtil, ConfigPaths {
             ChallengeType.SYNC,
             ChallengeSubtype.INVENTORY_SYNC,
             Material.CRAFTING_TABLE,
-            new String[]{"Gives every player the same inventory", "This means that every item in your", "inventories is identical"});
+            new String[]{"Gives every player the same inventory", "This means that every item in your", "inventories is identical"}),
     //</editor-fold>
+
+    //<editor-fold desc="Misc Challenges" defaultstate="collapsed">
+    CRAFTING_RECIPE(
+            "CraftingRecipe",
+            "Crafting Recipe",
+            ChallengeType.MISC,
+            ChallengeSubtype.CRAFTING_RECIPE,
+            Material.KNOWLEDGE_BOOK,
+            new String[]{"To be able to craft any item,", "you must have its recipe"}),
+    //</editor-fold>
+    ;
 
     private final ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
     public static final List<Challenge> challenges = Arrays.stream(Challenge.values()).toList();

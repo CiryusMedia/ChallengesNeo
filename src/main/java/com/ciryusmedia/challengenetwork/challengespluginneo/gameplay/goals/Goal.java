@@ -26,7 +26,7 @@ public enum Goal implements ItemUtil, ConfigPaths {
             new String[]{"Beat the challenge by", "getting all advancements"}),
     //</editor-fold>
 
-    //<editor-fold desc="Success" defaultstate="collapsed">
+    //<editor-fold desc="Failure" defaultstate="collapsed">
     PLAYER_DEATH(true, GoalType.FAILURE,
             "player_death",
             "Player death",
