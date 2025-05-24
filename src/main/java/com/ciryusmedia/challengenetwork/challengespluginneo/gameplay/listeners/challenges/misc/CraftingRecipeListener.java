@@ -1,5 +1,6 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.misc;
 
+import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.challenges.AChallengeListener;
 import org.bukkit.Bukkit;
@@ -14,7 +15,7 @@ public class CraftingRecipeListener extends AChallengeListener implements Listen
             public void run() {
                 Bukkit.getWorld("world").setGameRule(GameRule.DO_LIMITED_CRAFTING, challenge.enabled);
             }
-        };
+        }.runTaskTimer(ChallengesPluginNeo.getChallengePlugin(), 20, 10);
     }
 
     public CraftingRecipeListener(Challenge challenge) {

@@ -6,6 +6,8 @@ RandomMobsLoottable: false
 
 InventorySync: false
 
+CraftingRecipe: false
+
 #Challenge Goals (Currently only one + and end can be active)
 EnderDragon: true
 Advancements: false
