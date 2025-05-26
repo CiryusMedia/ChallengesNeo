@@ -19,6 +19,8 @@ public interface ChallengeGuiItems extends GeneralGuiItems {
 
     GuiItemStack inventorySync = Challenge.INVENTORY_SYNC.menuItem;
 
+    GuiItemStack crafting_recipe = Challenge.CRAFTING_RECIPE.menuItem;
+
 
     Material[] randomChallengeMaterials = new Material[Arrays.stream(Material.values()).filter(Material::isItem).toArray().length];
 

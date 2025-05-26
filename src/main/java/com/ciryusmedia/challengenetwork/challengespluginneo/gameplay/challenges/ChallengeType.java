@@ -4,7 +4,9 @@ import java.util.Arrays;
 
 public enum ChallengeType {
     RANDOM("random"),
-    SYNC("sync");
+    SYNC("sync"),
+    MISC("misc"),
+    ;
 
     public final String name;
 

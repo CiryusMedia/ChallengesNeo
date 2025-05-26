@@ -1,5 +1,7 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges;
 
+import org.bukkit.Material;
+
 import java.util.Arrays;
 
 public enum ChallengeSubtype {
@@ -10,8 +12,13 @@ public enum ChallengeSubtype {
     //</editor-fold>
 
     //<editor-fold desc="Sync" defaultstate="collapsed">
-    INVENTORY_SYNC("inventorySync", ChallengeType.SYNC);
+    INVENTORY_SYNC("inventorySync", ChallengeType.SYNC),
     //</editor-fold>
+
+    //<editor-fold desc="Misc" defaultstate="collapsed">
+    CRAFTING_RECIPE("craftingRecipe", ChallengeType.MISC),
+    //</editor-fold>
+    ;
 
     public final String name;
     public final ChallengeType parentType;
