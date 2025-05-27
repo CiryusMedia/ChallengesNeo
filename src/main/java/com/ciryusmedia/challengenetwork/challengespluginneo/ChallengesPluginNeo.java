@@ -18,6 +18,7 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.Goal;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.advancements.AdvancementHandler;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.challenges.ChallengeGUI;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.challenges.random.RandomChallengesGUI;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.coop.CoopGui;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.goals.GoalsGui;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections.TimerGuiItems;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.timer.TimerColorInvGUI;
@@ -73,6 +74,8 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     public static RandomChallengesGUI randomChallengesGUI;
 
     public static GoalsGui goalsGUI;
+
+    public static CoopGui coopGUI;
 
     //Scoreboard Objectives
     HealthScoreboard healthScoreboard;
@@ -250,6 +253,8 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
         pm.registerEvents(goalsGUI, this);
 
+        pm.registerEvents(coopGUI, this);
+
         //Challenges
         LOGGER.debug("Challenge listeners", DebugLevel.LEVEL_2);
         //Goals
@@ -281,6 +286,8 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         randomChallengesGUI = new RandomChallengesGUI();
 
         goalsGUI = new GoalsGui();
+
+        coopGUI = new CoopGui();
     }
 
     public void updateInventories() {
