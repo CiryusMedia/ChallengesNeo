@@ -14,7 +14,8 @@ import java.util.List;
 public enum Coop implements ItemUtil, ConfigPaths {
     COOP(true, "coop", "Co-op", Material.GOLDEN_APPLE, new String[]{}),
     FFA(false, "ffa", "Free for all", Material.DIAMOND_SWORD, new String[]{}),
-    TEAMS(false, "teams", "Teams", Material.IRON_SWORD, new String[]{}),;
+//    TEAMS(false, "teams", "Teams", Material.IRON_SWORD, new String[]{}), //TODO I honestly don't want to implement this until version 3.0.0
+    ;
 
     private static final ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
     private static final ChallengeLogger LOGGER = ChallengeLogger.getLogger();
