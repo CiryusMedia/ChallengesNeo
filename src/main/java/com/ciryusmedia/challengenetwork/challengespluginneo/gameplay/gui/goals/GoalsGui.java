@@ -1,6 +1,7 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.goals;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.coop.Coop;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.Goal;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.GoalType;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.AGUIListener;
@@ -15,7 +16,11 @@ public class GoalsGui extends AGUIListener implements GoalsGuiItems {
     public void inventoryClickHandler(ItemStack item, Player player) {
         if (item.equals(Goal.KILL_ENDER_DRAGON.item)) handleGoal(Goal.KILL_ENDER_DRAGON, player); //TODO do it with !goal.isEnabled
         else if (item.equals(Goal.GET_ALL_ADVANCEMENTS.item)) handleGoal(Goal.GET_ALL_ADVANCEMENTS, player);
-        else if (item.equals(Goal.PLAYER_DEATH.item)) handleGoal(Goal.PLAYER_DEATH, player);
+        else if (item.equals(Goal.PLAYER_DEATH.item)) {
+            player.chat("/coop ffa false");
+            player.chat("/coop coop true");
+            handleGoal(Goal.PLAYER_DEATH, player);
+        }
 
         else if (item.equals(goalExitWarning)) player.closeInventory();
     }

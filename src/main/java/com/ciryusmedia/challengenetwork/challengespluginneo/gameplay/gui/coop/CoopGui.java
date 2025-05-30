@@ -1,6 +1,7 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.coop;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.coop.Coop;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.Goal;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.AGUIListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections.CoopGuiItems;
 import org.bukkit.Bukkit;
@@ -12,7 +13,10 @@ public class CoopGui extends AGUIListener implements CoopGuiItems {
     @Override
     public void inventoryClickHandler(ItemStack item, Player player) {
         if (item.equals(Coop.COOP.item)) player.chat("/coop coop " + !Coop.COOP.isEnabled());
-        if (item.equals(Coop.FFA.item)) player.chat("/coop ffa " + !Coop.FFA.isEnabled());
+        if (item.equals(Coop.FFA.item)) {
+            player.chat("/goal " + Goal.PLAYER_DEATH.key + " false");
+            player.chat("/coop ffa " + !Coop.FFA.isEnabled());
+        }
 //        if (item.equals(Coop.TEAMS.item)) player.chat("/coop teams " + !Coop.TEAMS.isEnabled());
     }
 
