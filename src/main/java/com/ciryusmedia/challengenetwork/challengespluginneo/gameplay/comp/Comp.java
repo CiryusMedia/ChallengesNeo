@@ -1,4 +1,4 @@
-package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.coop;
+package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.comp;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
@@ -11,7 +11,7 @@ import org.bukkit.Material;
 import java.util.Arrays;
 import java.util.List;
 
-public enum Coop implements ItemUtil, ConfigPaths {
+public enum Comp implements ItemUtil, ConfigPaths { //Comp for Competitive and Composition :)
     COOP(true, "coop", "Co-op", Material.GOLDEN_APPLE, new String[]{}),
     FFA(false, "ffa", "Free for all", Material.DIAMOND_SWORD, new String[]{}),
 //    TEAMS(false, "teams", "Teams", Material.IRON_SWORD, new String[]{}), //TODO I honestly don't want to implement this until version 3.0.0
@@ -37,30 +37,30 @@ public enum Coop implements ItemUtil, ConfigPaths {
     }
 
     public static void updateAllEnabled() {
-        Arrays.stream(values()).toList().forEach(Coop::updateEnabled);
+        Arrays.stream(values()).toList().forEach(Comp::updateEnabled);
     }
 
     public static boolean anyEnabled() {
-        return Arrays.stream(values()).anyMatch(coop -> coop.enabled);
+        return Arrays.stream(values()).anyMatch(comp -> comp.enabled);
     }
 
-    public static List<Coop> coops() {
+    public static List<Comp> comps() {
         return List.of(values());
     }
 
-    public static Coop getCoop(String key) {
-        return coops().stream().filter(g -> g.key.equals(key)).findFirst().orElse(null);
+    public static Comp getComp(String key) {
+        return comps().stream().filter(c -> c.key.equals(key)).findFirst().orElse(null);
     }
 
     public static boolean isCoop() {
         return COOP.isEnabled();
     }
 
-    Coop(boolean enabled, String key, String displayName, Material itemMaterial, String[] description) {
+    Comp(boolean enabled, String key, String displayName, Material itemMaterial, String[] description) {
         this(enabled, key, displayName, new GuiItemStack(itemMaterial, displayName, key), description);
     }
 
-    Coop(boolean enabled, String key, String displayName, GuiItemStack item, String[] description) {
+    Comp(boolean enabled, String key, String displayName, GuiItemStack item, String[] description) {
         this.enabled = enabled;
         this.key = key;
         this.path = GOAL_PREFIX + key;
@@ -72,11 +72,11 @@ public enum Coop implements ItemUtil, ConfigPaths {
     }
 
     public void setEnabled(boolean enabled) {
-        LOGGER.debug("Setting coop " + key + " to " + enabled, DebugLevel.LEVEL_3);
+        LOGGER.debug("Setting comp " + key + " to " + enabled, DebugLevel.LEVEL_3);
         plugin.getConfig().set(path, enabled);
         plugin.saveConfig();
         this.enabled = enabled;
-        LOGGER.debug("Coop " + key + " is now " + enabled, DebugLevel.LEVEL_3);
+        LOGGER.debug("Comp " + key + " is now " + enabled, DebugLevel.LEVEL_3);
         updateItem();
     }
 

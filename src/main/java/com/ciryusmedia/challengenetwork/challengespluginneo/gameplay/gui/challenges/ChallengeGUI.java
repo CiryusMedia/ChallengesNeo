@@ -2,6 +2,7 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.challe
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges.Challenge;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.Commands;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections.ChallengeGuiItems;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.AGUIListener;
 import org.bukkit.Bukkit;
@@ -13,13 +14,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Random;
 
-public class ChallengeGUI extends AGUIListener implements Listener, ChallengeGuiItems {
+public class ChallengeGUI extends AGUIListener implements Listener, ChallengeGuiItems, Commands {
 
     @Override
     public void inventoryClickHandler(ItemStack item, Player player) {
-        if (item.equals(randomChallenges)) player.chat("/challenge random");
-        else if (item.equals(inventorySync)) player.chat("/challenge sync inventorysync " + !plugin.getConfig().getBoolean(Challenge.INVENTORY_SYNC.path)); //TODO do it with !challenge.isEnabled
-        else if (item.equals(crafting_recipe)) player.chat("/challenge misc craftingrecipe " + !plugin.getConfig().getBoolean(Challenge.CRAFTING_RECIPE.path));
+        if (item.equals(randomChallenges)) player.chat(CHALLENGE_CMD + " random");
+        else if (item.equals(inventorySync)) player.chat(CHALLENGE_CMD + " sync inventorysync " + !plugin.getConfig().getBoolean(Challenge.INVENTORY_SYNC.path)); //TODO do it with !challenge.isEnabled
+        else if (item.equals(crafting_recipe)) player.chat(CHALLENGE_CMD + " misc craftingrecipe " + !plugin.getConfig().getBoolean(Challenge.CRAFTING_RECIPE.path));
     }
 
     @Override

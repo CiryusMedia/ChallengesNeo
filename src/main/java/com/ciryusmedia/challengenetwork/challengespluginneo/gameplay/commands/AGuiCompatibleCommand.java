@@ -16,7 +16,7 @@ public abstract class AGuiCompatibleCommand implements CommandExecutor, Texts {
 
     @Override
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String alias, @NotNull String @NotNull [] args) {
-        // command structure: coop coop enable|true
+        // command structure: comp coop enable|true
         if (args.length == 0) {
             if (commandSender instanceof Player player) {
                 player.openInventory(guiListener.getInventory());

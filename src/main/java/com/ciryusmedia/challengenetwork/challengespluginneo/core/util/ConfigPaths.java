@@ -9,7 +9,7 @@ public interface ConfigPaths {
     String GOAL_PREFIX = ""; //Goal config paths should be referenced through the path variable in the goal enum
 
     //Coop settings
-    String COOP_PREFIX = "";
+    String COMP_PREFIX = "";
 
     //Randomisation
     String RANDOM_PREFIX = "";

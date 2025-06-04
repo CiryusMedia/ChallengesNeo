@@ -3,7 +3,7 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.listeners.
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.timer.ChallengeTimer;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges.Challenge;
-import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.coop.Coop;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.comp.Comp;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.Goal;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -30,7 +30,7 @@ public abstract class AGoal {
 
     public void endRun(boolean success, @Nullable String failReason, @Nullable Player player) {
         if (success) {
-            if (Coop.isCoop() || player == null) {
+            if (Comp.isCoop() || player == null) {
                 Bukkit.getServer().broadcastMessage(ChatColor.GOLD + "The challenge was successfully beaten with a time of "
                         + ChatColor.AQUA + timer.getStringFromTime(timer.getTime()) + ChatColor.GOLD + "!");
             } else {

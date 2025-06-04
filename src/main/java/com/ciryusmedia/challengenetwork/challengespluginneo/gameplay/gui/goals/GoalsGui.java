@@ -1,7 +1,7 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.goals;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
-import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.coop.Coop;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.Commands;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.Goal;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.GoalType;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.AGUIListener;
@@ -10,15 +10,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class GoalsGui extends AGUIListener implements GoalsGuiItems {
+public class GoalsGui extends AGUIListener implements GoalsGuiItems, Commands {
 
     @Override
     public void inventoryClickHandler(ItemStack item, Player player) {
         if (item.equals(Goal.KILL_ENDER_DRAGON.item)) handleGoal(Goal.KILL_ENDER_DRAGON, player); //TODO do it with !goal.isEnabled
         else if (item.equals(Goal.GET_ALL_ADVANCEMENTS.item)) handleGoal(Goal.GET_ALL_ADVANCEMENTS, player);
         else if (item.equals(Goal.PLAYER_DEATH.item)) {
-            player.chat("/coop ffa false");
-            player.chat("/coop coop true");
+            player.chat(COMP_CMD + " ffa false");
+            player.chat(COMP_CMD + " coop true");
             handleGoal(Goal.PLAYER_DEATH, player);
         }
 
@@ -26,7 +26,7 @@ public class GoalsGui extends AGUIListener implements GoalsGuiItems {
     }
 
     public void handleGoal(Goal goal, Player player) {
-        player.chat("/goal " + goal.key + (goal.isEnabled() ? " off" : " on"));
+        player.chat(COMP_CMD + " " + goal.key + (goal.isEnabled() ? " off" : " on"));
     }
 
     @Override

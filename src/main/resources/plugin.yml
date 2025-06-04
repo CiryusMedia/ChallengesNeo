@@ -39,7 +39,7 @@ commands:
     aliases:
       - goal
 
-  coop:
+  comp:
     description: Choose if you want to cooperate with other players
 
 permissions:
