@@ -52,6 +52,10 @@ public enum Coop implements ItemUtil, ConfigPaths {
         return coops().stream().filter(g -> g.key.equals(key)).findFirst().orElse(null);
     }
 
+    public static boolean isCoop() {
+        return COOP.isEnabled();
+    }
+
     Coop(boolean enabled, String key, String displayName, Material itemMaterial, String[] description) {
         this(enabled, key, displayName, new GuiItemStack(itemMaterial, displayName, key), description);
     }
