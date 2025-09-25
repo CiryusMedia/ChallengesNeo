@@ -6,9 +6,9 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.Co
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections.ChallengeGuiItems;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.AGUIListener;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -52,6 +52,7 @@ public class ChallengeGUI extends AGUIListener implements Listener, ChallengeGui
             public void run() {
 
                 randomChallenges.setType(randomChallengeMaterials[random.nextInt(randomChallengeMaterials.length)]);
+                randomChallenges.setDisplayName(ChatColor.LIGHT_PURPLE + "Random Challenges");
                 updateInventory();
 
             }
