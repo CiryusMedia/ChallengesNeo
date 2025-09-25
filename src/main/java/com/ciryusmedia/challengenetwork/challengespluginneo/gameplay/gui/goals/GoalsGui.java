@@ -26,7 +26,7 @@ public class GoalsGui extends AGUIListener implements GoalsGuiItems, Commands {
     }
 
     public void handleGoal(Goal goal, Player player) {
-        player.chat(COMP_CMD + " " + goal.key + (goal.isEnabled() ? " off" : " on"));
+        player.chat(GOALS_CMD + " " + goal.key + " " + !goal.isEnabled());
     }
 
     @Override
