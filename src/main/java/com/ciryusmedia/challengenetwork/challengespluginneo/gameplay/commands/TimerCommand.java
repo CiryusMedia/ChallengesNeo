@@ -8,6 +8,7 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.InventoryCo
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.Texts;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.comp.Comp;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -52,6 +53,11 @@ public class TimerCommand implements CommandExecutor, ConfigPaths {
             case "start":
                 if (timer.isRunning()) {
                     sender.sendMessage(Texts.PREFIX + ChatColor.RED + "Timer is already running!");
+                    break;
+                }
+
+                if (!Comp.anyEnabled()) {
+                    sender.sendMessage(Texts.PREFIX + ChatColor.RED + "Competition type is undefined!");
                     break;
                 }
 

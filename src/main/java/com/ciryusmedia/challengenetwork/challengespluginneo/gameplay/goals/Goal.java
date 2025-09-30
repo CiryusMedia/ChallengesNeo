@@ -92,11 +92,11 @@ public enum Goal implements ItemUtil, ConfigPaths {
     }
 
     public void setEnabled(boolean enabled) {
-        LOGGER.debug("Setting challenge " + key + " to " + enabled, DebugLevel.LEVEL_3);
+        LOGGER.debug("Setting goal " + key + " to " + enabled, DebugLevel.LEVEL_3);
         plugin.getConfig().set(path, enabled);
         plugin.saveConfig();
         this.enabled = enabled;
-        LOGGER.debug("Challenge " + key + " is now " + enabled, DebugLevel.LEVEL_3);
+        LOGGER.debug("Goal " + key + " is now " + enabled, DebugLevel.LEVEL_3);
         updateItem();
     }
 

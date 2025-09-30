@@ -1,6 +1,7 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.challenges.random;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges.Challenge;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.Commands;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections.RandomChallengeGuiItems;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.AGUIListener;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.InventoryCollection;
@@ -10,18 +11,18 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-public class RandomChallengesGUI extends AGUIListener implements Listener, RandomChallengeGuiItems {
+public class RandomChallengesGUI extends AGUIListener implements Listener, RandomChallengeGuiItems, Commands {
 
     @Override
     public void inventoryClickHandler(ItemStack item, Player player) {
         if (item.equals(randomBlocksLoottable)) {
-            player.chat("/challenge random randomblocksloottable " + !plugin.getConfig().getBoolean(Challenge.RANDOM_BLOCKS_LOOTTABLE.path));
+            player.chat(CHALLENGE_CMD + " random randomblocksloottable " + !plugin.getConfig().getBoolean(Challenge.RANDOM_BLOCKS_LOOTTABLE.path));
         } else if (item.equals(randomBlocksFull)) {
-            player.chat("/challenge random randomblocksfull " + !plugin.getConfig().getBoolean(Challenge.RANDOM_BLOCKS_FULL.path));
+            player.chat(CHALLENGE_CMD + " random randomblocksfull " + !plugin.getConfig().getBoolean(Challenge.RANDOM_BLOCKS_FULL.path));
         } else if (item.equals(randomMobsLoottable)) {
-            player.chat("/challenge random randommobsloottable " + !plugin.getConfig().getBoolean(Challenge.RANDOM_MOBS_LOOTTABLE.path));
+            player.chat(CHALLENGE_CMD + " random randommobsloottable " + !plugin.getConfig().getBoolean(Challenge.RANDOM_MOBS_LOOTTABLE.path));
         } else if (item.equals(randomMobsFull)) {
-            player.chat("/challenge random randommobsfull " + !plugin.getConfig().getBoolean(Challenge.RANDOM_MOBS_FULL.path));
+            player.chat(CHALLENGE_CMD + " random randommobsfull " + !plugin.getConfig().getBoolean(Challenge.RANDOM_MOBS_FULL.path));
         }
     }
 

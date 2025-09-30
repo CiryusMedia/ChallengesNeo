@@ -18,6 +18,7 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.Goal;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.advancements.AdvancementHandler;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.challenges.ChallengeGUI;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.challenges.random.RandomChallengesGUI;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.comp.CompGui;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.goals.GoalsGui;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections.TimerGuiItems;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.timer.TimerColorInvGUI;
@@ -73,6 +74,8 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     public static RandomChallengesGUI randomChallengesGUI;
 
     public static GoalsGui goalsGUI;
+
+    public static CompGui compGUI;
 
     //Scoreboard Objectives
     HealthScoreboard healthScoreboard;
@@ -210,7 +213,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     }
 
     //Inits and enablers
-    private void enableCommands() {
+    private void enableCommands() { //TODO Also do with Commands Interface?
         LOGGER.debug("Commands", DebugLevel.LEVEL_2);
         getCommand("debug").setExecutor(new DebugCommand());
         getCommand("challenge").setExecutor(new ChallengeCommand());
@@ -219,6 +222,7 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         getCommand("test").setExecutor(new TestCommand());
         getCommand("heal").setExecutor(new HealCommand());
         getCommand("goals").setExecutor(new GoalCommand());
+        getCommand("comp").setExecutor(new CompCommand());
     }
 
     private void enableTabcomplete() {
@@ -248,6 +252,8 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         pm.registerEvents(randomChallengesGUI, this);
 
         pm.registerEvents(goalsGUI, this);
+
+        pm.registerEvents(compGUI, this);
 
         //Challenges
         LOGGER.debug("Challenge listeners", DebugLevel.LEVEL_2);
@@ -280,6 +286,8 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         randomChallengesGUI = new RandomChallengesGUI();
 
         goalsGUI = new GoalsGui();
+
+        compGUI = new CompGui();
     }
 
     public void updateInventories() {

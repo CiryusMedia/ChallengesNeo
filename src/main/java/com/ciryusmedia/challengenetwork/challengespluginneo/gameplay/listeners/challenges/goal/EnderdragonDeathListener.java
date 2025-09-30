@@ -17,7 +17,7 @@ public class EnderdragonDeathListener extends AGoal implements Listener {
         if (!(event.getEntity() instanceof EnderDragon)) return;
 
         if (timer.isRunning()) {
-            beatRun();
+            beatRun(event.getEntity().getKiller());
             return;
         }
     }

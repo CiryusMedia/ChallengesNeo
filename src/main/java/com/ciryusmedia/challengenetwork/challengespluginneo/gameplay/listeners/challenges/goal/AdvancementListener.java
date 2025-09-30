@@ -40,7 +40,7 @@ public class AdvancementListener extends AGoal implements Listener {
         }
 
         if (goal.isEnabled() && timer.isRunning() && advancementHandler.allAdvancementsCompleted()) {
-            beatRun();
+            beatRun(player);
         }
     }
 

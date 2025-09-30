@@ -14,7 +14,7 @@ public class PlayerDeathListener extends AGoal implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
         if (!goal.isEnabled()) return;
         if (timer.isRunning()) {
-            failRun(event.getDeathMessage());
+            failRun(event.getDeathMessage(), event.getPlayer());
             event.setDeathMessage("");
 
             Bukkit.getOnlinePlayers().forEach(player -> {

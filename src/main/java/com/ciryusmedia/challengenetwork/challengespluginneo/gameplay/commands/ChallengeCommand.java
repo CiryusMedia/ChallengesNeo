@@ -2,92 +2,68 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands;
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
-import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.Texts;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.InventoryCollection;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges.ChallengeType;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class ChallengeCommand implements CommandExecutor, Texts {
-
-    private static final ChallengeLogger LOGGER = ChallengeLogger.getLogger();
+public class ChallengeCommand extends AGuiCompatibleCommand implements Texts {
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
-
-        if (strings.length == 0) {
-            LOGGER.debug("Handling challenge command for gui", DebugLevel.LEVEL_3);
-            if (sender instanceof Player player) {
-                if (player.hasPermission("challenge.challenges.view")) {
-                    ChallengesPluginNeo.challengeGUI.updateInventory();
-                    player.openInventory(InventoryCollection.challengeGUI);
-                    return true;
-                } else {
-                    player.sendMessage(PREFIX + NO_PERMISSION);
-                    return true;
-                }
+    public void handleArgs1(CommandSender sender, String[] args) {
+        if (sender instanceof Player player) {
+            if (args[0].equalsIgnoreCase(ChallengeType.RANDOM.name)) {
+                player.openInventory(InventoryCollection.randomChallengesGUI);
             } else {
-                sender.sendMessage(PREFIX + NOT_PLAYER);
-                return true;
-            }
-        }
-
-        if (strings.length == 1) {
-            if (sender instanceof Player player) {
-                if (strings[0].equalsIgnoreCase(ChallengeType.RANDOM.name)) {
-                    player.openInventory(InventoryCollection.randomChallengesGUI);
-                } else {
-                    player.sendMessage(PREFIX + NOT_ENOUGH_ARGUMENTS);
-                }
-            } else {
-                sender.sendMessage(PREFIX + NOT_ENOUGH_ARGUMENTS);
+                player.sendMessage(PREFIX + NOT_ENOUGH_ARGUMENTS);
             }
         } else {
-            Challenge challenge = Challenge.getChallengeFromName(strings[1]);
-            if (challenge == null) {
-                sender.sendMessage(PREFIX + INVALID_CHALLENGE);
-            } else if (strings.length == 3) {
-                handleChallenge(challenge, strings[2], sender);
-            } else if (strings.length == 2) {
-                sender.sendMessage(PREFIX + challenge.displayName + " is " +
-                        (challenge.enabled ? ChatColor.GREEN + "enabled" : ChatColor.RED + "disabled")
-                );
-            } else {
-                sender.sendMessage(PREFIX + TOO_MANY_ARGUMENTS);
-            }
+            sender.sendMessage(PREFIX + NOT_ENOUGH_ARGUMENTS);
         }
+    }
 
-        return true;
+    @Override
+    public void handleArgs2(CommandSender sender, String[] args) {
+        Challenge challenge = Challenge.getChallengeFromName(args[1]);
+        if (challenge == null) {
+            sender.sendMessage(PREFIX + INVALID_CHALLENGE);
+        } else if (args.length == 3) {
+            handleChallenge(challenge, args[2], sender);
+        } else if (args.length == 2) {
+            sender.sendMessage(PREFIX + challenge.displayName + " is " +
+                    (challenge.enabled ? ChatColor.GREEN + "enabled" : ChatColor.RED + "disabled")
+            );
+        } else {
+            sender.sendMessage(PREFIX + TOO_MANY_ARGUMENTS);
+        }
     }
 
     public void handleChallenge(Challenge challenge, String argument, CommandSender sender) {
-        boolean arg;
-        if (argument.equalsIgnoreCase("true") || argument.equalsIgnoreCase("on")) {
-            arg = true;
-        } else if (argument.equalsIgnoreCase("false") || argument.equalsIgnoreCase("off")) {
-            arg = false;
-        } else {
+        int arg = getIntegerFromArg(argument);
+        if (arg == -1) {
             sender.sendMessage(PREFIX + INVALID_ARGUMENTS);
             return;
         }
-        if (arg) {
+        if (arg == 1) {
             List<Challenge> challengesWithSameSuptype = Challenge.getChallengesFromSubtype(challenge.subType);
             if (!challengesWithSameSuptype.isEmpty()) {
                 challengesWithSameSuptype.forEach(c -> c.setEnabled(false));
             }
         }
 
-        challenge.setEnabled(arg);
+        challenge.setEnabled(arg == 1);
 
         sender.sendMessage(PREFIX + challenge.displayName + " is now " +
                 (challenge.enabled ? ChatColor.GREEN + "enabled" : ChatColor.RED + "disabled")
         );
+    }
+
+    public ChallengeCommand() {
+        super(ChallengesPluginNeo.challengeGUI);
     }
 }

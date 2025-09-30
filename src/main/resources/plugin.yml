@@ -39,6 +39,9 @@ commands:
     aliases:
       - goal
 
+  comp:
+    description: Choose if you want to cooperate with other players
+
 permissions:
 
   challenge.timer:

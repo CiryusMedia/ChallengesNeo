@@ -1,5 +1,6 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.timer;
 
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.Commands;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections.TimerGuiItems;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.AGUIListener;
 import org.bukkit.Bukkit;
@@ -8,24 +9,24 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-public class TimerGUI extends AGUIListener implements Listener, TimerGuiItems {
+public class TimerGUI extends AGUIListener implements Listener, TimerGuiItems, Commands {
 
     @Override
     public void inventoryClickHandler(ItemStack item, Player player) {
         if (item.equals(colorInventory))
-            player.chat("/timer color");
+            player.chat(TIMER_CMD + " color");
 
         if (item.equals(startTimer))
-            player.chat("/timer resume");
+            player.chat(TIMER_CMD + " resume");
 
         if (item.equals(stopTimer))
-            player.chat("/timer pause");
+            player.chat(TIMER_CMD + " pause");
 
         if (item.equals(resetTimer))
-            player.chat("/timer reset");
+            player.chat(TIMER_CMD + " reset");
 
         if (item.equals(visibleTimer) | item.equals(invisibleTimer))
-            player.chat("/timer display running");
+            player.chat(TIMER_CMD + " display running");
     }
 
     @Override
