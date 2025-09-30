@@ -1,11 +1,10 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands;
 
-import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
-import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.Texts;
-import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.InventoryCollection;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges.ChallengeType;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.challenges.ChallengeGUI;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.challenges.random.RandomChallengesGUI;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -18,7 +17,7 @@ public class ChallengeCommand extends AGuiCompatibleCommand implements Texts {
     public void handleArgs1(CommandSender sender, String[] args) {
         if (sender instanceof Player player) {
             if (args[0].equalsIgnoreCase(ChallengeType.RANDOM.name)) {
-                player.openInventory(InventoryCollection.randomChallengesGUI);
+                player.openInventory(RandomChallengesGUI.INST.getInventory());
             } else {
                 player.sendMessage(PREFIX + NOT_ENOUGH_ARGUMENTS);
             }
@@ -64,6 +63,6 @@ public class ChallengeCommand extends AGuiCompatibleCommand implements Texts {
     }
 
     public ChallengeCommand() {
-        super(ChallengesPluginNeo.challengeGUI);
+        super(ChallengeGUI.INST);
     }
 }

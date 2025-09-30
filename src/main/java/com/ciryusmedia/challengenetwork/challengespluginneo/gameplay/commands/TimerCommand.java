@@ -4,11 +4,14 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ColorWoolUtils;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.timer.ChallengeTimer;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.util.ConfigPaths;
-import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.InventoryCollection;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.ChallengeLogger;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.DebugLevel;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.Texts;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.comp.Comp;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.timer.TimerColorGUI;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.timer.TimerGUI;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.timer.color.TimerPausedColorGUI;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.timer.color.TimerRunningColorGUI;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -21,20 +24,19 @@ import java.util.Locale;
 @SuppressWarnings({"ConstantValue"})
 public class TimerCommand implements CommandExecutor, ConfigPaths {
 
-    ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
+    private static final ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
     private static final ChallengeLogger LOGGER = ChallengeLogger.getLogger();
-    ChallengeTimer timer;
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
-        timer = plugin.getTimer();
+        ChallengeTimer timer = plugin.getTimer();
 
         if ((sender instanceof Player player)) {
 
             if (args.length == 0) {
                 LOGGER.debug("Opening timer gui for player " + player.getName(), DebugLevel.LEVEL_3);
                 plugin.updateInventories();
-                player.openInventory(InventoryCollection.timerGUI);
+                player.openInventory(TimerGUI.INST.getInventory());
                 return true;
             }
 
@@ -131,7 +133,7 @@ public class TimerCommand implements CommandExecutor, ConfigPaths {
                 LOGGER.debug("Handling timer color command", DebugLevel.LEVEL_3);
                 if (args.length == 1 && sender instanceof Player player) {
                     LOGGER.debug("Opening inventory for player", DebugLevel.LEVEL_3);
-                    player.openInventory(InventoryCollection.timerColorGui);
+                    player.openInventory(TimerColorGUI.INST.getInventory());
                 } else {
                     colorHandler(sender, args);
                 }
@@ -184,10 +186,10 @@ public class TimerCommand implements CommandExecutor, ConfigPaths {
             } else if (args.length == 2 && sender instanceof Player player) {
                 if (colorType.equalsIgnoreCase("running")) {
                     LOGGER.debug("Opening timer running color gui for player", DebugLevel.LEVEL_3);
-                    player.openInventory(InventoryCollection.timerRunningColorGUI);
+                    player.openInventory(TimerRunningColorGUI.INST.getInventory());
                 } else {
                     LOGGER.debug("Opening timer paused color gui for player", DebugLevel.LEVEL_3);
-                    player.openInventory(InventoryCollection.timerPausedColorGUI);
+                    player.openInventory(TimerPausedColorGUI.INST.getInventory());
                 }
             } else if (args.length >= 3) {
                 if (ColorWoolUtils.isValidChatColor(args[2])) {

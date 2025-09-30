@@ -11,6 +11,8 @@ import org.bukkit.inventory.ItemStack;
 
 public class TimerGUI extends AGUIListener implements Listener, TimerGuiItems, Commands {
 
+    public static final TimerGUI INST = new TimerGUI();
+
     @Override
     public void inventoryClickHandler(ItemStack item, Player player) {
         if (item.equals(colorInventory))

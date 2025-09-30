@@ -2,16 +2,17 @@ package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.challe
 
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.challenges.Challenge;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands.Commands;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.challenges.ChallengeGUI;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections.RandomChallengeGuiItems;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.AGUIListener;
-import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.InventoryCollection;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class RandomChallengesGUI extends AGUIListener implements Listener, RandomChallengeGuiItems, Commands {
+
+    public static final RandomChallengesGUI INST = new RandomChallengesGUI();
 
     @Override
     public void inventoryClickHandler(ItemStack item, Player player) {
@@ -28,7 +29,7 @@ public class RandomChallengesGUI extends AGUIListener implements Listener, Rando
 
     @Override
     public void exitInventory(Player player) {
-        player.openInventory(InventoryCollection.challengeGUI);
+        player.openInventory(ChallengeGUI.INST.getInventory());
     }
 
     @Override

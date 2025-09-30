@@ -9,6 +9,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 
 public class EnderdragonDeathListener extends AGoal implements Listener {
 
+    public static final EnderdragonDeathListener INST = new EnderdragonDeathListener();
     private static final ChallengeLogger LOGGER = ChallengeLogger.getLogger();
 
     @EventHandler

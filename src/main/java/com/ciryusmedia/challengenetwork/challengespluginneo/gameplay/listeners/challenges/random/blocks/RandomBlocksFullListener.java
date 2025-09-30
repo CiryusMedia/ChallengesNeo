@@ -13,6 +13,8 @@ import java.util.Collection;
 
 public class RandomBlocksFullListener extends ARandomBlocks {
 
+    public static final RandomBlocksFullListener INST = new RandomBlocksFullListener();
+
     @Override
     public void handleRandomBlocks(Block block, Collection<ItemStack> drops) {
         if (!challenge.enabled || !timer.isRunning()) {
@@ -40,8 +42,8 @@ public class RandomBlocksFullListener extends ARandomBlocks {
         }
     }
 
-    public RandomBlocksFullListener(Challenge challenge) {
-        super(challenge);
+    public RandomBlocksFullListener() {
+        super(Challenge.RANDOM_BLOCKS_FULL);
     }
 
 }

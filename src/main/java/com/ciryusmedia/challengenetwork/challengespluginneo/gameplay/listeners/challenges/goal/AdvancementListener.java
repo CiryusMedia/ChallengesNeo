@@ -16,6 +16,8 @@ import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 
 public class AdvancementListener extends AGoal implements Listener {
 
+    public static final AdvancementListener INST = new AdvancementListener();
+
     private final BossBar bossBar;
     private final AdvancementHandler advancementHandler;
 

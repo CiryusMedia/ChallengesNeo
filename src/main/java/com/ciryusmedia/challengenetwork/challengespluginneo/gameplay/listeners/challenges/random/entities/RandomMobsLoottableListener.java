@@ -11,6 +11,8 @@ import java.util.Collection;
 
 public class RandomMobsLoottableListener extends ARandomEntitiesDeath {
 
+    public static final RandomMobsLoottableListener INST = new RandomMobsLoottableListener();
+
     @Override
     public void handleRandomEntityDeathLogic(EntityDeathEvent event) {
         RandomisationUtils.checkInitialized();
@@ -23,7 +25,7 @@ public class RandomMobsLoottableListener extends ARandomEntitiesDeath {
         LOGGER.debug(event.getDrops().toString(), DebugLevel.LEVEL_4);
     }
 
-    public RandomMobsLoottableListener(Challenge challenge) {
-        super(challenge);
+    public RandomMobsLoottableListener() {
+        super(Challenge.RANDOM_MOBS_LOOTTABLE);
     }
 }

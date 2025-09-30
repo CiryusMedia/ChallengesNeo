@@ -11,6 +11,8 @@ import java.util.List;
 
 public class RandomMobsFullListener extends ARandomEntitiesDeath {
 
+    public static final RandomMobsFullListener INST = new RandomMobsFullListener();
+
     @Override
     public void handleRandomEntityDeathLogic(EntityDeathEvent event) {
         RandomisationUtils.checkInitialized();
@@ -29,7 +31,7 @@ public class RandomMobsFullListener extends ARandomEntitiesDeath {
         }
     }
 
-    public RandomMobsFullListener(Challenge challenge) {
-        super(challenge);
+    public RandomMobsFullListener() {
+        super(Challenge.RANDOM_MOBS_FULL);
     }
 }

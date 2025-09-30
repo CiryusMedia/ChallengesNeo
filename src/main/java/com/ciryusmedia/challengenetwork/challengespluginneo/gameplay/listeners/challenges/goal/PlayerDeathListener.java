@@ -10,6 +10,8 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 @SuppressWarnings({"deprecation"})
 public class PlayerDeathListener extends AGoal implements Listener {
 
+    public static final PlayerDeathListener INST = new PlayerDeathListener();
+
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         if (!goal.isEnabled()) return;

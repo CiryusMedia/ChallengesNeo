@@ -10,6 +10,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class CraftingRecipeListener extends AChallengeListener implements Listener { //Not really a Listener, but it's how we sort things around here
 
+    public static final CraftingRecipeListener INST = new CraftingRecipeListener();
+
     public void run() {
         new BukkitRunnable() {
             public void run() {
@@ -18,8 +20,8 @@ public class CraftingRecipeListener extends AChallengeListener implements Listen
         }.runTaskTimer(ChallengesPluginNeo.getChallengePlugin(), 20, 10);
     }
 
-    public CraftingRecipeListener(Challenge challenge) {
-        super(challenge);
+    public CraftingRecipeListener() {
+        super(Challenge.CRAFTING_RECIPE);
         run();
     }
 }

@@ -13,6 +13,8 @@ import org.bukkit.inventory.ItemStack;
 
 public class GoalsGui extends AGUIListener implements GoalsGuiItems, Commands {
 
+    public static final GoalsGui INST = new GoalsGui();
+
     @Override
     public void inventoryClickHandler(ItemStack item, Player player) {
         if (item.equals(Goal.KILL_ENDER_DRAGON.item)) handleGoal(Goal.KILL_ENDER_DRAGON, player); //TODO do it with !goal.isEnabled
