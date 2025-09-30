@@ -13,9 +13,11 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 
 public class BlockBreakListener implements Listener {
 
-    ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
+    public static final BlockBreakListener INST = new BlockBreakListener();
+
+    private final ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
     private static final ChallengeLogger LOGGER = ChallengeLogger.getLogger();
-    ChallengeTimer timer = plugin.getTimer();
+    private final ChallengeTimer timer = plugin.getTimer();
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent e) {

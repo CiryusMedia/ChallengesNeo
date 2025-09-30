@@ -11,6 +11,8 @@ import java.util.Collection;
 
 public class RandomBlocksLoottableListener extends ARandomBlocks {
 
+    public static final RandomBlocksLoottableListener INST = new RandomBlocksLoottableListener();
+
     @Override
     public void handleRandomBlocks(Block block, Collection<ItemStack> drops) {
         if (!challenge.enabled || !timer.isRunning()) {
@@ -33,8 +35,8 @@ public class RandomBlocksLoottableListener extends ARandomBlocks {
         }
     }
 
-    public RandomBlocksLoottableListener(Challenge challenge) {
-        super(challenge);
+    public RandomBlocksLoottableListener() {
+        super(Challenge.RANDOM_BLOCKS_LOOTTABLE);
     }
 
 }

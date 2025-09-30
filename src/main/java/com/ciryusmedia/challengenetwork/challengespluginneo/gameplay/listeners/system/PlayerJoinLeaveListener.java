@@ -10,7 +10,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerJoinLeaveListener implements Listener {
 
-    ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
+    private final ChallengesPluginNeo plugin = ChallengesPluginNeo.getChallengePlugin();
+    public static final PlayerJoinLeaveListener INST = new PlayerJoinLeaveListener();
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {

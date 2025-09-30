@@ -21,7 +21,7 @@ import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.challen
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.comp.CompGui;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.goals.GoalsGui;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.itemcollections.TimerGuiItems;
-import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.timer.TimerColorInvGUI;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.timer.TimerColorGUI;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.timer.TimerGUI;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.timer.color.TimerPausedColorGUI;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.timer.color.TimerRunningColorGUI;
@@ -63,19 +63,6 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
     private Scoreboard scoreboard;
 
     private AdvancementHandler advancementHandler;
-
-    //Inventories
-    public static TimerGUI timerGUI;
-    public static TimerColorInvGUI timerColorGui;
-    public static TimerRunningColorGUI timerRunningColorGUI;
-    public static TimerPausedColorGUI timerPausedColorGUI;
-
-    public static ChallengeGUI challengeGUI;
-    public static RandomChallengesGUI randomChallengesGUI;
-
-    public static GoalsGui goalsGUI;
-
-    public static CompGui compGUI;
 
     //Scoreboard Objectives
     HealthScoreboard healthScoreboard;
@@ -145,7 +132,6 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
 
         //Initiate and enable
         LOGGER.debug("Initiating objects", DebugLevel.LEVEL_1);
-        initInventories();
         advancementHandler = new AdvancementHandler();
 
         LOGGER.debug("Enabling plugin logic", DebugLevel.LEVEL_1);
@@ -238,68 +224,56 @@ public final class ChallengesPluginNeo extends JavaPlugin implements PluginMessa
         LOGGER.debug("Events", DebugLevel.LEVEL_2);
         //System
         LOGGER.debug("System listeners", DebugLevel.LEVEL_2);
-        pm.registerEvents(new PlayerJoinLeaveListener(), this);
-        pm.registerEvents(new BlockBreakListener(), this);
+        pm.registerEvents(PlayerJoinLeaveListener.INST, this);
+        pm.registerEvents(BlockBreakListener.INST, this);
 
         //GUI
         LOGGER.debug("GUI listeners", DebugLevel.LEVEL_2);
-        pm.registerEvents(timerGUI, this);
-        pm.registerEvents(timerColorGui, this);
-        pm.registerEvents(timerRunningColorGUI, this);
-        pm.registerEvents(timerPausedColorGUI, this);
+        pm.registerEvents(TimerGUI.INST, this);
+        pm.registerEvents(TimerColorGUI.INST, this);
+        pm.registerEvents(TimerRunningColorGUI.INST, this);
+        pm.registerEvents(TimerPausedColorGUI.INST, this);
 
-        pm.registerEvents(challengeGUI, this);
-        pm.registerEvents(randomChallengesGUI, this);
+        pm.registerEvents(ChallengeGUI.INST, this);
+        pm.registerEvents(RandomChallengesGUI.INST, this);
 
-        pm.registerEvents(goalsGUI, this);
+        pm.registerEvents(GoalsGui.INST, this);
 
-        pm.registerEvents(compGUI, this);
+        pm.registerEvents(CompGui.INST, this);
 
         //Challenges
         LOGGER.debug("Challenge listeners", DebugLevel.LEVEL_2);
         //Goals
-        pm.registerEvents(new PlayerDeathListener(), this);
-        pm.registerEvents(new EnderdragonDeathListener(), this);
-        pm.registerEvents(new AdvancementListener(), this);
+        pm.registerEvents(PlayerDeathListener.INST, this);
+        pm.registerEvents(EnderdragonDeathListener.INST, this);
+        pm.registerEvents(AdvancementListener.INST, this);
 
         //Random Challenges
-        pm.registerEvents(new RandomBlocksLoottableListener(Challenge.RANDOM_BLOCKS_LOOTTABLE), this);
-        pm.registerEvents(new RandomBlocksFullListener(Challenge.RANDOM_BLOCKS_FULL), this);
-        pm.registerEvents(new RandomMobsLoottableListener(Challenge.RANDOM_MOBS_LOOTTABLE), this);
-        pm.registerEvents(new RandomMobsFullListener(Challenge.RANDOM_MOBS_FULL), this);
+        pm.registerEvents(RandomBlocksLoottableListener.INST, this);
+        pm.registerEvents(RandomBlocksFullListener.INST, this);
+        pm.registerEvents(RandomMobsLoottableListener.INST, this);
+        pm.registerEvents(RandomMobsFullListener.INST, this);
 
         //Sync Challenges
-        pm.registerEvents(new InventorySyncListener(Challenge.INVENTORY_SYNC), this);
+        pm.registerEvents(InventorySyncListener.INST, this);
 
         //Misc Challenges
-        pm.registerEvents(new CraftingRecipeListener(Challenge.CRAFTING_RECIPE), this);
-    }
-
-    private void initInventories() {
-        LOGGER.debug("Inventories", DebugLevel.LEVEL_2);
-        timerGUI = new TimerGUI();
-        timerColorGui = new TimerColorInvGUI();
-        timerRunningColorGUI = new TimerRunningColorGUI();
-        timerPausedColorGUI = new TimerPausedColorGUI();
-
-        challengeGUI = new ChallengeGUI();
-        randomChallengesGUI = new RandomChallengesGUI();
-
-        goalsGUI = new GoalsGui();
-
-        compGUI = new CompGui();
+        pm.registerEvents(CraftingRecipeListener.INST, this);
     }
 
     public void updateInventories() {
         TimerGuiItems.updateColors();
 
-        timerColorGui.updateInventory();
-        timerRunningColorGUI.updateInventory();
-        timerPausedColorGUI.updateInventory();
+        TimerColorGUI.INST.updateInventory();
+        TimerRunningColorGUI.INST.updateInventory();
+        TimerPausedColorGUI.INST.updateInventory();
 
-        timerGUI.updateInventory();
-        challengeGUI.updateInventory();
-        randomChallengesGUI.updateInventory();
+        TimerGUI.INST.updateInventory();
+        ChallengeGUI.INST.updateInventory();
+        RandomChallengesGUI.INST.updateInventory();
+
+        GoalsGui.INST.updateInventory();
+        CompGui.INST.updateInventory();
     }
 
     private void initScoreboard() {

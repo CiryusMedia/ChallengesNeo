@@ -11,6 +11,8 @@ import org.bukkit.inventory.ItemStack;
 
 public class CompGui extends AGUIListener implements CompGuiItems, Commands {
 
+    public static final CompGui INST = new CompGui();
+
     @Override
     public void inventoryClickHandler(ItemStack item, Player player) {
         if (item.equals(Comp.COOP.item)) {
@@ -22,6 +24,7 @@ public class CompGui extends AGUIListener implements CompGuiItems, Commands {
             if (Comp.COOP.isEnabled()) player.chat(COMP_CMD + " " + Comp.COOP.key + " false");
             player.chat(COMP_CMD + " " + Comp.FFA.key + " " + !Comp.FFA.isEnabled());
         }
+        //TODO DON'T DELETE, this is for a future team update
 //        if (item.equals(Coop.TEAMS.item)) player.chat(COMP_CMD + " teams " + !Coop.TEAMS.isEnabled());
     }
 

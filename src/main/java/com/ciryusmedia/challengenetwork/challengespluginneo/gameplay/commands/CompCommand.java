@@ -1,8 +1,8 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands;
 
-import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.Texts;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.comp.Comp;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.comp.CompGui;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public class CompCommand extends AGuiCompatibleCommand implements Texts {
 
     public CompCommand() {
-        super(ChallengesPluginNeo.compGUI);
+        super(CompGui.INST);
     }
 
     @Override

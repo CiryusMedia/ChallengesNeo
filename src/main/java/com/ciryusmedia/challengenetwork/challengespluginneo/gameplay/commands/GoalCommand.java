@@ -1,15 +1,10 @@
 package com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.commands;
 
-import com.ciryusmedia.challengenetwork.challengespluginneo.ChallengesPluginNeo;
 import com.ciryusmedia.challengenetwork.challengespluginneo.core.console.Texts;
-import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.InventoryCollection;
 import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.goals.Goal;
+import com.ciryusmedia.challengenetwork.challengespluginneo.gameplay.gui.goals.GoalsGui;
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -60,6 +55,6 @@ public class GoalCommand extends AGuiCompatibleCommand implements Texts {
     }
 
     public GoalCommand() {
-        super(ChallengesPluginNeo.goalsGUI);
+        super(GoalsGui.INST);
     }
 }

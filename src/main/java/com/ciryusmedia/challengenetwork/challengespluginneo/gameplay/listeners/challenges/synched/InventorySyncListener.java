@@ -10,6 +10,8 @@ import org.bukkit.event.Listener;
 
 public class InventorySyncListener extends AChallengeListener implements Listener {
 
+    public static final InventorySyncListener INST = new InventorySyncListener();
+
     @EventHandler
     public void onPlayerInventorySlotChange(PlayerInventorySlotChangeEvent e) {
 
@@ -25,7 +27,7 @@ public class InventorySyncListener extends AChallengeListener implements Listene
         });
     }
 
-    public InventorySyncListener(Challenge challenge) {
-        super(challenge);
+    public InventorySyncListener() {
+        super(Challenge.INVENTORY_SYNC);
     }
 }

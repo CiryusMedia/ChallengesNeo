@@ -16,6 +16,8 @@ import java.util.Random;
 
 public class ChallengeGUI extends AGUIListener implements Listener, ChallengeGuiItems, Commands {
 
+    public static final ChallengeGUI INST = new ChallengeGUI();
+
     @Override
     public void inventoryClickHandler(ItemStack item, Player player) {
         if (item.equals(randomChallenges)) player.chat(CHALLENGE_CMD + " random");
