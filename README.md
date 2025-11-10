@@ -18,11 +18,15 @@ Drop the .jar file into the plugins folder
 
 **This plugin requires:**
 
-- A PaperMC 1.21.4 Server
+- A PaperMC 1.21.10 Server
 
 ## Using this plugin in your content
 
 Always link to this project if you use it in Youtube longform- and live-content, credit us in the caption if you're using it on Tiktok and maybe pin a message in your Twitch chat if you're using it there, however, we know how ugly crediting on Twitch can be, so the Twitch step is optional.  
+
+## Code Quality
+
+Because this plugin is developed by people wo don't have high coding standards and don't have much coding experience, you should not expect good code. The code works (at least if we did everything correctly) and that's it. As Markus Rühl said "Muss ned Schmegge, muss wirke" (It doesn't have to be tasty, it has to work)
 
 ## License
 
